@@ -36,7 +36,7 @@ using namespace std;
 // Variables de la ventana
 char WINDOW_TITLE[]   = "Space Cats";
 bool WINDOW_MINIMIZED = false;
-char APP_VERSION[]    = "0.5.0 (alphaka)";
+char APP_VERSION[]    = "0.5.1 (alphaka)";
 int SCREEN_WIDTH      = 320;
 int SCREEN_HEIGHT     = 180;
 float SCREEN_SCALE    = 4.0;

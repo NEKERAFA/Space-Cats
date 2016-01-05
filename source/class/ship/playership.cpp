@@ -35,6 +35,7 @@ extern texture * img_bullet;
 
 // Crea una nave
 playership::playership(int x, int y, int life) : ship(x, y, life) {
+	invulnerabity = new timer();
 	textureship->load("./res/ships/ship-cat.png");
 	textureboost->load("./res/ships/combustion.png");
 	textureboom->load("./res/ships/explosion.png");
@@ -44,6 +45,11 @@ playership::playership(int x, int y, int life) : ship(x, y, life) {
 // Destruye la nave
 playership::~playership() {}
 
+// Elimina una vida
+void playership::makeDamage() {
+	if (invulnerabity->time() == 0) { invulnerabity->start(); --life; }
+}
+
 // Actualiza los elementos internos
 void playership::update() {
 	frameboost = std::min((int) timerboost->time()/100, 3);
@@ -51,6 +57,7 @@ void playership::update() {
 	if (life == 0 && timerboom->time() == 0) timerboom->start();
 	frameboom = std::min((int) timerboom->time()/100, 7);
 	if (timerboom->time() >= 700 && !kill) { kill = true; }
+	if (invulnerabity->time() >= 1000) invulnerabity->reset();
 }
 
 // Renderiza la nave

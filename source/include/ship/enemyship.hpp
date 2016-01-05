@@ -33,7 +33,7 @@ public:
 	// Crea una nave
 	enemyship(int life, int burst);
 	// Destruye la nave
-	~enemyship() =0;
+	virtual ~enemyship() =0;
 	// Reinicia la información de la nave
 	void reset(int life, int burst);
 };

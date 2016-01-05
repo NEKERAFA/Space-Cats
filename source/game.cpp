@@ -36,6 +36,8 @@ smouse_ship * enemy_ship;
 texture * bgspace;
 texture * life;
 
+bool enemy = true;
+
 // Cabeceras externas
 void show_stars();
 void generate_stars();
@@ -47,7 +49,8 @@ bool colision(SDL_Rect a, SDL_Rect b);
 // Carga el juego
 void load_game() {
 	player_ship = new playership(32, 102, 4);
-	enemy_ship = new smouse_ship(0);
+	if(enemy) { enemy_ship = new smouse_ship(0); }
+	else { enemy_ship = new smouse_ship(1); }
 	bgspace = new texture();
 	life = new texture();
 	bgspace->load("./res/bg/space.png");
@@ -85,8 +88,9 @@ void check_bullets_colision() {
 			enemy_ship->makeDamage(); player_ship->killBullet(i);
 		}
 	}
-		
-	if(enemy_ship->isKilled()) enemy_ship->reset(0);
+
+	if(enemy_ship->isKilled() && enemy == true) { enemy_ship->reset(1); enemy = false; }
+	else if(enemy_ship->isKilled() && enemy == false) { enemy_ship->reset(0); enemy = true; }
 }
 
 // Actualiza varios elementos del juego

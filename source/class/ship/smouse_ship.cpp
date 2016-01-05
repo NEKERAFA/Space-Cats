@@ -35,8 +35,8 @@
 extern texture * img_bullet;
 
 // Crea una nave
-smouse_ship::smouse_ship(int type): enemyship(1, 3), status (0), type (type) {
-	x = SCREEN_WIDTH;
+smouse_ship::smouse_ship(int type): enemyship(1, 4), status (0), type (type) {
+	x = SCREEN_WIDTH; if (type == 1) y = SCREEN_HEIGHT;
 	textureship->load("./res/ships/ship-mouse.png");
 	textureboost->load("./res/ships/combustion.png");
 	textureboost->setFlip(SDL_FLIP_HORIZONTAL);
@@ -48,15 +48,13 @@ smouse_ship::smouse_ship(int type): enemyship(1, 3), status (0), type (type) {
 smouse_ship::~smouse_ship() {}
 
 // Elimina una vida
-void smouse_ship::makeDamage() {
-	if(status != 0) --life;
-}
+void smouse_ship::makeDamage() { --life; }
 
 // Reinicia la información de la nave
 void smouse_ship::reset(int type) {
 	enemyship::reset(1, 3);
 	this->status = 0; this->type = type;
-	this->x = SCREEN_WIDTH;
+	this->x = SCREEN_WIDTH; if (type == 1) y = SCREEN_HEIGHT;
 }
 
 // Actualiza los elementos internos
@@ -83,23 +81,19 @@ void smouse_ship::move() {
 		switch(status) {
 			// Start move
 			case 0:
-				if (weaponship->shotBullets() < 1) weaponship->shoot(x-8, y, -4);
-				--x; if (y < 154) y += 2;
-				if (x < 237) {status = 1; shootburst->start();}
+				--x;
+				if (y < 90) ++y; else --y;
+				if (x == 250) status = 1;
 				break;
+			// Dispara 3 balas
 			case 1:
-				if (weaponship->shotBullets() < 3) weaponship->shoot(x-8, y, -4);
+				if (weaponship->shotBullets() < burst) weaponship->shoot(x-8, y, -4);
 				else status = 2;
 				break;
 			case 2:
-				--y; if (y < 50) status = 3;
-				break;
-			case 3:
-				if (weaponship->shotBullets() < 3) weaponship->shoot(x-8, y, -4);
-				else status = 4;
-				break;
-			case 4:
-				++y; if (y > 154) status = 1;
+				if(y > 0 && y < SCREEN_HEIGHT) {
+					--x; if (y < 90) --y; else ++y;
+				} else { kill = true; status = 3; }
 				break;
 		}
 }

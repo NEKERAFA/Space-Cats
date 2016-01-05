@@ -24,13 +24,18 @@
 
 #include <SDL2/SDL.h>
 #include "./ship.hpp"
+#include "../timer.h"
 
 class playership : public ship {
+private:
+	timer * invulnerabity;
 public:
 	// Crea una nave
 	playership(int x, int y, int life);
 	// Destruye la nave
 	~playership();
+	// Elimina una vida
+	void makeDamage();
 	// Actualiza los elementos internos
 	void update();
 	// Renderiza la nave
