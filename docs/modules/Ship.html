@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/Asteroid.html">Asteroid</a></li>
+  <li><a href="../modules/Bullet.html">Bullet</a></li>
+  <li><strong>Ship</strong></li>
+  <li><a href="../modules/Player.html">Player</a></li>
+  <li><a href="../modules/Small_mouse.html">Small_mouse</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Ship</code></h1>
+<p>Ship prototype object.</p>
+<p>
+ This module construct a ship object that have this variables
+    ship.x    : x screen position
+    ship.y    : y screen position
+    ship.life : current life
+    ship.ship_type : Type of current ship
+    ship.bullets : List of shot bullets
+    ship.bullet_threshold : Time between bullets
+    ship.flame : Animation of flame
+    ship.explosion : Animation of explosion
+</p>
+    <h3>See also:</h3>
+    <ul>
+    </ul>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA)</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#end_explotion">end_explotion (animation, loops)</a></td>
+	<td class="summary">Update status after explosion Animation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.new">ship.new (x, y, life, type)</a></td>
+	<td class="summary">Create a new ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.damage">ship.damage (self, damage)</a></td>
+	<td class="summary">Set damage to current ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.update">ship.update (self, dt)</a></td>
+	<td class="summary">Update all variables in the ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.move">ship.move (self, dt)</a></td>
+	<td class="summary">Move the current ship ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.equals">ship.equals (self, obj)</a></td>
+	<td class="summary">Compare if a object is equals to ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.type">ship.type ()</a></td>
+	<td class="summary">Return a string representation the object type</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.extends">ship.extends ()</a></td>
+	<td class="summary">Create a new type object that extends from a ship object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ship.free">ship.free (self)</a></td>
+	<td class="summary">Free current ship</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "end_explotion"></a>
+    <strong>end_explotion (animation, loops)</strong>
+    </dt>
+    <dd>
+    Update status after explosion Animation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">animation</span>
+
+        </li>
+        <li><span class="parameter">loops</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.new"></a>
+    <strong>ship.new (x, y, life, type)</strong>
+    </dt>
+    <dd>
+    Create a new ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         New x position
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         New y position
+        </li>
+        <li><span class="parameter">life</span>
+            <span class="types"><span class="type">number</span></span>
+         Current life
+        </li>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Type of ship
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">ship</span></span>
+        A ship to be used
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.damage"></a>
+    <strong>ship.damage (self, damage)</strong>
+    </dt>
+    <dd>
+    Set damage to current ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+        <li><span class="parameter">damage</span>
+            <span class="types"><span class="type">number</span></span>
+         Damage to make
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.update"></a>
+    <strong>ship.update (self, dt)</strong>
+    </dt>
+    <dd>
+    Update all variables in the ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">number</span></span>
+         Time since the last update in seconds
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.move"></a>
+    <strong>ship.move (self, dt)</strong>
+    </dt>
+    <dd>
+    Move the current ship ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">number</span></span>
+         Time since the last update in seconds
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.equals"></a>
+    <strong>ship.equals (self, obj)</strong>
+    </dt>
+    <dd>
+    Compare if a object is equals to ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+        <li><span class="parameter">obj</span>
+            <span class="types"><span class="type">object</span></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if is equals
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.type"></a>
+    <strong>ship.type ()</strong>
+    </dt>
+    <dd>
+    Return a string representation the object type
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Class type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.extends"></a>
+    <strong>ship.extends ()</strong>
+    </dt>
+    <dd>
+    Create a new type object that extends from a ship object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">obj_type</span></span>
+        object_type New object type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "ship.free"></a>
+    <strong>ship.free (self)</strong>
+    </dt>
+    <dd>
+    Free current ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-02-14 01:04:17 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

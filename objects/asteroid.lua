@@ -10,16 +10,16 @@
 --    asteroid.damage : Return if asteroid is damaged
 --    asteroid.collider : Save the collinder of asteroid
 --
--- @Module asteroid
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
+-- @module asteroid
+-- @author Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @see object
 
 local object = require 'nekerafa.collections.object'
 local anim8 = require 'kikito.anim8.anim8'
 local collider = require 'vldr.hardoncollider'
 local timer = require 'nekerafa.timer'
 
+--- Module
 local asteroid = object.extends()
 
 --- Create a new asteroid
@@ -66,7 +66,8 @@ function asteroid.destroyed(self)
 end
 
 --- Move the current asteroid asteroid
--- @tparam self asteroid asteroid object
+-- @tparam asteroid self asteroid object
+-- @tparam number dt Time since the last update in seconds
 function asteroid.move(self, dt)
 	-- Update position
     self.x = self.x + self.vx*dt

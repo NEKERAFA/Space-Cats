@@ -58,16 +58,20 @@ function painter_ship.draw(ship)
                 math.round(bullet.y), 0, 1, 1, 0, 0)
     end
 
-    -- Draw ship
-    lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
-    -- Draw flame
-    if ship.ship_type == "player" then
-        ship.flame:draw(flame, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
-    elseif ship.ship_type == "small_mouse" then
-        ship.flame:draw(flame, math.round(ship.x)+24, math.round(ship.y), 0, 1, 1, 8, 8)
+    if ship.life > 0 then
+        -- Draw ship
+        lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
+
+        -- Draw flame
+        if ship.ship_type == "player" then
+            ship.flame:draw(flame, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
+        elseif ship.ship_type == "small_mouse" then
+            ship.flame:draw(flame, math.round(ship.x)+24, math.round(ship.y), 0, 1, 1, 8, 8)
+        end
+    elseif not ship.destroyed then
+        -- Draw explosion
+        ship.explosion:draw(ships.explosion, math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
     end
-    -- Draw explosion
-    ship.explosion:draw(ships.explosion, math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
     painter_ship.hitbox(ship)
 end
 

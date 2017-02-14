@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><strong>Asteroid</strong></li>
+  <li><a href="../modules/Bullet.html">Bullet</a></li>
+  <li><a href="../modules/Ship.html">Ship</a></li>
+  <li><a href="../modules/Player.html">Player</a></li>
+  <li><a href="../modules/Small_mouse.html">Small_mouse</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Asteroid</code></h1>
+<p>Asteroid prototype object.</p>
+<p>
+ This module construct a asteroid object that have this variables
+    asteroid.x    : x screen position
+    asteroid.y    : y screen position
+    asteroid.vx     : x velocity of asteroid
+    asteroid.vy     : y velocity of asteroid
+    asteroid.strength : Level of damage resistance
+    asteroid.asteroid_type : Type of current asteroid (randomized)
+    asteroid.explosion : Animation of explosion
+    asteroid.damage : Return if asteroid is damaged
+    asteroid.collider : Save the collinder of asteroid
+</p>
+    <h3>See also:</h3>
+    <ul>
+    </ul>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA)</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.new">asteroid.new (x, y, vx, vy, strength)</a></td>
+	<td class="summary">Create a new asteroid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.damage">asteroid.damage (self, damage)</a></td>
+	<td class="summary">Set damage to current asteroid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.destroyed">asteroid.destroyed (self)</a></td>
+	<td class="summary">Get if asteroid is destroyed</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.move">asteroid.move (self, dt)</a></td>
+	<td class="summary">Move the current asteroid asteroid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.equals">asteroid.equals (self, obj)</a></td>
+	<td class="summary">Compare if a object is equals to asteroid</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.type">asteroid.type ()</a></td>
+	<td class="summary">Return a string representation the object type</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#asteroid.extends">asteroid.extends ()</a></td>
+	<td class="summary">Create a new type object that extends from a asteroid object</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "asteroid.new"></a>
+    <strong>asteroid.new (x, y, vx, vy, strength)</strong>
+    </dt>
+    <dd>
+    Create a new asteroid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         New x position
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         New y position
+        </li>
+        <li><span class="parameter">vx</span>
+            <span class="types"><span class="type">number</span></span>
+         New x velocity
+        </li>
+        <li><span class="parameter">vy</span>
+            <span class="types"><span class="type">number</span></span>
+         New y velocity
+        </li>
+        <li><span class="parameter">strength</span>
+            <span class="types"><span class="type">number</span></span>
+         Level of damage resistance
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">asteroid</span></span>
+        A asteroid to be used
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asteroid.damage"></a>
+    <strong>asteroid.damage (self, damage)</strong>
+    </dt>
+    <dd>
+    Set damage to current asteroid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">asteroid</span></span>
+         asteroid object
+        </li>
+        <li><span class="parameter">damage</span>
+            <span class="types"><span class="type">number</span></span>
+         Damage to make
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asteroid.destroyed"></a>
+    <strong>asteroid.destroyed (self)</strong>
+    </dt>
+    <dd>
+    Get if asteroid is destroyed
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">asteroid</span></span>
+         asteroid object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if current asteroid is destroyed.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asteroid.move"></a>
+    <strong>asteroid.move (self, dt)</strong>
+    </dt>
+    <dd>
+    Move the current asteroid asteroid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">asteroid</span></span>
+         asteroid object
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">number</span></span>
+         Time since the last update in seconds
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asteroid.equals"></a>
+    <strong>asteroid.equals (self, obj)</strong>
+    </dt>
+    <dd>
+    Compare if a object is equals to asteroid
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">asteroid</span></span>
+         asteroid object
+        </li>
+        <li><span class="parameter">obj</span>
+            <span class="types"><span class="type">object</span></span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true if is equals
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asteroid.type"></a>
+    <strong>asteroid.type ()</strong>
+    </dt>
+    <dd>
+    Return a string representation the object type
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Class type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "asteroid.extends"></a>
+    <strong>asteroid.extends ()</strong>
+    </dt>
+    <dd>
+    Create a new type object that extends from a asteroid object
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">obj_type</span></span>
+        object_type New object type
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-02-14 01:04:17 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

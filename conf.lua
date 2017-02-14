@@ -2,7 +2,7 @@
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @version 1.0
+-- @release 0.1
 
 -- A new global table
 love.game = {path = love.filesystem.getSource()}
@@ -10,6 +10,7 @@ love.game = {path = love.filesystem.getSource()}
 -- Add library path to require
 package.path = love.game.path .. "lib/?/init.lua;" .. love.game.path .. "lib/?.lua;" .. package.path
 
+--- Global scalefactor
 love.scalefactor = 4
 
 function love.conf(t)
@@ -23,14 +24,17 @@ function love.conf(t)
     t.window.highdpi = true
 end
 
+--- Get width of game
 function love.game.getWidth()
     return 320
 end
 
+--- Get height of game
 function love.game.getHeight()
     return 180
 end
 
+--- Get frame rate (60 fps)
 function love.game.frameRate()
     return 60
 end

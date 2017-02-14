@@ -1,10 +1,9 @@
 --- Player prototype object.
 -- This module construct a ship object that player controls
 --
--- @Module  player
+-- @module  player
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @see object
 
 local object = require 'nekerafa.collections.object'
 local ship = require 'objects.ship'
@@ -25,14 +24,13 @@ player.velocity = 3*love.game.frameRate() -- 3 pixel in each frame (Limiting 60 
 function player.new(x, y)
 	local p_ship = player.super.new(x, y, 4, "player")
 
-    p_ship.invulnerabity = timer.new()
+    p_ship.invulnerability = timer.new()
 	p_ship.collider = collider.rectangle(x-16, y-6, 32, 12)
 
 	-- Overiden methods
 	p_ship.damage = player.damage
 	p_ship.update = player.update
 	p_ship.move   = player.move
-	p_ship.hitbox = player.hitbox
 
 	return p_ship
 end
@@ -43,19 +41,19 @@ end
 function player.damage(self, damage)
 	if self.life > 0 and self.invulnerabity:getTime() == 0 then
 		player.super.damage(self, damage)
-		self.invulnerabity:start(2000)
+		self.invulnerability:start(2000)
 	end
 end
 
 --- Update all variables in the player
--- @tparam self ship Ship object
+-- @tparam ship self Ship object
 -- @tparam number dt Time since the last update in seconds
 function player.update(self, dt)
 	player.super.update(self, dt)
 
     -- Update invulnerabity
-    if self.invulnerabity:isFinished() then
-        self.invulnerabity:stop()
+    if self.invulnerability:isFinished() then
+        self.invulnerability:stop()
     end
 
 	-- Shoot a bullet
@@ -68,7 +66,8 @@ function player.update(self, dt)
 end
 
 --- Move the current ship ship
--- @tparam self ship Ship object
+-- @tparam ship self Ship object
+-- @tparam number dt Time since the last update in seconds
 function player.move(self, dt)
 	local moved = false
 

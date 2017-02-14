@@ -8,10 +8,9 @@
 --    bullet.bullet_type : Type of current bullet
 --    bullet.collider : Save the collinder of bullet
 --
--- @Module  bullet
+-- @module  bullet
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @see object
 
 local object = require 'nekerafa.collections.object'
 local collider = require 'vldr.hardoncollider'
@@ -45,7 +44,8 @@ function bullet.new(from, x, y, vx, vy, damage, type)
 end
 
 --- Move the current bullet
--- @tparam self bullet Bullet object
+-- @tparam bullet self Bullet object
+-- @tparam number dt Time since the last update in seconds
 function bullet.move(self, dt)
 	-- Update position
     self.x = self.x + self.vx * dt

@@ -5,14 +5,13 @@
 --    ship.life : current life
 --    ship.ship_type : Type of current ship
 --    ship.bullets : List of shot bullets
---    ship.bullet_threshold : Time between bullets
+--    ship.threshold : Time between bullets
 --    ship.flame : Animation of flame
 --    ship.explosion : Animation of explosion
 --
--- @Module ship
+-- @module  ship
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @see object
 
 local object = require 'nekerafa.collections.object'
 local anim8 = require 'kikito.anim8.anim8'
@@ -48,7 +47,7 @@ function ship.new(x, y, life, type)
     instance.bullets = {}
     instance.threshold = timer.new()
 	instance.flame = anim8.newAnimation(flame_grid(1, '1-4'), 0.05)
-	instance.explosion = anim8.newAnimation(explosion_grid(1, '1-8'), 0.01, end_explotion)
+	instance.explosion = anim8.newAnimation(explosion_grid(1, '1-8'), 0.1, end_explotion)
 	instance.explosion:pauseAtStart()
 	instance.explosion.ship = instance
 
@@ -71,7 +70,7 @@ function ship.damage(self, damage)
 end
 
 --- Update all variables in the ship
--- @tparam self ship Ship object
+-- @tparam ship self Ship object
 -- @tparam number dt Time since the last update in seconds
 function ship.update(self, dt)
 	-- Update flame animation
@@ -103,7 +102,8 @@ function ship.update(self, dt)
 end
 
 --- Move the current ship ship
--- @tparam self ship Ship object
+-- @tparam ship self Ship object
+-- @tparam number dt Time since the last update in seconds
 function ship.move(self, dt)
 end
 
@@ -156,7 +156,7 @@ function ship.extends()
 end
 
 --- Free current ship
--- @tparam self ship Ship object
+-- @tparam ship self Ship object
 function ship.free(self)
 	self.bullets = nil
 	self.flame = nil

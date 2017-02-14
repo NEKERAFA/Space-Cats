@@ -2,7 +2,7 @@
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @version 0.6
+-- @release 0.6
 
 -- Save current version
 love.game.version = "0.6 (alphaka)"
@@ -15,13 +15,13 @@ local trigger_gb_time = 5
 
 local lg = love.graphics
 
--- Callback to load resources
+--- Callback to load resources
 function love.load(arg)
     dofile(love.game.path .. "game.lua")
     print "Loaded!"
 end
 
--- Update variables
+--- Update variables
 function love.update(dt)
     -- Update game variables
     game.update(dt)
@@ -52,7 +52,7 @@ function love.keypressed(key, scancode, isrepeat)
 	end
 end
 
--- Callback to print game
+--- Callback to print game
 function love.draw()
     -- Rescale screen
     lg.push()
