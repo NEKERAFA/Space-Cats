@@ -6,7 +6,7 @@
 -- @license	Creative Commons Attribution-ShareAlike 4.0
 -- @see object
 
-local object = require('nekerafa.collections.object')
+local object = require('object')
 local set = object.extends()
 
 -- #### Module ####
@@ -256,7 +256,7 @@ function set.new(t)
 	local instance = object.new(set)
 	local meta = getmetatable(instance)
 
-	instance.data = setmetatable({}, {__mode="kv"})
+	instance.data = {}
 	instance.data_size = 0
 
 	-- Si exite una tabla, se rellena la información de esta
@@ -267,13 +267,15 @@ function set.new(t)
 		end
 	end
 
-	-- Metamethod for size
-	meta["__len"] = instance.size
 	-- Aritmethic metamethod
 	meta["__add"] = instance.union
 	meta["__mul"] = instance.intersect
 	meta["__sub"] = instance.complement
 	meta["__div"] = instance.difference
+
+	-- Metamethod for get len
+	meta["__len"] = instance.size
+
 	-- Metamethod for concatenate
 	meta["__concat"] = function(self, other)
 		object.check(other, set, "concat")

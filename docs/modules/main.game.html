@@ -38,11 +38,11 @@
 
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/main.game.html">main.game</a></li>
+  <li><strong>main.game</strong></li>
   <li><a href="../modules/asteroid.html">asteroid</a></li>
   <li><a href="../modules/bullet.html">bullet</a></li>
   <li><a href="../modules/ship.html">ship</a></li>
-  <li><strong>player</strong></li>
+  <li><a href="../modules/player.html">player</a></li>
   <li><a href="../modules/small_mouse.html">small_mouse</a></li>
   <li><a href="../modules/painters.asteroid.html">painters.asteroid</a></li>
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
@@ -52,11 +52,9 @@
 
 <div id="content">
 
-<h1>Module <code>player</code></h1>
-<p>Player prototype object.</p>
-<p>
- This module construct a ship object that player controls
-</p>
+<h1>Module <code>main.game</code></h1>
+<p>Definition of general game functions in Space Cats</p>
+<p></p>
     <h3>Info:</h3>
     <ul>
         <li><strong>License</strong>: GNU General Public License v3</li>
@@ -67,20 +65,36 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#new">new (x, y)</a></td>
-	<td class="summary">Create a new player</td>
+	<td class="name" nowrap><a href="#load">load ()</a></td>
+	<td class="summary">Callback to load game</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#damage">damage (self, damage)</a></td>
-	<td class="summary">Set damage to current ship</td>
+	<td class="name" nowrap><a href="#update">update (dt)</a></td>
+	<td class="summary">Callback to update all variables</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#update">update (self, dt)</a></td>
-	<td class="summary">Update all variables in the player</td>
+	<td class="name" nowrap><a href="#update_star">update_star (dt)</a></td>
+	<td class="summary">Update stars</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#move">move (self, dt)</a></td>
-	<td class="summary">Move the current ship ship</td>
+	<td class="name" nowrap><a href="#check_enemy">check_enemy ()</a></td>
+	<td class="summary">Check new enemy</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#restart_enemy">restart_enemy ()</a></td>
+	<td class="summary">Create new enemy</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#collider">collider ()</a></td>
+	<td class="summary">Check collitions</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#sky">sky ()</a></td>
+	<td class="summary">Draw sky background</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#draw">draw ()</a></td>
+	<td class="summary">Calback to draw graphics</td>
 	</tr>
 </table>
 
@@ -92,55 +106,13 @@
 
     <dl class="function">
     <dt>
-    <a name = "new"></a>
-    <strong>new (x, y)</strong>
+    <a name = "load"></a>
+    <strong>load ()</strong>
     </dt>
     <dd>
-    Create a new player
+    Callback to load game
 
 
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">x</span>
-            <span class="types"><span class="type">number</span></span>
-         New x position
-        </li>
-        <li><span class="parameter">y</span>
-            <span class="types"><span class="type">number</span></span>
-         New y position
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">ship</span></span>
-        A ship to be used
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "damage"></a>
-    <strong>damage (self, damage)</strong>
-    </dt>
-    <dd>
-    Set damage to current ship
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">ship</span></span>
-         Ship object
-        </li>
-        <li><span class="parameter">damage</span>
-            <span class="types"><span class="type">number</span></span>
-         Damage to make
-        </li>
-    </ul>
 
 
 
@@ -149,18 +121,14 @@
 </dd>
     <dt>
     <a name = "update"></a>
-    <strong>update (self, dt)</strong>
+    <strong>update (dt)</strong>
     </dt>
     <dd>
-    Update all variables in the player
+    Callback to update all variables
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">ship</span></span>
-         Ship object
-        </li>
         <li><span class="parameter">dt</span>
             <span class="types"><span class="type">number</span></span>
          Time since the last update in seconds
@@ -173,24 +141,90 @@
 
 </dd>
     <dt>
-    <a name = "move"></a>
-    <strong>move (self, dt)</strong>
+    <a name = "update_star"></a>
+    <strong>update_star (dt)</strong>
     </dt>
     <dd>
-    Move the current ship ship
+    Update stars
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">ship</span></span>
-         Ship object
-        </li>
         <li><span class="parameter">dt</span>
             <span class="types"><span class="type">number</span></span>
          Time since the last update in seconds
         </li>
     </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "check_enemy"></a>
+    <strong>check_enemy ()</strong>
+    </dt>
+    <dd>
+    Check new enemy
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "restart_enemy"></a>
+    <strong>restart_enemy ()</strong>
+    </dt>
+    <dd>
+    Create new enemy
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "collider"></a>
+    <strong>collider ()</strong>
+    </dt>
+    <dd>
+    Check collitions
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "sky"></a>
+    <strong>sky ()</strong>
+    </dt>
+    <dd>
+    Draw sky background
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "draw"></a>
+    <strong>draw ()</strong>
+    </dt>
+    <dd>
+    Calback to draw graphics
+
+
 
 
 

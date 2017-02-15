@@ -12,7 +12,7 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local object = require 'nekerafa.collections.object'
+local object = require 'nekerafa.collections.src.object'
 local collider = require 'vldr.hardoncollider'
 
 local bullet = object.extends()

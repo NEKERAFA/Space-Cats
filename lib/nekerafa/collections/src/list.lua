@@ -8,7 +8,7 @@
 -- @license	Creative Commons Attribution-ShareAlike 4.0
 -- @see object
 
-local object = require('nekerafa.collections.object')
+local object = require('object')
 local list = object.extends()
 
 -- #### Module ####
@@ -320,8 +320,9 @@ function list.new(t)
 		end
 	end
 
-	-- Metamethod for size
+	-- Metamethod for get len
 	meta["__len"] = instance.size
+
 	-- Metamethod for concatenate
 	meta["__concat"] = function(self, other)
 		self:append(other)

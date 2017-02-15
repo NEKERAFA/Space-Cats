@@ -5,9 +5,8 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local object = require 'nekerafa.collections.object'
-local ship = require 'objects.ship'
-local bullet = require 'objects.bullet'
+local ship = require 'ship'
+local bullet = require 'bullet'
 local timer = require 'nekerafa.timer'
 local collider = require 'vldr.hardoncollider'
 

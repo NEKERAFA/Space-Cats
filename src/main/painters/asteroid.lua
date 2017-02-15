@@ -15,7 +15,7 @@ local lg = love.graphics
 --- Load painter module
 function painter_asteroid.load()
     print "Loading asteroid image..."
-    asteroids.normal = lg.newImage("resources/images/asteroids/asteroid_1.png")
+    asteroids.normal = lg.newImage("src/resources/images/asteroids/asteroid_1.png")
     asteroids.normal:setFilter("nearest")
 end
 

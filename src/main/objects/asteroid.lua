@@ -14,7 +14,7 @@
 -- @author Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local object = require 'nekerafa.collections.object'
+local object = require 'nekerafa.collections.src.object'
 local anim8 = require 'kikito.anim8.anim8'
 local collider = require 'vldr.hardoncollider'
 local timer = require 'nekerafa.timer'

@@ -5,10 +5,9 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local object = require 'nekerafa.collections.object'
-local ship = require 'objects.ship'
-local bullet = require 'objects.bullet'
-local vector = require "nekerafa.collections.math.vector"
+local ship = require 'ship'
+local bullet = require 'bullet'
+local vector = require "nekerafa.collections.src.math.vector"
 local collider = require 'vldr.hardoncollider'
 
 -- Module
@@ -34,10 +33,12 @@ function small_mouse.new(path, p_shoot, bullets)
     mouse_ship.n_bullets = bullets
 	mouse_ship.next = 1
 	mouse_ship.flame = mouse_ship.flame:flipH()
+	mouse_ship.distance = vector(path[2].x-path[1].x, path[2].y-path[1].y, 0)
+	mouse_ship.velocity = mouse_ship.distance:unit()
 
 	small_mouse.update_velocity(mouse_ship)
 
-	mouse_ship.collider = collider.rectangle(mouse_ship.x-16, mouse_ship.y-6, 32, 12)
+	mouse_ship.collider = collider.rectangle(path[1].x-16, path[1].y-6, 32, 12)
 
     -- Overiden methods
 	mouse_ship.update = small_mouse.update
@@ -53,11 +54,10 @@ end
 function small_mouse.update(self, dt)
 	small_mouse.super.update(self, dt)
 
-	-- Distance vector
-	local d = vector(self.path[self.next].x-self.x, self.path[self.next].y-self.y, 0)
-
 	-- Check next point
-	if d:magnitude() < small_mouse.path_threshold and d:magnitude() > -small_mouse.path_threshold then
+	if self.distance:magnitude() < small_mouse.path_threshold and
+	   self.distance:magnitude() > -small_mouse.path_threshold then
+		-- Next position in array
 		if self.next < #self.path then
 			small_mouse.update_velocity(self)
 		end
@@ -70,8 +70,12 @@ end
 function small_mouse.move(self, dt)
 	-- Move ship
 	if self.life ~= 0 then
-		self.x = self.x + self.vx * small_mouse.velocity * dt
-		self.y = self.y + self.vy * small_mouse.velocity * dt
+		-- Move ship
+		self.x = self.x + self.velocity.x * small_mouse.velocity * dt
+		self.y = self.y + self.velocity.y * small_mouse.velocity * dt
+		-- Update distance
+		self.distance.x = self.path[self.next].x-self.x
+		self.distance.y = self.path[self.next].y-self.y
 		-- Move collinder
 		self.collider:moveTo(self.x, self.y)
 	end
@@ -83,10 +87,11 @@ function small_mouse.update_velocity(self)
 	-- Next point
 	self.next = self.next+1
 	-- New unitary vector
-	u = vector(self.path[self.next].x-self.x, self.path[self.next].y-self.y, 0):unit()
+	self.distance.x = self.path[self.next].x-self.x
+	self.distance.y = self.path[self.next].y-self.y
 	-- Update velocity
-	self.vx = u.x * love.game.frameRate()
-	self.vy = u.y * love.game.frameRate()
+	self.velocity:free()
+	self.velocity = self.distance:unit()*love.game.frameRate()
 end
 
 -- Return ship module

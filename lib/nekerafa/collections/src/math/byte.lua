@@ -7,7 +7,7 @@
 -- @license	Creative Commons Attribution-ShareAlike 4.0
 -- @see object
 
-local object = require('nekerafa.collections.object')
+local object = require('object')
 local byte = object.extends()
 
 -- #### Module ####
@@ -36,7 +36,7 @@ function byte.set(self, value)
 end
 
 --- Convert a string in a byte
--- @tparam str string String to convert
+-- @tparam string str String to convert
 -- @treturn byte Byte object
 function byte.valueOf(str)
     local value = tonumber(str)
@@ -53,7 +53,7 @@ function byte.valueOf(str)
 end
 
 --- Convert a character in a byte
--- @tparam char string Character to convert
+-- @tparam string char Character to convert
 -- @treturn byte Byte object
 function byte.value(char)
     return byte(string.byte(char))
@@ -62,7 +62,7 @@ end
 --- Add two bytes.
 -- You can use + to adding bytes too.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to the byte to add
+-- @tparam byte other Reference to the byte to add
 -- @treturn byte Byte object
 function byte.add(self, other)
     local value = self.value+other.value
@@ -76,7 +76,7 @@ end
 --- Substract two bytes.
 -- You can use - instead off.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to the byte to substract
+-- @tparam byte other Reference to the byte to substract
 -- @treturn byte Byte object
 function byte.sub(self, other)
     local value = self.value-other.value
@@ -90,7 +90,7 @@ end
 --- Multiply two bytes.
 -- You can use * instead of.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to the byte to multiply
+-- @tparam byte other Reference to the byte to multiply
 -- @treturn byte Byte object
 function byte.multiply(self, other)
     local value = self.value*other.value
@@ -104,7 +104,7 @@ end
 --- Divide two bytes.
 -- You can use / instead of.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to the byte to divide
+-- @tparam byte other Reference to the byte to divide
 -- @treturn byte Byte object
 function byte.divide(self, other)
     local value = self.value/other.value
@@ -118,7 +118,7 @@ end
 --- Get module of two bytes.
 -- You can use % instead of.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to second byte
+-- @tparam byte other Reference to second byte
 -- @treturn byte Byte object
 function byte.mod(self, other)
     local value = self.value%other.value
@@ -132,7 +132,7 @@ end
 --- Get the n-th powe of a byte.
 -- You can use * instead of.
 -- @tparam byte self Reference to base byte object
--- @tparam byte obj Reference to exponent byte object
+-- @tparam byte other Reference to exponent byte object
 -- @treturn byte Byte object
 function byte.power(self, other)
     local value = self.value^other.value
@@ -146,7 +146,7 @@ end
 --- Get if a byte is less that other.
 -- You can use < instead of.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to the second byte
+-- @tparam byte other Reference to the second byte
 -- @return true if first byte is less that second byte.
 function byte.lt(self, other)
     return self.value < other.value
@@ -155,7 +155,7 @@ end
 --- Get if a byte is less equals other.
 -- You can use <= instead of.
 -- @tparam byte self Reference to a byte object
--- @tparam byte obj Reference to the second byte
+-- @tparam byte other Reference to the second byte
 -- @return true if first byte is less equals second byte.
 function byte.le(self, other)
     return self.value <= other.value

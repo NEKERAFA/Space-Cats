@@ -13,7 +13,7 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local object = require 'nekerafa.collections.object'
+local object = require 'nekerafa.collections.src.object'
 local anim8 = require 'kikito.anim8.anim8'
 local collider = require 'vldr.hardoncollider'
 local timer = require 'nekerafa.timer'
@@ -87,10 +87,11 @@ function ship.update(self, dt)
 		-- Check if bullet needs to remove it
 		if (bullet.x < 0) or (bullet.x > love.game.getWidth())
 				or (bullet.y < 0) or (bullet.y > love.game.getHeight()) then
-		   -- Remove bullet from collider space
-		   collider.remove(bullet.collider)
-		   -- Remove from bullet table
-		   table.remove(self.bullets, i)
+		   	-- Remove bullet from collider space
+		   	collider.remove(bullet.collider)
+		   	-- Remove from bullet table
+		   	bullet:free()
+			table.remove(self.bullets, i)
 			break
 		end
 	end
@@ -158,6 +159,8 @@ end
 --- Free current ship
 -- @tparam ship self Ship object
 function ship.free(self)
+	ship.super.free(self)
+
 	self.bullets = nil
 	self.flame = nil
 	self.explosion = nil

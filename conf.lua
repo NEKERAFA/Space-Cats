@@ -8,7 +8,10 @@
 love.game = {path = love.filesystem.getSource()}
 
 -- Add library path to require
-package.path = love.game.path .. "lib/?/init.lua;" .. love.game.path .. "lib/?.lua;" .. package.path
+package.path = love.game.path .. "lib/nekerafa/collections/src/?.lua;" .. package.path
+package.path = love.game.path .. "src/main/objects/?.lua;" .. package.path
+package.path = love.game.path .. "lib/?.lua;" .. package.path
+package.path = love.game.path .. "lib/?/init.lua;" .. package.path
 
 --- Global scalefactor
 love.scalefactor = 4

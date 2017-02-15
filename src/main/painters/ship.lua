@@ -18,27 +18,27 @@ local lg = love.graphics
 function painter_ship.load()
     -- Player
     print "Loading player image..."
-    ships.player = lg.newImage("resources/images/ships/ship-cat.png")
+    ships.player = lg.newImage("src/resources/images/ships/ship-cat.png")
     ships.player:setFilter("nearest")
 
     -- Player
     print "Loading mouse image..."
-    ships.small_mouse = lg.newImage("resources/images/ships/ship-mouse.png")
+    ships.small_mouse = lg.newImage("src/resources/images/ships/ship-mouse.png")
     ships.small_mouse:setFilter("nearest")
 
     -- Ships flame
     print "Loading flame..."
-    flame = lg.newImage("resources/images/ships/flame.png")
+    flame = lg.newImage("src/resources/images/ships/flame.png")
     flame:setFilter("nearest")
 
     -- Weapons
     print "Loading blaster..."
-    weapons.blaster = lg.newImage("resources/images/weapons/blaster.png")
+    weapons.blaster = lg.newImage("src/resources/images/weapons/blaster.png")
     weapons.blaster:setFilter("nearest")
 
     -- Weapons
     print "Loading explosion..."
-    ships.explosion = lg.newImage("resources/images/ships/explosion.png")
+    ships.explosion = lg.newImage("src/resources/images/ships/explosion.png")
     ships.explosion:setFilter("nearest")
 end
 

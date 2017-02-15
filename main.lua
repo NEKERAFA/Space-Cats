@@ -8,7 +8,7 @@
 love.game.version = "0.6 (alphaka)"
 -- Save total update time
 local total_update_time = 0
-local trigger_update_time = 1
+local trigger_update_time = 0.1
 -- Save total time to call garbage collector
 local total_gb_time = 0
 local trigger_gb_time = 5
@@ -17,7 +17,7 @@ local lg = love.graphics
 
 --- Callback to load resources
 function love.load(arg)
-    dofile(love.game.path .. "game.lua")
+    dofile(love.game.path .. "src/main/game.lua")
     print "Loaded!"
 end
 

@@ -4,9 +4,9 @@
 -- @license GNU General Public License v3
 
 local collider = require "vldr.hardoncollider"
-local player = require "objects.ships.player"
-local mouse = require "objects.ships.small_mouse"
-local ship_painter = require "painters.ship"
+local player = require "ships.player"
+local mouse = require "ships.small_mouse"
+local ship_painter = require "src.main.painters.ship"
 
 local lg = love.graphics
 
@@ -27,13 +27,13 @@ game = {run = true, points = 0, MAX_STARS = 32}
 function game.load()
     -- Fonts
     print "Loading fonts..."
-    game.font = lg.newFont("resources/fonts/terminus.ttf")
+    game.font = lg.newFont("src/resources/fonts/terminus.ttf")
     game.font:setFilter("nearest")
     love.graphics.setFont(game.font)
 
     -- Backgrounds
     print "Loading backgrounds..."
-    game.bg = lg.newImage("resources/images/bg/space.png")
+    game.bg = lg.newImage("src/resources/images/bg/space.png")
     game.bg:setFilter("nearest")
 
     -- Image ships
@@ -65,7 +65,7 @@ function game.load()
     -- Star images
     game.star_image = {}
     for i = 1, 2 do
-        game.star_image[i] = lg.newImage("resources/images/bg/star_" .. i .. ".png")
+        game.star_image[i] = lg.newImage("src/resources/images/bg/star_" .. i .. ".png")
     end
 end
 
@@ -123,7 +123,6 @@ end
 function game.restart_enemy()
     collider.remove(game.mouse.collider)
     game.mouse = nil
-    collectgarbage("collect")
     local p1 = {x = love.game.getWidth()+16, y = 0}
     local p2 = {x = love.game.getWidth()/1.25, y = love.game.getHeight()/2}
     local p3 = {x = love.game.getWidth()/3, y = 0}

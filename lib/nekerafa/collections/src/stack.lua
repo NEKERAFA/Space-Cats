@@ -7,7 +7,7 @@
 -- @license	Creative Commons Attribution-ShareAlike 4.0
 -- @see object
 
-local object = require('nekerafa.collections.object')
+local object = require('object')
 local stack = object.extends()
 
 -- #### Module ####
@@ -110,7 +110,7 @@ end
 --- Swap all content in the stack
 -- @tparam stack self Reference to a stack object
 function stack.swap(self)
-	self.newdata = {}
+	self.newdata = setmetatable({}, {__mode = "kv"})
 
 	for k, v in ipairs(self.data) do
 		self.newdata[self.data_size-k+1] = v
@@ -185,6 +185,9 @@ function stack.new(t)
 	instance.data = {}
 	instance.data_size = 0
 
+	-- Metamethod for get len
+	meta["__len"] = instance.size
+
 	-- Si exite una tabla, se rellena la información de esta
 	if t and type(t) == "table" then
 		for k, v in ipairs(t) do
@@ -192,8 +195,6 @@ function stack.new(t)
 			instance.data_size = instance.data_size+1
 		end
 	end
-
-	meta["__len"] = stack.size
 
 	return setmetatable(instance, meta)
 end

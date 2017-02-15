@@ -6,7 +6,7 @@
 -- @license	Creative Commons Attribution-ShareAlike 4.0
 -- @see object
 
-local object = require('nekerafa.collections.object')
+local object = require('object')
 local vector = object.extends()
 
 --- Get the magnitude of vector

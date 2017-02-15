@@ -41,6 +41,7 @@ end
 -- @tparam object self Reference to an object
 -- @treturn object New object
 function object.clone(self)
+	meta = getmetatable(self)
 	copy = {}
 
 	for key, value in pairs(self) do
@@ -54,7 +55,7 @@ function object.clone(self)
 		end
 	end
 
-	return copy
+	return setmetatable(copy, meta)
 end
 
 --- Compare a object with other
@@ -71,17 +72,6 @@ function object.type()
 	return "object"
 end
 
---- Return ID of object
--- @tparam object self Refecence to an object
--- @treturn number ID of current object
-function object.id(self)
-	for i, obj in ipairs(object_id) do
-		if obj.ref == self then
-			return obj.id
-		end
-	end
-end
-
 --- Return object from id
 -- @tparam number id Refecence to an id object
 -- @treturn object current object associate to id
@@ -90,11 +80,13 @@ function object.object(id)
 		error("Bad argument #1 to id, expected number, got "..type(id)..")", 2)
 	end
 
-	for i, obj in ipairs(object_id) do
-		if obj.id == id then
-			return obj.ref
-		end
-	end
+	return object_id[id]
+end
+
+--- Clear a object al free their content
+-- @tparam object self Refecence to an object
+function object.free(self)
+	object_id[self.id] = nil
 end
 
 --- Creates a new instance of object type.
@@ -113,17 +105,12 @@ function object.new(object_type)
 	repeat
 		equal = false
 		id = math.random(0, 2^32)
-		for key, id_obj in ipairs(object_id) do
-			if id == id_obj then
-				equal = true
-				break
-			end
-		end
+		equal = (object_id[id] ~= nil)
 	until not equal
 
-	local instance = {}
+	local instance = {id = id}
 
-	table.insert(object_id, {id = id, ref = instance})
+	object_id[id] = instance
 
 	-- Se recorren todos los métodos para incluirlos en la nueva instancia
 	for method, func in pairs(object_type) do
@@ -136,6 +123,7 @@ function object.new(object_type)
 	-- Se devuelve la instancia junto a una metatabla
 	return setmetatable(instance, {
 			__eq = instance.equals,
+			__gc = object.free,
 			__tostring = function()
 				return string.format("%s 0x%x", instance.type(), id)
 			end
@@ -152,7 +140,7 @@ function object.extends(object_type)
 
 	local new_type = {}
 	for method, func in pairs(object_type) do
-		if method ~= "check" and method ~= "object" and method ~= "id" then
+		if method ~= "check" and method ~= "object" then
 			new_type[method] = func
 		end
 	end

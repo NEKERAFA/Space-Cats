@@ -33,11 +33,13 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
 </ul>
 
 
 <h2>Modules</h2>
 <ul class="nowrap">
+  <li><strong>list</strong></li>
   <li><strong>list</strong></li>
   <li><a href="../modules/math.set.html">math.set</a></li>
   <li><a href="../modules/math.vector.html">math.vector</a></li>
@@ -51,11 +53,10 @@
 <div id="content">
 
 <h1>Module <code>list</code></h1>
-<p>List module.</p>
+<p>Byte module.</p>
 <p>
- A list is a representation of an unordened group of elements. This type has
- methods for get, put and extract new elements in the list, and others
- advanced functions to append, sort and navigate for the list.
+ The byte is a unsigned 8-bit number, permitting values between 0 to 255.
+ This module also provides methods for converting bytes in string and vice versa.
 </p>
     <h3>See also:</h3>
     <ul>
@@ -64,91 +65,90 @@
     <h3>Info:</h3>
     <ul>
         <li><strong>License</strong>: Creative Commons Attribution-ShareAlike 4.0</li>
-        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA) on sun 13 nov 2016 11:24 (CET)</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA) on fri jan 2017 14:46 (CET)</li>
     </ul>
 
 
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#empty">empty (self)</a></td>
-	<td class="summary">Checks if the list is empty</td>
+	<td class="name" nowrap><a href="#byte.get">byte.get (self)</a></td>
+	<td class="summary">Get current value</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#clear">clear (self)</a></td>
-	<td class="summary">Removes all elements in the list</td>
+	<td class="name" nowrap><a href="#byte.set">byte.set (self, value)</a></td>
+	<td class="summary">Set a value</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#size">size (self)</a></td>
-	<td class="summary">Gets the number of elements in the list.</td>
+	<td class="name" nowrap><a href="#byte.valueOf">byte.valueOf (str)</a></td>
+	<td class="summary">Convert a string in a byte</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#add">add (self, elem, pos)</a></td>
-	<td class="summary">Inserts a element in the list</td>
+	<td class="name" nowrap><a href="#byte.value">byte.value (char)</a></td>
+	<td class="summary">Convert a character in a byte</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#set">set (self, pos, elem)</a></td>
-	<td class="summary">Replaces the element in the position with a new element</td>
+	<td class="name" nowrap><a href="#byte.add">byte.add (self, other)</a></td>
+	<td class="summary">Add two bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#get">get (self, pos)</a></td>
-	<td class="summary">Gets a element at the specified position in the list</td>
+	<td class="name" nowrap><a href="#byte.sub">byte.sub (self, other)</a></td>
+	<td class="summary">Substract two bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#remove">remove (self, pos)</a></td>
-	<td class="summary">Removes a element in the list</td>
+	<td class="name" nowrap><a href="#byte.multiply">byte.multiply (self, other)</a></td>
+	<td class="summary">Multiply two bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#find">find (self, elem)</a></td>
-	<td class="summary">Looks up an element in the list</td>
+	<td class="name" nowrap><a href="#byte.divide">byte.divide (self, other)</a></td>
+	<td class="summary">Divide two bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#next">next (self, pos)</a></td>
-	<td class="summary">Gets the next element in the list</td>
+	<td class="name" nowrap><a href="#byte.mod">byte.mod (self, other)</a></td>
+	<td class="summary">Get module of two bytes.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#prev">prev (self, pos)</a></td>
-	<td class="summary">Gets the previous element in the list</td>
+	<td class="name" nowrap><a href="#byte.power">byte.power (self, other)</a></td>
+	<td class="summary">Get the n-th powe of a byte.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#iterate">iterate (self)</a></td>
-	<td class="summary">Gets a iterator.</td>
+	<td class="name" nowrap><a href="#byte.lt">byte.lt (self, other)</a></td>
+	<td class="summary">Get if a byte is less that other.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#sort">sort (self, comp)</a></td>
-	<td class="summary">Sort all elements in the list with a compare function</td>
+	<td class="name" nowrap><a href="#byte.le">byte.le (self, other)</a></td>
+	<td class="summary">Get if a byte is less equals other.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#pack">pack (self)</a></td>
-	<td class="summary">Packet a list of elements in the collection</td>
+	<td class="name" nowrap><a href="#byte.tostring">byte.tostring (self)</a></td>
+	<td class="summary">Convert a byte to string</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#append">append (self, other)</a></td>
-	<td class="summary">Concatenate two list.</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#swap">swap (self)</a></td>
-	<td class="summary">Swap all content in the list</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#unpack">unpack (self, i, j)</a></td>
-	<td class="summary">Return a list of elements inside the collection</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#type">type ()</a></td>
+	<td class="name" nowrap><a href="#byte.type">byte.type ()</a></td>
 	<td class="summary">Return a string representation the object type</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#equals">equals (self, obj)</a></td>
-	<td class="summary">Compare if a object is equals to list</td>
+	<td class="name" nowrap><a href="#byte.extends">byte.extends ()</a></td>
+	<td class="summary">Create a new type object that extends from a set</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#extends">extends ()</a></td>
-	<td class="summary">Creates a new type object that extends from a list object</td>
+	<td class="name" nowrap><a href="#byte.equals">byte.equals (self, obj)</a></td>
+	<td class="summary">Compare if a object is equals to a byte</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#new">new (t)</a></td>
-	<td class="summary">Creates a new list</td>
+	<td class="name" nowrap><a href="#byte.new">byte.new (value)</a></td>
+	<td class="summary">Create a new byte</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#byte.MAX_VALUE">byte.MAX_VALUE</a></td>
+	<td class="summary">Constant that have the maximun value of a byte, (2^8)-1.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#byte.MIN_VALUE">byte.MIN_VALUE</a></td>
+	<td class="summary">Constant that have the minimun value of a byte, 0.</td>
 	</tr>
 </table>
 
@@ -160,45 +160,18 @@
 
     <dl class="function">
     <dt>
-    <a name = "empty"></a>
-    <strong>empty (self)</strong>
+    <a name = "byte.get"></a>
+    <strong>byte.get (self)</strong>
     </dt>
     <dd>
-    Checks if the list is empty
+    Get current value
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        true if is empty
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "clear"></a>
-    <strong>clear (self)</strong>
-    </dt>
-    <dd>
-    Removes all elements in the list
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
         </li>
     </ul>
 
@@ -208,53 +181,22 @@
 
 </dd>
     <dt>
-    <a name = "size"></a>
-    <strong>size (self)</strong>
+    <a name = "byte.set"></a>
+    <strong>byte.set (self, value)</strong>
     </dt>
     <dd>
-    Gets the number of elements in the list.
- You can uses # method for get stack size.
+    Set a value
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
         </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">number</span></span>
-        size of the list
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "add"></a>
-    <strong>add (self, elem, pos)</strong>
-    </dt>
-    <dd>
-    Inserts a element in the list
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">elem</span>
-         Element to adding
-        </li>
-        <li><span class="parameter">pos</span>
+        <li><span class="parameter">value</span>
             <span class="types"><span class="type">number</span></span>
-         (Optional) Position to insert
+         Number to set
         </li>
     </ul>
 
@@ -264,57 +206,26 @@
 
 </dd>
     <dt>
-    <a name = "set"></a>
-    <strong>set (self, pos, elem)</strong>
+    <a name = "byte.valueOf"></a>
+    <strong>byte.valueOf (str)</strong>
     </dt>
     <dd>
-    Replaces the element in the position with a new element
+    Convert a string in a byte
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">pos</span>
-            <span class="types"><span class="type">number</span></span>
-         Position to put
-        </li>
-        <li><span class="parameter">elem</span>
-         New element to insert
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "get"></a>
-    <strong>get (self, pos)</strong>
-    </dt>
-    <dd>
-    Gets a element at the specified position in the list
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">pos</span>
-            <span class="types"><span class="type">number</span></span>
-         Index of the element
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         String to convert
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        Element at the position
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
     </ol>
 
 
@@ -322,29 +233,26 @@
 
 </dd>
     <dt>
-    <a name = "remove"></a>
-    <strong>remove (self, pos)</strong>
+    <a name = "byte.value"></a>
+    <strong>byte.value (char)</strong>
     </dt>
     <dd>
-    Removes a element in the list
+    Convert a character in a byte
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">pos</span>
-            <span class="types"><span class="type">number</span></span>
-         Position of the element to remove
+        <li><span class="parameter">char</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Character to convert
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-        Removed element
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
     </ol>
 
 
@@ -352,245 +260,289 @@
 
 </dd>
     <dt>
-    <a name = "find"></a>
-    <strong>find (self, elem)</strong>
+    <a name = "byte.add"></a>
+    <strong>byte.add (self, other)</strong>
     </dt>
     <dd>
-    Looks up an element in the list
+    Add two bytes.
+ You can use + to adding bytes too.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">elem</span>
-         Element to look
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        Position of the element or false if it not exists in the list
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "next"></a>
-    <strong>next (self, pos)</strong>
-    </dt>
-    <dd>
-    Gets the next element in the list
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">pos</span>
-            <span class="types"><span class="type">number</span></span>
-         Position in the list
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        Next element or nil if is the last position
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "prev"></a>
-    <strong>prev (self, pos)</strong>
-    </dt>
-    <dd>
-    Gets the previous element in the list
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">pos</span>
-            <span class="types"><span class="type">number</span></span>
-         Position in the list
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        Previous element or nil if is the first position
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "iterate"></a>
-    <strong>iterate (self)</strong>
-    </dt>
-    <dd>
-    Gets a iterator.  Use in for ... in loops
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        A iterator function with two params: key and value
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "sort"></a>
-    <strong>sort (self, comp)</strong>
-    </dt>
-    <dd>
-    Sort all elements in the list with a compare function
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-        <li><span class="parameter">comp</span>
-            <span class="types"><span class="type">function</span></span>
-         A compare function
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "pack"></a>
-    <strong>pack (self)</strong>
-    </dt>
-    <dd>
-    Packet a list of elements in the collection
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "append"></a>
-    <strong>append (self, other)</strong>
-    </dt>
-    <dd>
-    Concatenate two list.
- You can use .. to append two lists
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
         </li>
         <li><span class="parameter">other</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to the byte to add
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "swap"></a>
-    <strong>swap (self)</strong>
+    <a name = "byte.sub"></a>
+    <strong>byte.sub (self, other)</strong>
     </dt>
     <dd>
-    Swap all content in the list
+    Substract two bytes.
+ You can use - instead off.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to the byte to substract
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "unpack"></a>
-    <strong>unpack (self, i, j)</strong>
+    <a name = "byte.multiply"></a>
+    <strong>byte.multiply (self, other)</strong>
     </dt>
     <dd>
-    Return a list of elements inside the collection
+    Multiply two bytes.
+ You can use * instead of.
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-            <span class="types"><span class="type">list</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
         </li>
-        <li><span class="parameter">i</span>
-            <span class="types"><span class="type">number</span></span>
-         First position of elements. Default is 1
-        </li>
-        <li><span class="parameter">j</span>
-            <span class="types"><span class="type">number</span></span>
-         Last position of elements. Default is list.size
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to the byte to multiply
         </li>
     </ul>
 
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
+    </ol>
 
 
 
 
 </dd>
     <dt>
-    <a name = "type"></a>
-    <strong>type ()</strong>
+    <a name = "byte.divide"></a>
+    <strong>byte.divide (self, other)</strong>
+    </dt>
+    <dd>
+    Divide two bytes.
+ You can use / instead of.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to the byte to divide
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.mod"></a>
+    <strong>byte.mod (self, other)</strong>
+    </dt>
+    <dd>
+    Get module of two bytes.
+ You can use % instead of.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to second byte
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.power"></a>
+    <strong>byte.power (self, other)</strong>
+    </dt>
+    <dd>
+    Get the n-th powe of a byte.
+ You can use * instead of.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to base byte object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to exponent byte object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">byte</span></span>
+        Byte object
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.lt"></a>
+    <strong>byte.lt (self, other)</strong>
+    </dt>
+    <dd>
+    Get if a byte is less that other.
+ You can use < instead of.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to the second byte
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true if first byte is less that second byte.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.le"></a>
+    <strong>byte.le (self, other)</strong>
+    </dt>
+    <dd>
+    Get if a byte is less equals other.
+ You can use <= instead of.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
+        </li>
+        <li><span class="parameter">other</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to the second byte
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true if first byte is less equals second byte.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.tostring"></a>
+    <strong>byte.tostring (self)</strong>
+    </dt>
+    <dd>
+    Convert a byte to string
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        Converted string byte.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.type"></a>
+    <strong>byte.type ()</strong>
     </dt>
     <dd>
     Return a string representation the object type
@@ -609,18 +561,38 @@
 
 </dd>
     <dt>
-    <a name = "equals"></a>
-    <strong>equals (self, obj)</strong>
+    <a name = "byte.extends"></a>
+    <strong>byte.extends ()</strong>
     </dt>
     <dd>
-    Compare if a object is equals to list
+    Create a new type object that extends from a set
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">obj_type</span></span>
+        object_type New object type
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.equals"></a>
+    <strong>byte.equals (self, obj)</strong>
+    </dt>
+    <dd>
+    Compare if a object is equals to a byte
 
 
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">self</span>
-            <span class="types"><span class="type">stack</span></span>
-         Reference to a list object
+            <span class="types"><span class="type">byte</span></span>
+         Reference to a byte object
         </li>
         <li><span class="parameter">obj</span>
             <span class="types"><span class="type">object</span></span>
@@ -640,46 +612,59 @@
 
 </dd>
     <dt>
-    <a name = "extends"></a>
-    <strong>extends ()</strong>
+    <a name = "byte.new"></a>
+    <strong>byte.new (value)</strong>
     </dt>
     <dd>
-    Creates a new type object that extends from a list object
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">obj_type</span></span>
-        object_type New object type
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "new"></a>
-    <strong>new (t)</strong>
-    </dt>
-    <dd>
-    Creates a new list
+    Create a new byte
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">t</span>
-
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span></span>
+         Initial value
         </li>
     </ul>
 
     <h3>Returns:</h3>
     <ol>
 
-           <span class="types"><span class="type">list</span></span>
-        New object list
+           <span class="types"><span class="type">byte</span></span>
+        New byte object
     </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "byte.MAX_VALUE"></a>
+    <strong>byte.MAX_VALUE</strong>
+    </dt>
+    <dd>
+    Constant that have the maximun value of a byte, (2^8)-1.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "byte.MIN_VALUE"></a>
+    <strong>byte.MIN_VALUE</strong>
+    </dt>
+    <dd>
+    Constant that have the minimun value of a byte, 0.
+
+
+
 
 
 
@@ -692,7 +677,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2016-12-04 21:54:39 </i>
+<i style="float:right;">Last updated 2017-02-15 17:05:46 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>
