@@ -1,13 +1,5 @@
 --- Ship prototype object.
--- This module construct a ship object that have this variables
---    ship.x    : x screen position
---    ship.y    : y screen position
---    ship.life : current life
---    ship.ship_type : Type of current ship
---    ship.bullets : List of shot bullets
---    ship.threshold : Time between bullets
---    ship.flame : Animation of flame
---    ship.explosion : Animation of explosion
+-- This module construct a ship object. See diagram for know atributes.
 --
 -- @module  ship
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
@@ -21,7 +13,7 @@ local timer = require 'nekerafa.timer'
 local ship = object.extends()
 
 --- Update status after explosion Animation
-function end_explotion(animation, loops)
+local function end_explotion(animation, loops)
 	animation:pause()
 	animation.ship.destroyed = true
 end
@@ -62,6 +54,7 @@ end
 function ship.damage(self, damage)
 	if self.life > 0 then
         self.life = math.max(self.life - damage, 0)
+		self.damaged = true
     end
 
 	if self.life == 0 then

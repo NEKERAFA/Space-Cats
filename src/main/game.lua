@@ -122,7 +122,7 @@ end
 --- Create new enemy
 function game.restart_enemy()
     collider.remove(game.mouse.collider)
-    game.mouse = nil
+    game.mouse:free()
     local p1 = {x = love.game.getWidth()+16, y = 0}
     local p2 = {x = love.game.getWidth()/1.25, y = love.game.getHeight()/2}
     local p3 = {x = love.game.getWidth()/3, y = 0}

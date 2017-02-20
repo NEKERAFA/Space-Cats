@@ -42,7 +42,8 @@ function painter_ship.load()
     ships.explosion:setFilter("nearest")
 end
 
--- Draw hitbox
+--- Draw hitbox
+-- @tparam ship ship Ship to paint hitbox
 function painter_ship.hitbox(ship)
     local r, g, b, a = lg.getColor()
     lg.setColor(255, 0, 0, 128)
@@ -50,7 +51,8 @@ function painter_ship.hitbox(ship)
     lg.setColor(r, g, b, a)
 end
 
--- Draw a ship
+--- Draw a ship
+-- @tparam ship ship Ship to paint (Also paint bullets)
 function painter_ship.draw(ship)
     -- Draw bullets
     for i, bullet in ipairs(ship.bullets) do

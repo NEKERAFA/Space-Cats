@@ -1,5 +1,5 @@
 --- Player prototype object.
--- This module construct a ship object that player controls
+-- This module construct a ship object that player controls.
 --
 -- @module  player
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
@@ -14,7 +14,7 @@ local collider = require 'vldr.hardoncollider'
 local player = ship.extends()
 
 -- Global player velocity
-player.velocity = 3*love.game.frameRate() -- 3 pixel in each frame (Limiting 60 fps)
+player.velocity = 3 -- 3 pixel in each frame (Limiting 60 fps)
 
 --- Create a new player
 -- @tparam number x New x position
@@ -23,6 +23,7 @@ player.velocity = 3*love.game.frameRate() -- 3 pixel in each frame (Limiting 60 
 function player.new(x, y)
 	local p_ship = player.super.new(x, y, 4, "player")
 
+	-- Set variables
     p_ship.invulnerability = timer.new()
 	p_ship.collider = collider.rectangle(x-16, y-6, 32, 12)
 
@@ -72,16 +73,16 @@ function player.move(self, dt)
 
 	-- Keys to move ship
 	if love.keyboard.isDown("up") then
-		self.y = self.y - player.velocity*dt
+		self.y = self.y - player.velocity*love.game.frameRate()*dt
 		moved = true
 	elseif love.keyboard.isDown("down") then
-		self.y = self.y + player.velocity*dt
+		self.y = self.y + player.velocity*love.game.frameRate()*dt
 		moved = true
 	elseif love.keyboard.isDown("left") then
-		self.x = self.x - player.velocity*dt
+		self.x = self.x - player.velocity*love.game.frameRate()*dt
 		moved = true
 	elseif love.keyboard.isDown("right") then
-		self.x = self.x + player.velocity*dt
+		self.x = self.x + player.velocity*love.game.frameRate()*dt
 		moved = true
 	end
 

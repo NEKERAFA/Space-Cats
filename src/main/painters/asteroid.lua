@@ -19,7 +19,8 @@ function painter_asteroid.load()
     asteroids.normal:setFilter("nearest")
 end
 
--- Draw hitbox
+--- Draw hitbox of asteroid
+-- @tparam asteroid asteroid Asteroid to paint hitbox
 function painter_asteroid.hitbox(asteroid)
     local r, g, b, a = lg.getColor()
     lg.setColor(255, 0, 0, 128)
@@ -27,7 +28,8 @@ function painter_asteroid.hitbox(asteroid)
     lg.setColor(r, g, b, a)
 end
 
--- Draw a asteroid
+--- Draw an asteroid
+-- @tparam asteroid asteroid Asteroid to paint
 function painter_asteroid.draw(asteroid)
     -- Draw asteroid
     lg.draw(asteroids[asteroid.asteroid_type], math.round(asteroid.x), math.round(asteroid.y), 0, 1, 1, 16, 16)

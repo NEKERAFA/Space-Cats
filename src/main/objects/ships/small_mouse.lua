@@ -19,6 +19,19 @@ small_mouse.path_threshold = 1
 --- Velocity
 small_mouse.velocity = 2
 
+--- Update velocity vector
+-- @tparam ship self Ship object
+function small_mouse.update_velocity(self)
+	-- Next point
+	self.next = self.next+1
+	-- New unitary vector
+	self.distance_v.x = self.path[self.next].x-self.x
+	self.distance_v.y = self.path[self.next].y-self.y
+	-- Update velocity
+	self.velocity:free()
+	self.velocity_v = self.distance_v:unit()*love.game.frameRate()
+end
+
 --- Create a new enemy
 -- @tparam table path Path to follow
 -- @tparam table p_shoot Point where ship will shoot (Must be in the path)
@@ -26,18 +39,23 @@ small_mouse.velocity = 2
 -- @treturn ship A ship to be used
 function small_mouse.new(path, p_shoot, bullets)
 	local mouse_ship = small_mouse.super.new(path[1].x, path[1].y, 1, "small_mouse")
+	local meta = getmetatable(mouse_ship)
 
 	-- Variables
-    mouse_ship.path = path
-    mouse_ship.p_shoot = p_shoot
-    mouse_ship.n_bullets = bullets
-	mouse_ship.next = 1
-	mouse_ship.flame = mouse_ship.flame:flipH()
-	mouse_ship.distance = vector(path[2].x-path[1].x, path[2].y-path[1].y, 0)
-	mouse_ship.velocity = mouse_ship.distance:unit()
+    mouse_ship.path = path -- Path to follow
+    mouse_ship.p_shoot = p_shoot -- Point where ship must shoot
+    mouse_ship.n_bullets = bullets -- Number of bullets
+	mouse_ship.next = 1 -- Next poinr
+	mouse_ship.flame = mouse_ship.flame:flipH() -- Flips flame
+	-- distance vector
+	mouse_ship.distance_v = vector(path[2].x-path[1].x, path[2].y-path[1].y, 0)
+	-- velocity v
+	mouse_ship.velocity_v = mouse_ship.distance:unit()
 
+	-- Update current velocity
 	small_mouse.update_velocity(mouse_ship)
 
+	-- Mouse collider
 	mouse_ship.collider = collider.rectangle(path[1].x-16, path[1].y-6, 32, 12)
 
     -- Overiden methods
@@ -45,7 +63,10 @@ function small_mouse.new(path, p_shoot, bullets)
 	mouse_ship.move   = small_mouse.move
 	mouse_ship.hitbox = small_mouse.hitbox
 
-	return mouse_ship
+	-- Overiden metamethods
+	meta["__gc"] = small_mouse.free
+
+	return setmetatable(mouse_ship, meta)
 end
 
 --- Update all variables in the ship
@@ -55,8 +76,8 @@ function small_mouse.update(self, dt)
 	small_mouse.super.update(self, dt)
 
 	-- Check next point
-	if self.distance:magnitude() < small_mouse.path_threshold and
-	   self.distance:magnitude() > -small_mouse.path_threshold then
+	if self.distance_v:magnitude() < small_mouse.path_threshold and
+	   self.distance_v:magnitude() > -small_mouse.path_threshold then
 		-- Next position in array
 		if self.next < #self.path then
 			small_mouse.update_velocity(self)
@@ -71,27 +92,30 @@ function small_mouse.move(self, dt)
 	-- Move ship
 	if self.life ~= 0 then
 		-- Move ship
-		self.x = self.x + self.velocity.x * small_mouse.velocity * dt
-		self.y = self.y + self.velocity.y * small_mouse.velocity * dt
+		self.x = self.x + self.velocity_v.x * small_mouse.velocity * dt
+		self.y = self.y + self.velocity_v.y * small_mouse.velocity * dt
 		-- Update distance
-		self.distance.x = self.path[self.next].x-self.x
-		self.distance.y = self.path[self.next].y-self.y
+		self.distance_v.x = self.path[self.next].x-self.x
+		self.distance_v.y = self.path[self.next].y-self.y
 		-- Move collinder
 		self.collider:moveTo(self.x, self.y)
 	end
 end
 
---- Update velocity vector
+--- Free current ship
 -- @tparam ship self Ship object
-function small_mouse.update_velocity(self)
-	-- Next point
-	self.next = self.next+1
-	-- New unitary vector
-	self.distance.x = self.path[self.next].x-self.x
-	self.distance.y = self.path[self.next].y-self.y
-	-- Update velocity
-	self.velocity:free()
-	self.velocity = self.distance:unit()*love.game.frameRate()
+function small_mouse.free(self)
+	small_mouse.super.free(self)
+
+	-- Remove locale variables
+	self.collider = nil
+	self.distance_v:free()
+	self.distance_v = nil
+	self.velocity_v:free()
+	self.velocity_v = nil
+
+	self = nil
+	collectgarbage('collect')
 end
 
 -- Return ship module

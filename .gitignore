@@ -29,4 +29,9 @@
 
 # Gimp files
 *.xcf
+
+# StarUML
 *.mdf
+
+# Gimp design
+design
