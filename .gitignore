@@ -31,7 +31,7 @@
 *.xcf
 
 # StarUML
-*.mdf
+*.mdj
 
 # Gimp design
 design
