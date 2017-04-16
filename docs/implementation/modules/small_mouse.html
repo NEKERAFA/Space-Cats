@@ -33,19 +33,22 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
 </ul>
 
 
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/main.game.html">main.game</a></li>
+  <li><a href="../modules/game.html">game</a></li>
   <li><a href="../modules/bullet.html">bullet</a></li>
   <li><a href="../modules/obstacle.html">obstacle</a></li>
   <li><a href="../modules/asteroid.html">asteroid</a></li>
+  <li><a href="../modules/powerup.html">powerup</a></li>
   <li><a href="../modules/ship.html">ship</a></li>
-  <li><strong>player</strong></li>
-  <li><a href="../modules/small_mouse.html">small_mouse</a></li>
-  <li><a href="../modules/painters.asteroid.html">painters.asteroid</a></li>
+  <li><a href="../modules/player.html">player</a></li>
+  <li><strong>small_mouse</strong></li>
+  <li><a href="../modules/trainer_mouse.html">trainer_mouse</a></li>
+  <li><a href="../modules/painters.obstacle.html">painters.obstacle</a></li>
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
 </ul>
 
@@ -53,10 +56,10 @@
 
 <div id="content">
 
-<h1>Module <code>player</code></h1>
-<p>Player prototype object.</p>
+<h1>Module <code>small_mouse</code></h1>
+<p>Enemy ship prototype object.</p>
 <p>
- This module construct a ship object that player controls.
+ This module construct a ship object that represents a enemy.
 </p>
     <h3>Info:</h3>
     <ul>
@@ -68,20 +71,35 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#new">new (x, y)</a></td>
-	<td class="summary">Create a new player</td>
+	<td class="name" nowrap><a href="#new">new (path, p_shoot, bullets)</a></td>
+	<td class="summary">Create a new enemy</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#damage">damage (self, damage)</a></td>
-	<td class="summary">Set damage to current ship</td>
+	<td class="name" nowrap><a href="#update_velocity">update_velocity (self)</a></td>
+	<td class="summary">Update velocity vector</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#update">update (self, dt)</a></td>
-	<td class="summary">Update all variables in the player</td>
+	<td class="summary">Update all variables in the ship</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#move">move (self, dt)</a></td>
 	<td class="summary">Move the current ship ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#free">free (self)</a></td>
+	<td class="summary">Free current ship</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#path_threshold">path_threshold</a></td>
+	<td class="summary">Threshold to change path point</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#velocity">velocity</a></td>
+	<td class="summary">Velocity</td>
 	</tr>
 </table>
 
@@ -89,26 +107,30 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    <h2><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
     <a name = "new"></a>
-    <strong>new (x, y)</strong>
+    <strong>new (path, p_shoot, bullets)</strong>
     </dt>
     <dd>
-    Create a new player
+    Create a new enemy
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">x</span>
-            <span class="types"><span class="type">number</span></span>
-         New x position
+        <li><span class="parameter">path</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Path to follow
         </li>
-        <li><span class="parameter">y</span>
+        <li><span class="parameter">p_shoot</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Point where ship will shoot (Must be in the path)
+        </li>
+        <li><span class="parameter">bullets</span>
             <span class="types"><span class="type">number</span></span>
-         New y position
+         Number of bullets to shoot
         </li>
     </ul>
 
@@ -124,11 +146,11 @@
 
 </dd>
     <dt>
-    <a name = "damage"></a>
-    <strong>damage (self, damage)</strong>
+    <a name = "update_velocity"></a>
+    <strong>update_velocity (self)</strong>
     </dt>
     <dd>
-    Set damage to current ship
+    Update velocity vector
 
 
     <h3>Parameters:</h3>
@@ -136,10 +158,6 @@
         <li><span class="parameter">self</span>
             <span class="types"><span class="type">ship</span></span>
          Ship object
-        </li>
-        <li><span class="parameter">damage</span>
-            <span class="types"><span class="type">number</span></span>
-         Damage to make
         </li>
     </ul>
 
@@ -153,7 +171,7 @@
     <strong>update (self, dt)</strong>
     </dt>
     <dd>
-    Update all variables in the player
+    Update all variables in the ship
 
 
     <h3>Parameters:</h3>
@@ -198,14 +216,67 @@
 
 
 </dd>
+    <dt>
+    <a name = "free"></a>
+    <strong>free (self)</strong>
+    </dt>
+    <dd>
+    Free current ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "path_threshold"></a>
+    <strong>path_threshold</strong>
+    </dt>
+    <dd>
+    Threshold to change path point
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "velocity"></a>
+    <strong>velocity</strong>
+    </dt>
+    <dd>
+    Velocity
+
+
+
+
+
+
+
+</dd>
 </dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-02-21 00:08:14 </i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2017-04-16 20:19:17 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

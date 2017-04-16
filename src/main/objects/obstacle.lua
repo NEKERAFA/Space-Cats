@@ -7,6 +7,7 @@
 
 local object = require 'nekerafa.collections.src.object'
 local anim8 = require 'kikito.anim8.anim8'
+local collider = require 'vrld.HC'
 local timer = require 'nekerafa.timer'
 
 local obstacle = object.extends()
@@ -20,23 +21,23 @@ end
 --- Create a new obstacle
 -- @tparam number x New x position
 -- @tparam number y New y position
--- @tparam vector v New velocity
+-- @tparam vector velocity New velocity
 -- @tparam number strength Level of damage resistance
 -- @tparam string type Type of obstacle
 -- @treturn obstacle A obstacle to be used
-function obstacle.new(x, y, v, strength, type)
+function obstacle.new(x, y, velocity, strength, type)
 	local instance = object.new(obstacle)
     local meta = getmetatable(instance)
-	local flame_grid = anim8.newGrid(16, 16, 16, 64)
 	local explosion_grid = anim8.newGrid(32, 32, 32, 256)
 
     -- Set variables of obstacle
 	instance.x = x
     instance.y = y
-    instance.v = v
+    instance.velocity = velocity
 	instance.strength = strength
 	instance.destroyed = false
     instance.obstacle_type = type
+	instance.collider = collider.rectangle(x-16, y-16, 32, 32)
 	instance.explosion = anim8.newAnimation(explosion_grid(1, '1-8'), 0.1, end_explotion)
 	instance.explosion:pauseAtStart()
 	instance.explosion.obstacle = instance
@@ -71,8 +72,12 @@ end
 -- @tparam obstacle self obstacle object
 -- @tparam number dt Time since the last update in seconds
 function obstacle.move(self, dt)
-	self.x = self.x + self.v.x * dt
-	self.y = self.y + self.v.y * dt
+	if self.strength ~= 0 then
+		self.x = self.x + self.velocity.x * dt
+		self.y = self.y + self.velocity.y * dt
+
+		self.collider:moveTo(math.round(self.x), math.round(self.y))
+	end
 end
 
 --- Compare if a object is equals to obstacle
@@ -102,6 +107,14 @@ function obstacle.equals(self, obj)
 	end
 
 	if self.y ~= obj.y then
+		return false
+	end
+
+	if self.velocity.x ~= obj.velocity.x then
+		return false
+	end
+
+	if self.velocity.y ~= obj.velocity.y then
 		return false
 	end
 

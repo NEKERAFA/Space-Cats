@@ -8,7 +8,8 @@
 local ship = require 'ship'
 local bullet = require 'bullet'
 local timer = require 'nekerafa.timer'
-local collider = require 'vldr.hardoncollider'
+local vector = require 'nekerafa.collections.src.math.vector'
+local collider = require 'vrld.HC'
 
 -- Module
 local player = ship.extends()
@@ -59,7 +60,8 @@ function player.update(self, dt)
 	-- Shoot a bullet
 	if love.keyboard.isDown("space") and self.threshold:getTime() == 0 then
 		-- Create new bullet
-		table.insert(self.bullets, bullet(self, self.x+14, self.y+1, 8*love.game.frameRate(), 0, 1, "blaster"))
+		velocity = vector(8*love.game.frameRate(), 0, 0)
+		table.insert(self.bullets, bullet(self.x+14, self.y+1, velocity, 1, "blaster"))
 		-- Wait to shoot
 		self.threshold:start(250)
 	end

@@ -7,7 +7,7 @@
 
 local object = require 'nekerafa.collections.src.object'
 local anim8 = require 'kikito.anim8.anim8'
-local collider = require 'vldr.hardoncollider'
+local collider = require 'vrld.HC'
 local timer = require 'nekerafa.timer'
 
 local ship = object.extends()
@@ -67,31 +67,37 @@ end
 -- @tparam number dt Time since the last update in seconds
 function ship.update(self, dt)
 	-- Update flame animation
-	self.flame:update(dt)
-
-	-- Update explosion
-	self.explosion:update(dt)
-
-	-- Update bullets
-	for i, bullet in ipairs(self.bullets) do
-		-- Move bullet
-		bullet:move(dt)
-
-		-- Check if bullet needs to remove it
-		if (bullet.x < 0) or (bullet.x > love.game.getWidth())
-				or (bullet.y < 0) or (bullet.y > love.game.getHeight()) then
-		   	-- Remove bullet from collider space
-		   	collider.remove(bullet.collider)
-		   	-- Remove from bullet table
-		   	bullet:free()
-			table.remove(self.bullets, i)
-			break
-		end
+	if self.flame then
+		self.flame:update(dt)
 	end
 
-	-- Update bullet threshold
-	if self.threshold:isFinished() then
-		self.threshold:stop()
+	-- Update explosion
+	if self.explosion then
+		self.explosion:update(dt)
+	end
+
+	if self.bullets then
+		-- Update bulletss
+		for i, bullet in ipairs(self.bullets) do
+			-- Move bullet
+			bullet:move(dt)
+
+			-- Check if bullet needs to remove it
+			if (bullet.x < 0) or (bullet.x > love.game.getWidth())
+					or (bullet.y < 0) or (bullet.y > love.game.getHeight()) then
+			   	-- Remove bullet from collider space
+			   	collider.remove(bullet.collider)
+			   	-- Remove from bullet table
+			   	bullet:free()
+				table.remove(self.bullets, i)
+				break
+			end
+		end
+
+		-- Update bullet threshold
+		if self.threshold:isFinished() then
+			self.threshold:stop()
+		end
 	end
 end
 
@@ -123,14 +129,26 @@ function ship.equals(self, obj)
 	end
 
     -- Check atributes
-	if self.x ~= obj.x or self.y ~= obj.y or self.life ~= obj.life or self.type ~= obj.type then
+	if self.x ~= obj.x then
         return false
-    else
-        -- Check bullets
-        for i, value in ipairs(self.bullets) do
-            if obj.bullets[i] ~= value then
-                return false
-            end
+	end
+
+	if self.y ~= obj.y then
+		return false
+	end
+
+	if self.life ~= obj.life then
+		return false
+	end
+
+	if self.ship_type ~= obj.ship_type then
+		return false
+	end
+
+    -- Check bullets
+    for i, value in ipairs(self.bullets) do
+        if obj.bullets[i] ~= value then
+            return false
         end
     end
 
@@ -154,10 +172,26 @@ end
 function ship.free(self)
 	ship.super.free(self)
 
+	-- Remove all bullets
+	while #self.bullets > 0 do
+		for i, bullet in ipairs(self.bullets) do
+			-- Remove bullet from collider space
+			collider.remove(bullet.collider)
+			-- Remove from bullet table
+			bullet:free()
+			table.remove(self.bullets, i)
+			break
+		end
+	end
 	self.bullets = nil
+
+	-- Remove animations
 	self.flame = nil
 	self.explosion = nil
 	self.threshold = nil
+
+	-- Remove collider
+	collider.remove(self.collider)
 	self = nil
 	collectgarbage('collect')
 end

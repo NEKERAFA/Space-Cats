@@ -38,14 +38,16 @@
 
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/main.game.html">main.game</a></li>
+  <li><a href="../modules/game.html">game</a></li>
   <li><a href="../modules/bullet.html">bullet</a></li>
   <li><a href="../modules/obstacle.html">obstacle</a></li>
   <li><a href="../modules/asteroid.html">asteroid</a></li>
-  <li><strong>ship</strong></li>
-  <li><a href="../modules/player.html">player</a></li>
+  <li><a href="../modules/powerup.html">powerup</a></li>
+  <li><a href="../modules/ship.html">ship</a></li>
+  <li><strong>player</strong></li>
   <li><a href="../modules/small_mouse.html">small_mouse</a></li>
-  <li><a href="../modules/painters.asteroid.html">painters.asteroid</a></li>
+  <li><a href="../modules/trainer_mouse.html">trainer_mouse</a></li>
+  <li><a href="../modules/painters.obstacle.html">painters.obstacle</a></li>
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
 </ul>
 
@@ -53,10 +55,10 @@
 
 <div id="content">
 
-<h1>Module <code>ship</code></h1>
-<p>Ship prototype object.</p>
+<h1>Module <code>player</code></h1>
+<p>Player prototype object.</p>
 <p>
- This module construct a ship object. See diagram for know atributes.
+ This module construct a ship object that player controls.
 </p>
     <h3>Info:</h3>
     <ul>
@@ -68,8 +70,8 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#new">new (x, y, life, type)</a></td>
-	<td class="summary">Create a new ship</td>
+	<td class="name" nowrap><a href="#new">new (x, y)</a></td>
+	<td class="summary">Create a new player</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#damage">damage (self, damage)</a></td>
@@ -77,27 +79,11 @@
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#update">update (self, dt)</a></td>
-	<td class="summary">Update all variables in the ship</td>
+	<td class="summary">Update all variables in the player</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#move">move (self, dt)</a></td>
 	<td class="summary">Move the current ship ship</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#equals">equals (self, obj)</a></td>
-	<td class="summary">Compare if a object is equals to ship</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#type">type ()</a></td>
-	<td class="summary">Return a string representation the object type</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#extends">extends ()</a></td>
-	<td class="summary">Create a new type object that extends from a ship object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#free">free (self)</a></td>
-	<td class="summary">Free current ship</td>
 	</tr>
 </table>
 
@@ -105,15 +91,15 @@
 <br/>
 
 
-    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    <h2><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
     <dt>
     <a name = "new"></a>
-    <strong>new (x, y, life, type)</strong>
+    <strong>new (x, y)</strong>
     </dt>
     <dd>
-    Create a new ship
+    Create a new player
 
 
     <h3>Parameters:</h3>
@@ -125,14 +111,6 @@
         <li><span class="parameter">y</span>
             <span class="types"><span class="type">number</span></span>
          New y position
-        </li>
-        <li><span class="parameter">life</span>
-            <span class="types"><span class="type">number</span></span>
-         Current life
-        </li>
-        <li><span class="parameter">type</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-         Type of ship
         </li>
     </ul>
 
@@ -177,7 +155,7 @@
     <strong>update (self, dt)</strong>
     </dt>
     <dd>
-    Update all variables in the ship
+    Update all variables in the player
 
 
     <h3>Parameters:</h3>
@@ -222,106 +200,14 @@
 
 
 </dd>
-    <dt>
-    <a name = "equals"></a>
-    <strong>equals (self, obj)</strong>
-    </dt>
-    <dd>
-    Compare if a object is equals to ship
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">ship</span></span>
-         Ship object
-        </li>
-        <li><span class="parameter">obj</span>
-            <span class="types"><span class="type">object</span></span>
-
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">boolean</span></span>
-        true if is equals
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "type"></a>
-    <strong>type ()</strong>
-    </dt>
-    <dd>
-    Return a string representation the object type
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
-        Class type
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "extends"></a>
-    <strong>extends ()</strong>
-    </dt>
-    <dd>
-    Create a new type object that extends from a ship object
-
-
-
-    <h3>Returns:</h3>
-    <ol>
-
-           <span class="types"><span class="type">obj_type</span></span>
-        object_type New object type
-    </ol>
-
-
-
-
-</dd>
-    <dt>
-    <a name = "free"></a>
-    <strong>free (self)</strong>
-    </dt>
-    <dd>
-    Free current ship
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">ship</span></span>
-         Ship object
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
 </dl>
 
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
-<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-02-21 00:08:14 </i>
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.3</a></i>
+<i style="float:right;">Last updated 2017-04-16 20:19:17 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

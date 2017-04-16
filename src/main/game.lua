@@ -3,10 +3,14 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local collider = require "vldr.hardoncollider"
-local player = require "ships.player"
-local mouse = require "ships.small_mouse"
-local ship_painter = require "src.main.painters.ship"
+local collider = require 'vrld.HC'
+local player = require 'ships.player'
+local mouse = require 'ships.small_mouse'
+local trainer_mouse = require 'ships.trainer_mouse'
+local asteroid = require 'obstacles.asteroid'
+local ship_painter = require 'src.main.painters.ship'
+local obstacle_painter = require 'src.main.painters.obstacle'
+local vector = require 'nekerafa.collections.src.math.vector'
 
 local lg = love.graphics
 
@@ -40,16 +44,27 @@ function game.load()
     print "Loading ships..."
     ship_painter.load()
 
+    -- Image obstacles
+    print "Loading obstacles..."
+    obstacle_painter.load()
+
     -- Player ships
     print "Loading player..."
     game.player = player(32, love.game.getHeight()/2)
 
     -- Mouse ship
-    print "Loading mouse.."
+    print "Loading mouse..."
+    --[[
     local p1 = {x = love.game.getWidth()+16, y = 0}
     local p2 = {x = love.game.getWidth()/1.25, y = love.game.getHeight()/2}
     local p3 = {x = love.game.getWidth()/3, y = 0}
     game.mouse = mouse({p1, p2, p3}, p2, 2)
+    ]]
+    --game.mouse = trainer_mouse(love.game.getWidth()-32, love.game.getHeight()/2)
+
+    print "Loading asteroid..."
+    velocity = vector(-100, 0, 0)
+    game.asteroid = asteroid(love.game.getWidth()-32, love.game.getHeight()/2, velocity)
 
     -- Stars
     print "Loading stars..."
@@ -79,11 +94,15 @@ function game.update(dt)
         game.player:move(dt)
 
         -- Check mouse status
-        game.check_enemy()
+        --game.check_enemy()
 
         -- Update mouse
-        game.mouse:update(dt)
-        game.mouse:move(dt)
+        --game.mouse:update(dt)
+        --game.mouse:move(0, 0, true, dt)
+
+        -- Update asteroid
+        game.asteroid:update(dt)
+        game.asteroid:move(dt)
 
         -- Check collitions
         game.collider()
@@ -134,14 +153,29 @@ function game.collider()
     -- Check player bullets
     for i, bullet in ipairs(game.player.bullets) do
         -- Check if collides with the mouse
-        if bullet.collider:collidesWith(game.mouse.collider) then
-            -- Make damage
-            game.mouse:damage(bullet.damage)
-            -- Remove bullet from collider space
-            collider.remove(bullet.collider)
-            -- Remove from bullets
-            table.remove(game.player.bullets, i)
-            break
+        if game.mouse then
+            if bullet.collider:collidesWith(game.mouse.collider) then
+                -- Make damage
+                game.mouse:damage(bullet.damage)
+                -- Remove bullet from collider space
+                collider.remove(bullet.collider)
+                -- Remove from bullets
+                table.remove(game.player.bullets, i)
+                break
+            end
+        end
+
+        -- Check if collides with a asteroid
+        if game.asteroid then
+            if bullet.collider:collidesWith(game.asteroid.collider) then
+                -- Make damage
+                game.asteroid:damage(bullet.damage)
+                -- Remov bullet from collider space
+                collider.remove(bullet.collider)
+                -- Remove from bullets
+                table.remove(game.player.bullets, i)
+                break
+            end
         end
     end
 end
@@ -171,10 +205,10 @@ function game.draw()
     -- Draw sky
     game.sky()
     -- Draw asteroid
-    --asteroid_painter.draw(game.asteroid)
+    obstacle_painter.draw(game.asteroid)
     -- Draw ship player
     ship_painter.draw(game.player)
-    ship_painter.draw(game.mouse)
+    --ship_painter.draw(game.mouse)
     lg.print(math.round(game.player.x) .. ", " .. math.round(game.player.y), 5, 5)
     lg.printf(string.format("%0.8i", game.points), 5, 5, love.game.getWidth()-10, "right")
 end

@@ -87,6 +87,7 @@ end
 -- @tparam object self Refecence to an object
 function object.free(self)
 	object_id[self.id] = nil
+	collectgarbage()
 end
 
 --- Creates a new instance of object type.

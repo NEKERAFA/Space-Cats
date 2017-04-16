@@ -1,41 +1,39 @@
---- bullet prototype object.
--- This module construct a bullect object.
+--- Powerup prototype object.
+-- This module construct a powerup object.
 --
--- @module  bullet
+-- @module  powerup
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
 local object = require 'nekerafa.collections.src.object'
 local collider = require 'vrld.HC'
 
-local bullet = object.extends()
+local powerup = object.extends()
 
---- Create a new bullet
+--- Create a new powerup
 -- @tparam number x New x position
 -- @tparam number y New y position
 -- @tparam vector velocity New velocity
--- @tparam number damage Current damage of bullet
--- @tparam string type Type of bullet
--- @treturn bullet A bullet object to be used
-function bullet.new(x, y, velocity, damage, type)
-	local instance = object.new(bullet)
+-- @tparam string type Type of powerup
+-- @treturn powerup A powerup object to be used
+function powerup.new(x, y, velocity, type)
+	local instance = object.new(powerup)
     local meta = getmetatable(instance)
 
     -- Set variables
 	instance.x = x
     instance.y = y
     instance.velocity = velocity
-    instance.damage = damage
-    instance.bullet_type = type
+    instance.powerup_type = type
 	instance.collider = collider.point(x, y)
 
 	return setmetatable(instance, meta)
 end
 
---- Move the current bullet
--- @tparam bullet self Bullet object
+--- Move the current powerup
+-- @tparam powerup self powerup object
 -- @tparam number dt Time since the last update in seconds
-function bullet.move(self, dt)
+function powerup.move(self, dt)
 	-- Update position
     self.x = self.x + self.velocity.x * dt
     self.y = self.y + self.velocity.y * dt
@@ -44,21 +42,11 @@ function bullet.move(self, dt)
 	self.collider:moveTo(self.x, self.y)
 end
 
---- Free current bullet
--- @tparam bullet self Bullet object
-function bullet.free(self)
-	bullet.super.free(self)
-
-	-- Remove local variables
-	self.velocity:free()
-	collider.remove(self.collider)
-end
-
---- Compare if a object is equals to bullet
--- @tparam bullet self Bullet object
+--- Compare if a object is equals to powerup
+-- @tparam powerup self powerup object
 -- @tparam object obj
 -- @treturn boolean true if is equals
-function bullet.equals(self, obj)
+function powerup.equals(self, obj)
 	if obj == nil then
 		return false
 	end
@@ -71,7 +59,7 @@ function bullet.equals(self, obj)
 		return false
 	end
 
-	if not obj:instanceof(bullet) then
+	if not obj:instanceof(powerup) then
 		return false
 	end
 
@@ -103,20 +91,30 @@ function bullet.equals(self, obj)
 	return true
 end
 
+--- Free current ship
+-- @tparam ship self Ship object
+function powerup.free(self)
+	powerup.super.free(self)
+
+	-- Remove local variables
+	self.velocity:free()
+	collider.remove(self.collider)
+end
+
 --- Return a string representation the object type
 -- @treturn string Class type
-function bullet.type()
-	return "bullet"
+function powerup.type()
+	return "powerup"
 end
 
---- Create a new type object that extends from a bullet object
+--- Create a new type object that extends from a powerup object
 -- @treturn obj_type object_type New object type
-function bullet.extends()
-	return object.extends(bullet)
+function powerup.extends()
+	return object.extends(powerup)
 end
 
--- Return bullet module
-return setmetatable(bullet, {
-		__call = function(module_table, x, y, velocity, damage, type)
-			return bullet.new(x, y, velocity, damage, type)
+-- Return powerup module
+return setmetatable(powerup, {
+		__call = function(module_table, x, y, velocity, type)
+			return powerup.new(x, y, velocity, type)
 		end})

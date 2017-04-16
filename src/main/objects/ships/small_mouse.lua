@@ -7,8 +7,8 @@
 
 local ship = require 'ship'
 local bullet = require 'bullet'
-local vector = require "nekerafa.collections.src.math.vector"
-local collider = require 'vldr.hardoncollider'
+local vector = require 'nekerafa.collections.src.math.vector'
+local collider = require 'vrld.HC'
 
 -- Module
 local small_mouse = ship.extends()
@@ -18,19 +18,6 @@ small_mouse.path_threshold = 1
 
 --- Velocity
 small_mouse.velocity = 2
-
---- Update velocity vector
--- @tparam ship self Ship object
-function small_mouse.update_velocity(self)
-	-- Next point
-	self.next = self.next+1
-	-- New unitary vector
-	self.distance_v.x = self.path[self.next].x-self.x
-	self.distance_v.y = self.path[self.next].y-self.y
-	-- Update velocity
-	self.velocity:free()
-	self.velocity_v = self.distance_v:unit()*love.game.frameRate()
-end
 
 --- Create a new enemy
 -- @tparam table path Path to follow
@@ -61,12 +48,24 @@ function small_mouse.new(path, p_shoot, bullets)
     -- Overiden methods
 	mouse_ship.update = small_mouse.update
 	mouse_ship.move   = small_mouse.move
-	mouse_ship.hitbox = small_mouse.hitbox
 
 	-- Overiden metamethods
 	meta["__gc"] = small_mouse.free
 
 	return setmetatable(mouse_ship, meta)
+end
+
+--- Update velocity vector
+-- @tparam ship self Ship object
+function small_mouse.update_velocity(self)
+	-- Next point
+	self.next = self.next+1
+	-- New unitary vector
+	self.distance_v.x = self.path[self.next].x-self.x
+	self.distance_v.y = self.path[self.next].y-self.y
+	-- Update velocity
+	self.velocity:free()
+	self.velocity_v = self.distance_v:unit()*love.game.frameRate()
 end
 
 --- Update all variables in the ship
@@ -108,7 +107,6 @@ function small_mouse.free(self)
 	small_mouse.super.free(self)
 
 	-- Remove locale variables
-	self.collider = nil
 	self.distance_v:free()
 	self.distance_v = nil
 	self.velocity_v:free()

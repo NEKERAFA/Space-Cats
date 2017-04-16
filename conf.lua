@@ -5,7 +5,7 @@
 -- @release 0.1
 
 -- A new global table
-love.game = {path = love.filesystem.getSource()}
+love.game = {path = love.filesystem.getSource() .. "/"}
 
 -- Add library path to require
 package.path = love.game.path .. "lib/nekerafa/collections/src/?.lua;" .. package.path
