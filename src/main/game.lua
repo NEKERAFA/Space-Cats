@@ -77,6 +77,11 @@ function game.load()
         }
     end
 
+    -- BGM
+    game.bgm = love.audio.newSource("src/resources/sounds/You of the Dark - Fire Emblem Fates Music Extended.ogg", "stream")
+    game.bgm:setLooping(true)
+    game.bgm:play()
+
     -- Star images
     game.star_image = {}
     for i = 1, 2 do
@@ -102,7 +107,7 @@ function game.update(dt)
 
         -- Update asteroid
         game.asteroid:update(dt)
-        game.asteroid:move(dt)
+        --game.asteroid:move(dt)
 
         -- Check collitions
         game.collider()

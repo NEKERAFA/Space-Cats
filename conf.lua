@@ -14,7 +14,7 @@ package.path = love.game.path .. "lib/?.lua;" .. package.path
 package.path = love.game.path .. "lib/?/init.lua;" .. package.path
 
 --- Global scalefactor
-love.scalefactor = 4
+love.scalefactor = 1
 
 function love.conf(t)
     t.version = "0.10.0"

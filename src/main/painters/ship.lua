@@ -82,7 +82,9 @@ function painter_ship.draw(ship)
         -- Draw explosion
         ship.explosion:draw(ships.explosion, math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
     end
-    painter_ship.hitbox(ship)
+
+    -- Debuging
+    --painter_ship.hitbox(ship)
 end
 
 return painter_ship

@@ -41,7 +41,9 @@ function painter_obstacle.draw(obstacle)
     elseif not obstacle.destroyed then
         obstacle.explosion:draw(explosion, math.round(obstacle.x), math.round(obstacle.y), 0, 1, 1, 16, 16)
     end
-    painter_obstacle.hitbox(obstacle)
+
+    -- Debuging
+    --painter_obstacle.hitbox(obstacle)
 end
 
 return painter_obstacle
