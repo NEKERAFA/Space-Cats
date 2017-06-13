@@ -29,7 +29,7 @@ function small_mouse.update_velocity(self)
 	self.distance_v.y = self.path[self.next].y-self.y
 	-- Update velocity
 	self.velocity_v:free()
-	self.velocity_v = self.distance_v:unit()*love.game.frameRate()
+	self.velocity_v = self.distance_v:unit()*love.game.frameRate
 end
 
 --- Create a new enemy
@@ -77,8 +77,28 @@ function small_mouse.update(self, dt)
 	-- Check next point
 	if self.distance_v:magnitude() < small_mouse.path_threshold and
 	   self.distance_v:magnitude() > -small_mouse.path_threshold then
+		
+		-- Check if is in point to shoot
+		if (self.path[self.next] == self.p_shoot) and (self.n_bullets > 0) and (self.threshold:getTime() == 0) then
+			-- Stop mouse
+			self.velocity_v:free()
+			self.velocity_v = vector(0, 0, 0)
+			
+			-- Sound effect
+			game.sfx.laser:rewind()
+			game.sfx.laser:play()
+			
+			-- Create new bullet
+			--distance = vector(game.player.x-self.x, game.player.y-self.y, 0)
+			--velocity = distance:unit()*(8*love.game.frameRate)
+			velocity = vector(-8*love.game.frameRate, 0, 0)
+			table.insert(self.bullets, bullet(self.x-14, self.y-1, velocity, 1, "blaster"))
+			
+			-- Wait to shoot
+			self.threshold:start(300)
+			self.n_bullets = self.n_bullets-1
 		-- Next position in array
-		if self.next < #self.path then
+		elseif ((self.path[self.next] == self.p_shoot) and (self.n_bullets == 0)) or self.next < #self.path then
 			small_mouse.update_velocity(self)
 		end
 	end
@@ -93,9 +113,11 @@ function small_mouse.move(self, dt)
 		-- Move ship
 		self.x = self.x + self.velocity_v.x * small_mouse.velocity * dt
 		self.y = self.y + self.velocity_v.y * small_mouse.velocity * dt
+		
 		-- Update distance
 		self.distance_v.x = self.path[self.next].x-self.x
 		self.distance_v.y = self.path[self.next].y-self.y
+		
 		-- Move collinder
 		self.collider:moveTo(self.x, self.y)
 	end

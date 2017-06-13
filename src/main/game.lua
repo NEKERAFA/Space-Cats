@@ -19,7 +19,7 @@ function math.round(num)
 end
 
 -- Global table
-game = {run = true, points = 0, MAX_STARS = 32, time = 0, enemies = {}}
+game = {run = true, points = 0, MAX_STARS = 32, time = 0, enemies = {}, obstacles = {}}
 
 -- #### Functions ####
 
@@ -34,19 +34,25 @@ function game.load()
     -- Image ships
     print "Loading ship painter..."
     ship_painter.load()
+	
+	-- Sound effects
+	print "Loading sound effects..."
+	game.sfx = {}
+	game.sfx.laser = love.audio.newSource("src/resources/sounds/sfx/laser.ogg")
+	game.sfx.explosion = love.audio.newSource("src/resources/sounds/sfx/explosion.ogg")
 
     -- Player ships
     print "Loading player..."
-    game.player = player(32, love.game.getHeight()/2)
+    game.player = player(32, love.game.height/2)
 
     -- Stars
     print "Loading stars..."
     game.star = {}
     for i = 1, game.MAX_STARS do
         game.star[i] = {
-            x = math.random(8, love.game.getWidth()-8),
-            y = math.random(8, love.game.getHeight()-8),
-            v = math.random(1, 4)*love.game.frameRate()
+            x = math.random(8, love.game.width-8),
+            y = math.random(8, love.game.height-8),
+            v = math.random(2, 8)*love.game.frameRate
         }
     end
 
@@ -67,17 +73,29 @@ end
 function game.update(dt)
     -- If game is running, update all variables
     if game.run then
+		-- Update all level variables
+		level.update(dt)
+		
+		-- level event times
 		game.time = game.time + dt
 		
         -- Update player
         game.player:update(dt)
         game.player:move(dt)
 
-		-- Check if must pop new enemy in game
-		if (#level.enemies > 0) and (game.time > level.enemies[1].time) then
-			game.time = game.time - level.enemies[1].time
-			table.insert(game.enemies, level.enemies[1].ship)
-			table.remove(level.enemies, 1)
+		-- Check if must pop new element of level
+		if level.objects and (#level.objects > 0) and (game.time > level.objects[1].time) then
+			game.time = game.time - level.objects[1].time
+			
+			-- Pop a ship
+			if level.objects[1].type == "ship" then
+				table.insert(game.enemies, level.objects[1].ship)
+				table.remove(level.objects, 1)
+			-- Pop a obstacle
+			elseif level.objects[1].type == "obstacle" then
+				table.insert(game.obstacles, level.objects[1].obstacle)
+				table.remove(level.objects, 1)
+			end
 		end
 
         -- Update all enemies
@@ -86,10 +104,24 @@ function game.update(dt)
 			enemy:move(dt)
 			
 			-- Remove a enemy if is out of screen
-			if (enemy.x < -16) or (enemy.x > love.game.getWidth()+16) or
-			   (enemy.y < -16) or (enemy.y > love.game.getHeight()+16) or enemy.destroyed then
+			if (enemy.x < -16) or (enemy.x > love.game.width+16) or
+			   (enemy.y < -16) or (enemy.y > love.game.height+16) or enemy.destroyed then
 				enemy:free()
 				table.remove(game.enemies, i)
+				break
+			end
+		end
+		
+		-- Update all obstacles
+		for i, obstacle in ipairs(game.obstacles) do
+			obstacle:update(dt)
+			obstacle:move(dt)
+			
+			-- Remove a enemy if is out of screen
+			if (obstacle.x < -16) or (obstacle.x > love.game.width+16) or
+			   (obstacle.y < -16) or (obstacle.y > love.game.height+16) or obstacle.destroyed then
+				obstacle:free()
+				table.remove(game.obstacles, i)
 				break
 			end
 		end
@@ -110,9 +142,9 @@ function game.update_star(dt)
 
         -- Restart if star throws out the screen
         if game.star[i].x < 0 then
-            game.star[i].x = love.game.getWidth()
-            game.star[i].y = math.random(8, love.game.getHeight()-8)
-            game.star[i].v = math.random(1, 4)*love.game.frameRate()
+            game.star[i].x = love.game.width
+            game.star[i].y = math.random(8, love.game.height-8)
+            game.star[i].v = math.random(2, 8)*love.game.frameRate
         end
     end
 end
@@ -123,15 +155,16 @@ function game.collider()
     for i, bullet in ipairs(game.player.bullets) do
         -- Check if collides with one enemy
         for pos, enemy in ipairs(game.enemies) do
-            if bullet.collider:collidesWith(enemy.collider) then
-                -- Make damage
-                enemy:damage(bullet.damage)
-                -- Remove bullet from collider space
-                collider.remove(bullet.collider)
-                -- Remove from bullets
-                table.remove(game.player.bullets, i)
-                break
-            end
+			-- Check if enemy has a collider box
+			if enemy.collider and bullet.collider:collidesWith(enemy.collider) then
+				-- Make damage
+				enemy:damage(bullet.damage)
+				-- Remove bullet from collider space
+				collider.remove(bullet.collider)
+				-- Remove from bullets
+				table.remove(game.player.bullets, i)
+				break
+			end
         end
     end
 	
@@ -144,8 +177,32 @@ function game.collider()
 				-- Remove bullet from collider space
 				collider.remove(bullet.collider)
 				-- Remove from bullets
-				table.remove(game.player.bullets, i)
+				table.remove(enemy.bullets, i)
 				break
+			end
+		end
+	end
+	
+	-- Check ships collisions
+	for i, enemy in ipairs(game.enemies) do
+		-- Player versus enemy
+		if enemy.collider and game.player.collider:collidesWith(enemy.collider) then
+			-- Make damage both enemy and player
+			game.player:damage(1)
+			enemy:damage(1)
+			break
+		end
+		
+		-- Other enemies
+		for j, other_enemy in ipairs(game.enemies) do
+			-- Check if enemies are not the same and has a collider box
+			if (i ~= j) and enemy.collider and other_enemy.collider then
+				-- Make damage both enemies
+				if other_enemy.collider:collidesWith(enemy.collider) then
+					enemy:damage(1)	
+					other_enemy:damage(1)
+					break
+				end
 			end
 		end
 	end
@@ -159,7 +216,7 @@ function game.sky()
     for i, star in ipairs(game.star) do
         -- Select image
         local star_image
-        if star.v < 3*love.game.frameRate() then
+        if star.v < 5*love.game.frameRate then
             star_image = 1
         else
             star_image = 2
@@ -185,7 +242,7 @@ function game.draw()
 	end
 	
     lg.print(game.player.life, 5, 5)
-    lg.printf(string.format("%0.8i", game.points), 5, 5, love.game.getWidth()-10, "right")
+    lg.printf(string.format("%0.8i", game.points), 5, 5, love.game.width-10, "right")
 end
 
 game.load()

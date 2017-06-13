@@ -39,7 +39,7 @@ function ship.new(x, y, life, type)
     instance.bullets = {}
     instance.threshold = timer.new()
 	instance.flame = anim8.newAnimation(flame_grid(1, '1-4'), 0.05)
-	instance.explosion = anim8.newAnimation(explosion_grid(1, '1-8'), 0.1, end_explotion)
+	instance.explosion = anim8.newAnimation(explosion_grid(1, '1-8'), 0.05, end_explotion)
 	instance.explosion:pauseAtStart()
 	instance.explosion.ship = instance
 
@@ -58,7 +58,12 @@ function ship.damage(self, damage)
     end
 
 	if self.life == 0 then
+		-- Remove collider
+		collider.remove(self.collider)
+		self.collider = nil
 		self.explosion:resume()
+		game.sfx.explosion:rewind()
+		game.sfx.explosion:play()
 	end
 end
 
@@ -83,8 +88,8 @@ function ship.update(self, dt)
 			bullet:move(dt)
 
 			-- Check if bullet needs to remove it
-			if (bullet.x < 0) or (bullet.x > love.game.getWidth())
-					or (bullet.y < 0) or (bullet.y > love.game.getHeight()) then
+			if (bullet.x < 0) or (bullet.x > love.game.width)
+					or (bullet.y < 0) or (bullet.y > love.game.height) then
 			   	-- Remove bullet from collider space
 			   	collider.remove(bullet.collider)
 			   	-- Remove from bullet table
@@ -190,8 +195,6 @@ function ship.free(self)
 	self.explosion = nil
 	self.threshold = nil
 
-	-- Remove collider
-	collider.remove(self.collider)
 	self = nil
 	collectgarbage('collect')
 end

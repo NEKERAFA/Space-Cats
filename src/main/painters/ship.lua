@@ -62,7 +62,7 @@ end
 --- Draw a ship
 -- @tparam ship ship Ship to paint (Also paint bullets)
 function painter_ship.draw(ship)
-    -- Draw bullets
+    -- Draw all bullets
     if ship.bullets then
         for i, bullet in ipairs(ship.bullets) do
             lg.draw(weapons[bullet.bullet_type], math.round(bullet.x), math.round(bullet.y), 0, 1, 1, 0, 0)
@@ -70,13 +70,25 @@ function painter_ship.draw(ship)
     end
 
     if ship.life > 0 then
-        -- Draw flame and ship
+        -- Draw flame and player ship
         if ship.ship_type == "player" then
-			ship.flame:draw(flames.medium, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
-            lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
+			if ship.invulnerability:isRunning() then
+				r, g, b, a = lg.getColor()
+				lg.setColor(255, 128, 128, ship.invulnerability_alpha)
+				ship.flame:draw(flames.medium, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
+				lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
+				lg.setColor(r, g, b, a)
+			else
+				ship.flame:draw(flames.medium, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
+				lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
+			end
+
+		-- Draw flame and small ship
 		elseif ship.ship_type == "small_mouse" then
             ship.flame:draw(flames.medium, math.round(ship.x)+24, math.round(ship.y), 0, 1, -1, 8, 8)
             lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
+	
+		-- Draw flame of trainer ship
         elseif ship.ship_type == "trainer_mouse" then
             ship.flame:draw(flames.small, math.round(ship.x)+4, math.round(ship.y)+10, 0, 1, 1, 4, 4)
             lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 12, 12)

@@ -15,7 +15,7 @@ local collider = require 'vrld.HC'
 local player = ship.extends()
 
 -- Global player velocity
-player.velocity = 3 -- 3 pixel in each frame (Limiting 60 fps)
+player.velocity = 4 -- 4 pixel in each frame (Limiting 60 fps)
 
 --- Create a new player
 -- @tparam number x New x position
@@ -26,6 +26,8 @@ function player.new(x, y)
 
 	-- Set variables
     p_ship.invulnerability = timer.new()
+	p_ship.invulnerability_alpha = 0
+	p_ship.invulnerability_delta = 1
 	p_ship.collider = collider.rectangle(x-16, y-6, 32, 12)
 
 	-- Overiden methods
@@ -40,9 +42,9 @@ end
 -- @tparam ship self Ship object
 -- @tparam number damage Damage to make
 function player.damage(self, damage)
-	if self.life > 0 and self.invulnerabity:getTime() == 0 then
+	if self.life > 0 and self.invulnerability:getTime() == 0 then
 		player.super.damage(self, damage)
-		self.invulnerability:start(2000)
+		self.invulnerability:start(4000)
 	end
 end
 
@@ -52,16 +54,33 @@ end
 function player.update(self, dt)
 	player.super.update(self, dt)
 
-    -- Update invulnerabity
+    -- Update invulnerability
     if self.invulnerability:isFinished() then
         self.invulnerability:stop()
-    end
+		self.invulnerability_alpha = 0
+		self.invulnerability_delta = 1
+	end
+	
+	-- Update invulnerability effect
+	if self.invulnerability:isRunning() then
+		self.invulnerability_alpha = self.invulnerability_alpha + self.invulnerability_delta
+		
+		-- Check up and down value
+		if (self.invulnerability_alpha) > 192 or (self.invulnerability_alpha < 0) then
+			self.invulnerability_delta = -self.invulnerability_delta
+		end
+	end
 
 	-- Shoot a bullet
 	if love.keyboard.isDown("space") and self.threshold:getTime() == 0 then
+		-- Sound effect
+		game.sfx.laser:rewind()
+		game.sfx.laser:play()
+		
 		-- Create new bullet
-		velocity = vector(8*love.game.frameRate(), 0, 0)
+		velocity = vector(16*love.game.frameRate, 0, 0)
 		table.insert(self.bullets, bullet(self.x+14, self.y+1, velocity, 1, "blaster"))
+		
 		-- Wait to shoot
 		self.threshold:start(250)
 	end
@@ -75,23 +94,23 @@ function player.move(self, dt)
 
 	-- Keys to move ship
 	if love.keyboard.isDown("up") then
-		self.y = self.y - player.velocity*love.game.frameRate()*dt
+		self.y = self.y - player.velocity*love.game.frameRate*dt
 		moved = true
 	elseif love.keyboard.isDown("down") then
-		self.y = self.y + player.velocity*love.game.frameRate()*dt
+		self.y = self.y + player.velocity*love.game.frameRate*dt
 		moved = true
 	elseif love.keyboard.isDown("left") then
-		self.x = self.x - player.velocity*love.game.frameRate()*dt
+		self.x = self.x - player.velocity*love.game.frameRate*dt
 		moved = true
 	elseif love.keyboard.isDown("right") then
-		self.x = self.x + player.velocity*love.game.frameRate()*dt
+		self.x = self.x + player.velocity*love.game.frameRate*dt
 		moved = true
 	end
 
 	if moved then
 		-- Screen restrictions
-		self.y = math.max(16, math.min(love.game.getHeight()-16, self.y))
-		self.x = math.max(16, math.min(love.game.getWidth()-16, self.x))
+		self.y = math.max(16, math.min(love.game.height-16, self.y))
+		self.x = math.max(16, math.min(love.game.width-16, self.x))
 
 		-- Update collider
 		self.collider:moveTo(math.round(self.x), math.round(self.y))

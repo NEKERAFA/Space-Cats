@@ -4,11 +4,10 @@
 -- @license GNU General Public License v3
 -- @release 0.6
 
--- Save current version
-love.game.version = "0.6 (alphaka)"
 -- Save total update time
 local total_update_time = 0
 local trigger_update_time = 0.1
+
 -- Save total time to call garbage collector
 local total_gb_time = 0
 local trigger_gb_time = 5
@@ -67,6 +66,6 @@ function love.draw()
     -- Draw game
     game.draw()
     -- Print current version
-	lg.printf({{255, 210, 0}, love.game.version}, 10, love.game.getHeight()-20, love.game.getWidth(), "left")
+	lg.printf({{255, 210, 0}, love.game.version}, 10, love.game.height-20, love.game.width, "left")
     lg.pop()
 end
