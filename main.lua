@@ -12,6 +12,7 @@ local trigger_update_time = 0.1
 -- Save total time to call garbage collector
 local total_gb_time = 0
 local trigger_gb_time = 5
+local fullscreen = false
 
 local lg = love.graphics
 
@@ -49,6 +50,12 @@ function love.keypressed(key, scancode, isrepeat)
     -- ESQ key kill game
 	if scancode == "escape" then
 		love.event.quit(0)
+	end
+	
+	-- Fullscreen
+	if scancode == "f" then
+		fullscreen = not fullscreen
+		love.window.setFullscreen(fullscreen, "exclusive")
 	end
 end
 

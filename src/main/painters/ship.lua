@@ -71,8 +71,11 @@ function painter_ship.draw(ship)
 
     if ship.life > 0 then
         -- Draw flame and ship
-        if ship.ship_type == "player" or ship.ship_type == "small_mouse" then
-            ship.flame:draw(flames.medium, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
+        if ship.ship_type == "player" then
+			ship.flame:draw(flames.medium, math.round(ship.x)-24, math.round(ship.y), 0, 1, 1, 8, 8)
+            lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
+		elseif ship.ship_type == "small_mouse" then
+            ship.flame:draw(flames.medium, math.round(ship.x)+24, math.round(ship.y), 0, 1, -1, 8, 8)
             lg.draw(ships[ship.ship_type], math.round(ship.x), math.round(ship.y), 0, 1, 1, 16, 16)
         elseif ship.ship_type == "trainer_mouse" then
             ship.flame:draw(flames.small, math.round(ship.x)+4, math.round(ship.y)+10, 0, 1, 1, 4, 4)

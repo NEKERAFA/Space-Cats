@@ -19,6 +19,19 @@ small_mouse.path_threshold = 1
 --- Velocity
 small_mouse.velocity = 2
 
+--- Update velocity vector
+-- @tparam ship self Ship object
+function small_mouse.update_velocity(self)
+	-- Next point
+	self.next = self.next+1
+	-- New unitary vector
+	self.distance_v.x = self.path[self.next].x-self.x
+	self.distance_v.y = self.path[self.next].y-self.y
+	-- Update velocity
+	self.velocity_v:free()
+	self.velocity_v = self.distance_v:unit()*love.game.frameRate()
+end
+
 --- Create a new enemy
 -- @tparam table path Path to follow
 -- @tparam table p_shoot Point where ship will shoot (Must be in the path)
@@ -32,12 +45,12 @@ function small_mouse.new(path, p_shoot, bullets)
     mouse_ship.path = path -- Path to follow
     mouse_ship.p_shoot = p_shoot -- Point where ship must shoot
     mouse_ship.n_bullets = bullets -- Number of bullets
-	mouse_ship.next = 1 -- Next poinr
+	mouse_ship.next = 1 -- Next point to go
 	mouse_ship.flame = mouse_ship.flame:flipH() -- Flips flame
 	-- distance vector
 	mouse_ship.distance_v = vector(path[2].x-path[1].x, path[2].y-path[1].y, 0)
-	-- velocity v
-	mouse_ship.velocity_v = mouse_ship.distance:unit()
+	-- velocity vector
+	mouse_ship.velocity_v = mouse_ship.distance_v:unit()
 
 	-- Update current velocity
 	small_mouse.update_velocity(mouse_ship)
@@ -53,19 +66,6 @@ function small_mouse.new(path, p_shoot, bullets)
 	meta["__gc"] = small_mouse.free
 
 	return setmetatable(mouse_ship, meta)
-end
-
---- Update velocity vector
--- @tparam ship self Ship object
-function small_mouse.update_velocity(self)
-	-- Next point
-	self.next = self.next+1
-	-- New unitary vector
-	self.distance_v.x = self.path[self.next].x-self.x
-	self.distance_v.y = self.path[self.next].y-self.y
-	-- Update velocity
-	self.velocity:free()
-	self.velocity_v = self.distance_v:unit()*love.game.frameRate()
 end
 
 --- Update all variables in the ship

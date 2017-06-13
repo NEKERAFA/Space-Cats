@@ -6,11 +6,7 @@
 local collider = require 'vrld.HC'
 local player = require 'ships.player'
 local mouse = require 'ships.small_mouse'
-local trainer_mouse = require 'ships.trainer_mouse'
-local asteroid = require 'obstacles.asteroid'
 local ship_painter = require 'src.main.painters.ship'
-local obstacle_painter = require 'src.main.painters.obstacle'
-local vector = require 'nekerafa.collections.src.math.vector'
 
 local lg = love.graphics
 
@@ -23,7 +19,7 @@ function math.round(num)
 end
 
 -- Global table
-game = {run = true, points = 0, MAX_STARS = 32}
+game = {run = true, points = 0, MAX_STARS = 32, time = 0, enemies = {}}
 
 -- #### Functions ####
 
@@ -35,36 +31,13 @@ function game.load()
     game.font:setFilter("nearest")
     love.graphics.setFont(game.font)
 
-    -- Backgrounds
-    print "Loading backgrounds..."
-    game.bg = lg.newImage("src/resources/images/bg/space.png")
-    game.bg:setFilter("nearest")
-
     -- Image ships
-    print "Loading ships..."
+    print "Loading ship painter..."
     ship_painter.load()
-
-    -- Image obstacles
-    print "Loading obstacles..."
-    obstacle_painter.load()
 
     -- Player ships
     print "Loading player..."
     game.player = player(32, love.game.getHeight()/2)
-
-    -- Mouse ship
-    print "Loading mouse..."
-    --[[
-    local p1 = {x = love.game.getWidth()+16, y = 0}
-    local p2 = {x = love.game.getWidth()/1.25, y = love.game.getHeight()/2}
-    local p3 = {x = love.game.getWidth()/3, y = 0}
-    game.mouse = mouse({p1, p2, p3}, p2, 2)
-    ]]
-    --game.mouse = trainer_mouse(love.game.getWidth()-32, love.game.getHeight()/2)
-
-    print "Loading asteroid..."
-    velocity = vector(-100, 0, 0)
-    game.asteroid = asteroid(love.game.getWidth()-32, love.game.getHeight()/2, velocity)
 
     -- Stars
     print "Loading stars..."
@@ -77,16 +50,16 @@ function game.load()
         }
     end
 
-    -- BGM
-    game.bgm = love.audio.newSource("src/resources/sounds/You of the Dark - Fire Emblem Fates Music Extended.ogg", "stream")
-    game.bgm:setLooping(true)
-    game.bgm:play()
-
     -- Star images
     game.star_image = {}
     for i = 1, 2 do
-        game.star_image[i] = lg.newImage("src/resources/images/bg/star_" .. i .. ".png")
+        game.star_image[i] = lg.newImage("src/resources/images/backgrounds/star_" .. i .. ".png")
     end
+	
+	-- First level
+	dofile("src/main/levels/lvl_0_0.lua")
+	-- Load level
+	level.load()
 end
 
 --- Callback to update all variables
@@ -94,20 +67,32 @@ end
 function game.update(dt)
     -- If game is running, update all variables
     if game.run then
+		game.time = game.time + dt
+		
         -- Update player
         game.player:update(dt)
         game.player:move(dt)
 
-        -- Check mouse status
-        --game.check_enemy()
+		-- Check if must pop new enemy in game
+		if (#level.enemies > 0) and (game.time > level.enemies[1].time) then
+			game.time = game.time - level.enemies[1].time
+			table.insert(game.enemies, level.enemies[1].ship)
+			table.remove(level.enemies, 1)
+		end
 
-        -- Update mouse
-        --game.mouse:update(dt)
-        --game.mouse:move(0, 0, true, dt)
-
-        -- Update asteroid
-        game.asteroid:update(dt)
-        --game.asteroid:move(dt)
+        -- Update all enemies
+		for i, enemy in ipairs(game.enemies) do
+			enemy:update(dt)
+			enemy:move(dt)
+			
+			-- Remove a enemy if is out of screen
+			if (enemy.x < -16) or (enemy.x > love.game.getWidth()+16) or
+			   (enemy.y < -16) or (enemy.y > love.game.getHeight()+16) or enemy.destroyed then
+				enemy:free()
+				table.remove(game.enemies, i)
+				break
+			end
+		end
 
         -- Check collitions
         game.collider()
@@ -132,36 +117,15 @@ function game.update_star(dt)
     end
 end
 
---- Check new enemy
-function game.check_enemy()
-    if game.mouse.destroyed then
-        game.restart_enemy()
-        game.points = game.points+1
-    elseif game.mouse.x+16 < 0 or game.mouse.x-16 > love.game.getWidth()
-        or game.mouse.y+16 < 0 or game.mouse.y-16 > love.game.getHeight() then
-        game.restart_enemy()
-    end
-end
-
---- Create new enemy
-function game.restart_enemy()
-    collider.remove(game.mouse.collider)
-    game.mouse:free()
-    local p1 = {x = love.game.getWidth()+16, y = 0}
-    local p2 = {x = love.game.getWidth()/1.25, y = love.game.getHeight()/2}
-    local p3 = {x = love.game.getWidth()/3, y = 0}
-    game.mouse = mouse({p1, p2, p3}, p2, 2)
-end
-
 --- Check collitions
 function game.collider()
     -- Check player bullets
     for i, bullet in ipairs(game.player.bullets) do
-        -- Check if collides with the mouse
-        if game.mouse then
-            if bullet.collider:collidesWith(game.mouse.collider) then
+        -- Check if collides with one enemy
+        for pos, enemy in ipairs(game.enemies) do
+            if bullet.collider:collidesWith(enemy.collider) then
                 -- Make damage
-                game.mouse:damage(bullet.damage)
+                enemy:damage(bullet.damage)
                 -- Remove bullet from collider space
                 collider.remove(bullet.collider)
                 -- Remove from bullets
@@ -169,25 +133,27 @@ function game.collider()
                 break
             end
         end
-
-        -- Check if collides with a asteroid
-        if game.asteroid then
-            if bullet.collider:collidesWith(game.asteroid.collider) then
-                -- Make damage
-                game.asteroid:damage(bullet.damage)
-                -- Remov bullet from collider space
-                collider.remove(bullet.collider)
-                -- Remove from bullets
-                table.remove(game.player.bullets, i)
-                break
-            end
-        end
     end
+	
+	-- Check enemy bullets
+	for pos, enemy in ipairs(game.enemies) do
+		for i, bullet in ipairs(enemy.bullets) do
+			if bullet.collider:collidesWith(game.player.collider) then
+				-- Make damage
+				game.player:damage(bullet.damage)
+				-- Remove bullet from collider space
+				collider.remove(bullet.collider)
+				-- Remove from bullets
+				table.remove(game.player.bullets, i)
+				break
+			end
+		end
+	end
 end
 
 --- Draw sky background
 function game.sky()
-    lg.draw(game.bg, 0, 0)
+    lg.draw(level.bg, 0, 0)
 
     -- Update stars
     for i, star in ipairs(game.star) do
@@ -209,12 +175,16 @@ end
 function game.draw()
     -- Draw sky
     game.sky()
-    -- Draw asteroid
-    obstacle_painter.draw(game.asteroid)
+
     -- Draw ship player
     ship_painter.draw(game.player)
-    --ship_painter.draw(game.mouse)
-    lg.print(math.round(game.player.x) .. ", " .. math.round(game.player.y), 5, 5)
+	
+	-- Draw enemies
+	for i, enemy in ipairs(game.enemies) do
+		ship_painter.draw(enemy)
+	end
+	
+    lg.print(game.player.life, 5, 5)
     lg.printf(string.format("%0.8i", game.points), 5, 5, love.game.getWidth()-10, "right")
 end
 
