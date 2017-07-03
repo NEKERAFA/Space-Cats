@@ -105,7 +105,8 @@ function game.update(dt)
 			
 			-- Remove a enemy if is out of screen
 			if (enemy.x < -16) or (enemy.x > love.game.width+16) or
-			   (enemy.y < -16) or (enemy.y > love.game.height+16) or enemy.destroyed then
+			   (enemy.y < -16) or (enemy.y > love.game.height+16) or 
+			   (enemy.destroyed and (#enemy.bullets == 0)) then
 				enemy:free()
 				table.remove(game.enemies, i)
 				break
