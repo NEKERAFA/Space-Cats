@@ -1,4 +1,0 @@
---- This module
---
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
--- @license GNU General Public License v3

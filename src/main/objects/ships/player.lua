@@ -15,7 +15,7 @@ local collider = require 'vrld.HC'
 local player = ship.extends()
 
 -- Global player velocity
-player.velocity = 4 -- 4 pixel in each frame (Limiting 60 fps)
+player.velocity = 2 -- 2 pixel in each frame (Limiting 60 fps)
 
 --- Create a new player
 -- @tparam number x New x position
@@ -78,7 +78,7 @@ function player.update(self, dt)
 		game.sfx.laser:play()
 		
 		-- Create new bullet
-		velocity = vector(16*love.game.frameRate, 0, 0)
+		velocity = vector(8*love.game.frameRate, 0, 0)
 		table.insert(self.bullets, bullet(self.x+14, self.y+1, velocity, 1, "blaster"))
 		
 		-- Wait to shoot

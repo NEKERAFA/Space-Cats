@@ -40,6 +40,9 @@ function small_mouse2.new(from, point)
 	-- Mouse collider
 	mouse_ship.collider = collider.rectangle(from.x-16, from.y-6, 32, 12)
 
+	-- Points
+	mouse_ship.points = 30
+
     -- Overiden methods
 	mouse_ship.damage = small_mouse2.damage
 	mouse_ship.update = small_mouse2.update

@@ -12,14 +12,14 @@ level = {bg = nil, bgm = nil, objetive = "finished", objects = {}}
 
 -- Function to load variable levels
 function level.load()
-	print "Level 0 - 0"
+	print "Level 1 - 1"
 	
 	print "Loading background image..."
-	level.bg = lg.newImage("src/resources/images/backgrounds/space.png")
+	level.bg = lg.newImage("src/assets/images/backgrounds/space.png")
 	level.bg:setFilter("nearest")
 	
 	print "Loading background music..."
-	level.bgm = love.audio.newSource("src/resources/sounds/backgrounds/n-dimensions.ogg")
+	level.bgm = love.audio.newSource("src/assets/sounds/backgrounds/n-dimensions.ogg")
 	level.bgm:setLooping(true)
 	
 	-- up - middle - up Mouse
@@ -57,12 +57,12 @@ function level.load()
 	table.insert(level.objects, {type = "ship", ship = mouse2(p1, p7), time = 4})
 	table.insert(level.objects, {type = "ship", ship = mouse2(p4, p9), time = 0})
 	
+	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 2})
 	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0})
-	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0})
-	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0})
+	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 2})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
 end
 
 function level.update(dt)

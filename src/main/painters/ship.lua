@@ -18,52 +18,54 @@ local lg = love.graphics
 function painter_ship.load()
     -- Player
     print "Loading player image..."
-    ships.player = lg.newImage("src/resources/images/ships/ship_player.png")
+    ships.player = lg.newImage("src/assets/images/ships/ship_player.png")
     ships.player:setFilter("nearest")
 
     -- Mouses
     print "Loading small mouse 1 image..."
-    ships.small_mouse = lg.newImage("src/resources/images/ships/small_mouse.png")
+    ships.small_mouse = lg.newImage("src/assets/images/ships/small_mouse.png")
     ships.small_mouse:setFilter("nearest")
 
 	print "Loading small mouse 2 image..."
-    ships.small_mouse2 = lg.newImage("src/resources/images/ships/small_mouse2.png")
+    ships.small_mouse2 = lg.newImage("src/assets/images/ships/small_mouse2.png")
     ships.small_mouse2:setFilter("nearest")
 
     print "Loading trainer mouse image..."
-    ships.trainer_mouse = lg.newImage("src/resources/images/ships/trainer_mouse.png")
+    ships.trainer_mouse = lg.newImage("src/assets/images/ships/trainer_mouse.png")
     ships.trainer_mouse:setFilter("nearest")
 
     -- Ships flame
     print "Loading flames..."
-    flames.medium = lg.newImage("src/resources/images/animations/flame_medium.png")
+    flames.medium = lg.newImage("src/assets/images/animations/flame_medium.png")
     flames.medium:setFilter("nearest")
 
-    flames.small = lg.newImage("src/resources/images/animations/flame_small.png")
+    flames.small = lg.newImage("src/assets/images/animations/flame_small.png")
     flames.small:setFilter("nearest")
 
     -- Weapons
     print "Loading blaster 1..."
-    weapons.blaster = lg.newImage("src/resources/images/weapons/blaster.png")
+    weapons.blaster = lg.newImage("src/assets/images/weapons/blaster.png")
     weapons.blaster:setFilter("nearest")
 
     print "Loading blaster 2..."
-    weapons.blaster2 = lg.newImage("src/resources/images/weapons/blaster_2.png")
+    weapons.blaster2 = lg.newImage("src/assets/images/weapons/blaster_2.png")
     weapons.blaster2:setFilter("nearest")
 	
     -- Weapons
     print "Loading explosion..."
-    ships.explosion = lg.newImage("src/resources/images/animations/explosion.png")
+    ships.explosion = lg.newImage("src/assets/images/animations/explosion.png")
     ships.explosion:setFilter("nearest")
 end
 
 --- Draw hitbox
 -- @tparam ship ship Ship to paint hitbox
 function painter_ship.hitbox(ship)
-    local r, g, b, a = lg.getColor()
-    lg.setColor(255, 0, 0, 128)
-    ship.collider:draw('fill')
-    lg.setColor(r, g, b, a)
+	if ship.collider then
+		local r, g, b, a = lg.getColor()
+		lg.setColor(255, 0, 0, 128)
+		ship.collider:draw('fill')
+		lg.setColor(r, g, b, a)
+	end
 end
 
 --- Draw a ship
@@ -114,7 +116,7 @@ function painter_ship.draw(ship)
     end
 
     -- Debuging
-    --painter_ship.hitbox(ship)
+    painter_ship.hitbox(ship)
 end
 
 return painter_ship

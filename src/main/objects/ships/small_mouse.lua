@@ -17,7 +17,7 @@ local small_mouse = ship.extends()
 small_mouse.path_threshold = 1
 
 --- Velocity
-small_mouse.velocity = 2.5
+small_mouse.velocity = 2
 
 --- Update velocity vector
 -- @tparam ship self Ship object
@@ -58,6 +58,9 @@ function small_mouse.new(path, p_shoot, bullets)
 	-- Mouse collider
 	mouse_ship.collider = collider.rectangle(path[1].x-16, path[1].y-6, 32, 12)
 
+	-- Points
+	mouse_ship.points = 10
+
     -- Overiden methods
 	mouse_ship.update = small_mouse.update
 	mouse_ship.move   = small_mouse.move
@@ -92,7 +95,7 @@ function small_mouse.update(self, dt)
 				-- Create new bullet
 				--distance = vector(game.player.x-self.x, game.player.y-self.y, 0)
 				--velocity = distance:unit()*(8*love.game.frameRate)
-				velocity = vector(-8*love.game.frameRate, 0, 0)
+				velocity = vector(-4*love.game.frameRate, 0, 0)
 				table.insert(self.bullets, bullet(self.x-14, self.y-1, velocity, 1, "blaster"))
 				
 				-- Wait to shoot

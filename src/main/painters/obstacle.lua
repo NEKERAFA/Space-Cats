@@ -15,11 +15,11 @@ local lg = love.graphics
 --- Load painter module
 function painter_obstacle.load()
     print "Loading obstacle image..."
-    obstacles.asteroid = lg.newImage("src/resources/images/obstacles/asteroid.png")
+    obstacles.asteroid = lg.newImage("src/assets/images/obstacles/asteroid.png")
     obstacles.asteroid:setFilter("nearest")
 
     print "Loading explosion..."
-    explosion = lg.newImage("src/resources/images/animations/explosion.png")
+    explosion = lg.newImage("src/assets/images/animations/explosion.png")
     explosion:setFilter("nearest")
 end
 

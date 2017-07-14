@@ -19,7 +19,7 @@ function math.round(num)
 end
 
 -- Global table
-game = {run = true, points = 0, MAX_STARS = 32, time = 0, enemies = {}, obstacles = {}}
+game = {run = false, points = 0, MAX_STARS = 16, time = 0, enemies = {}, obstacles = {}}
 
 -- #### Functions ####
 
@@ -27,7 +27,7 @@ game = {run = true, points = 0, MAX_STARS = 32, time = 0, enemies = {}, obstacle
 function game.load()
     -- Fonts
     print "Loading fonts..."
-    game.font = lg.newFont("src/resources/fonts/terminus.ttf")
+    game.font = lg.newFont("src/assets/fonts/terminus.ttf")
     game.font:setFilter("nearest")
     love.graphics.setFont(game.font)
 
@@ -38,8 +38,8 @@ function game.load()
 	-- Sound effects
 	print "Loading sound effects..."
 	game.sfx = {}
-	game.sfx.laser = love.audio.newSource("src/resources/sounds/sfx/laser.ogg")
-	game.sfx.explosion = love.audio.newSource("src/resources/sounds/sfx/explosion.ogg")
+	game.sfx.laser = love.audio.newSource("src/assets/sounds/sfx/laser.ogg")
+	game.sfx.explosion = love.audio.newSource("src/assets/sounds/sfx/explosion.ogg")
 
     -- Player ships
     print "Loading player..."
@@ -59,7 +59,7 @@ function game.load()
     -- Star images
     game.star_image = {}
     for i = 1, 2 do
-        game.star_image[i] = lg.newImage("src/resources/images/backgrounds/star_" .. i .. ".png")
+        game.star_image[i] = lg.newImage("src/assets/images/backgrounds/star_" .. i .. ".png")
     end
 	
 	-- First level
@@ -104,9 +104,9 @@ function game.update(dt)
 			enemy:move(dt)
 			
 			-- Remove a enemy if is out of screen
-			if (enemy.x < -16) or (enemy.x > love.game.width+16) or
+			if ((enemy.x < -16) or (enemy.x > love.game.width+16) or
 			   (enemy.y < -16) or (enemy.y > love.game.height+16) or 
-			   (enemy.destroyed and (#enemy.bullets == 0)) then
+			   enemy.destroyed) and #enemy.bullets == 0 then
 				enemy:free()
 				table.remove(game.enemies, i)
 				break
@@ -118,9 +118,10 @@ function game.update(dt)
 			obstacle:update(dt)
 			obstacle:move(dt)
 			
-			-- Remove a enemy if is out of screen
+			-- Remove a obstacle if is out of screen
 			if (obstacle.x < -16) or (obstacle.x > love.game.width+16) or
-			   (obstacle.y < -16) or (obstacle.y > love.game.height+16) or obstacle.destroyed then
+			   (obstacle.y < -16) or (obstacle.y > love.game.height+16) or 
+			   obstacle.destroyed then
 				obstacle:free()
 				table.remove(game.obstacles, i)
 				break
@@ -165,6 +166,11 @@ function game.collider()
 				-- Remove from bullets
 				table.remove(game.player.bullets, i)
 				break
+			end
+			
+			-- Check if collides with a enemy bullet
+			for i, bullet in ipairs(enemy.bullets) do
+			
 			end
         end
     end
