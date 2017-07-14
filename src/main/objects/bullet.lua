@@ -27,7 +27,7 @@ function bullet.new(x, y, velocity, damage, type)
     instance.velocity = velocity
     instance.damage = damage
     instance.bullet_type = type
-	instance.collider = collider.point(x, y)
+	instance.collider = collider.circle(x, y, 2)
 
 	return setmetatable(instance, meta)
 end

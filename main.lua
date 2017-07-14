@@ -13,8 +13,6 @@ local total_gb_time = 0
 local trigger_gb_time = 5
 local fullscreen = false
 
-local lg = love.graphics
-
 --- Callback to load resources
 function love.load(arg)
 	-- Load splash file
@@ -90,14 +88,14 @@ function love.draw()
 	-- Show game
 	if splash.done then
 		-- Rescale screen
-		lg.push()
-		lg.scale(love.game.scalefactor, love.game.scalefactor)
+		love.graphics.push()
+		love.graphics.scale(love.game.scalefactor, love.game.scalefactor)
 		love.graphics.setColor(255, 255, 255, 255)
 		-- Draw game
 		game.draw()
 		-- Print current version
-		lg.printf({{255, 210, 0}, love.game.version}, 10, love.game.height-20, love.game.width, "left")
-		lg.pop()
+		love.graphics.printf({{255, 210, 0}, love.game.version}, 10, love.game.height-20, love.game.width, "left")
+		love.graphics.pop()
 	-- Show splash
 	else
 		splash.anim:draw()

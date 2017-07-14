@@ -1,4 +1,4 @@
---- Level 0 - 0 of Space Cats
+--- Level 1 - 1 of Space Cats
 -- Lore: You know that federated united mouse declared a war 
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
@@ -8,7 +8,7 @@ local mouse = require 'ships.small_mouse'
 local mouse2 = require 'ships.small_mouse2'
 local lg = love.graphics
 
-level = {bg = nil, bgm = nil, objetive = "finished", objects = {}}
+level = {bg = nil, bgm = nil, stars = true, objetive = "finished", objects = {}}
 
 -- Function to load variable levels
 function level.load()
@@ -18,9 +18,9 @@ function level.load()
 	level.bg = lg.newImage("src/assets/images/backgrounds/space.png")
 	level.bg:setFilter("nearest")
 	
-	print "Loading background music..."
-	level.bgm = love.audio.newSource("src/assets/sounds/backgrounds/n-dimensions.ogg")
-	level.bgm:setLooping(true)
+	--print "Loading background music..."
+	--level.bgm = love.audio.newSource("src/assets/sounds/backgrounds/n-dimensions.ogg")
+	--level.bgm:setLooping(true)
 	
 	-- up - middle - up Mouse
 	local p1 = {x = love.game.width+16, y = 0}
@@ -66,9 +66,9 @@ function level.load()
 end
 
 function level.update(dt)
-	if level.bgm:isStopped() then
-		level.bgm:play()
-	end
+	--if level.bgm:isStopped() then
+	--	level.bgm:play()
+	--end
 end
 
 function level.draw()

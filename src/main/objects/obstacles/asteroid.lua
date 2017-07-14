@@ -17,7 +17,7 @@ local asteroid = obstacle.extends()
 -- @tparam vector v New velocity
 -- @treturn asteroid A asteroid to be used
 function asteroid.new(x, y, v)
-	local instance = asteroid.super.new(x, y, v, math.random(1, 3), "asteroid")
+	local instance = asteroid.super.new(x, y, v, math.random(1, 2), "asteroid")
 	return instance
 end
 
