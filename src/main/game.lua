@@ -53,6 +53,9 @@ function game.load()
 		game.graph.damage[i] = love.graphics.newImage("src/assets/images/hud/" .. i .. "_d.png")
 		game.graph.damage[i]:setFilter("nearest")
 	end
+	
+	game.graph.ammo = love.graphics.newImage("src/assets/images/hud/ammunition.png")
+	game.graph.ammo:setFilter("nearest")
 
 	-- Loading shaders
 	print "Loading shaders..."
@@ -68,6 +71,14 @@ function game.load()
 	game.sfx = {}
 	game.sfx.laser = love.audio.newSource("src/assets/sounds/sfx/laser.ogg")
 	game.sfx.explosion = love.audio.newSource("src/assets/sounds/sfx/explosion.ogg")
+
+	-- Weapons ammunition
+	print "Loading ammunition texture..."
+	game.ammo = {}
+	game.ammo.blaster = love.graphics.newImage("src/assets/images/weapons/blaster.png")
+	game.ammo.blaster:setFilter("nearest")
+	game.ammo.blaster2 = love.graphics.newImage("src/assets/images/weapons/blaster_2.png")
+	game.ammo.blaster2:setFilter("nearest")
 
     -- Player ships
     print "Loading player..."
@@ -165,36 +176,43 @@ function game.update_star(dt)
     end
 end
 
---- Check collitions
-function game.collider()
-    -- Check player bullets
-    for i, bullet in ipairs(game.player.bullets) do
+--- Add points to game
+function game.add_points(enemy)
+	table.insert(game.particles, {points = enemy.points,
+			x = enemy.x + math.random(-4, 4),
+			y = enemy.y + math.random(-4, 4),
+			count = 0})
+	game.points = game.points + enemy.points
+end
+
+--- Add damage to enemy
+function game.add_damage(enemy, bullet)
+	-- Make damage
+	enemy:damage(bullet.damage)
+	-- Remove bullet from collider space
+	collider.remove(bullet.collider)
+	
+	if enemy.life <= 0 then
+		game.add_points(enemy)
+	else
+		table.insert(game.particles, {damage = bullet.damage,
+			x = enemy.x + math.random(-4, 4),
+			y = enemy.y + math.random(-4, 4),
+			count = 0})
+	end
+end
+
+--- Check player bullets
+function game.player_bullet_collider()
+	for i, bullet in ipairs(game.player.bullets) do
         -- Check if collides with one enemy
         for pos, enemy in ipairs(game.enemies) do
 			-- Check if enemy has a collider box
 			if enemy.collider and bullet.collider:collidesWith(enemy.collider) then
 				-- Make damage
-				enemy:damage(bullet.damage)
-				-- Remove bullet from collider space
-				collider.remove(bullet.collider)
+				game.add_damage(enemy, bullet)
 				-- Remove from bullets
 				table.remove(game.player.bullets, i)
-				
-				-- Add particles as points
-				if enemy.life <= 0 then
-					table.insert(game.particles, {points = enemy.points,
-							x = enemy.x + math.random(-4, 4),
-							y = enemy.y + math.random(-4, 4),
-							count = 0})
-					game.points = game.points + enemy.points
-				-- Add particle as damage
-				else
-					table.insert(game.particles, {damage = bullet.damage,
-							x = enemy.x + math.random(-4, 4),
-							y = enemy.y + math.random(-4, 4),
-							count = 0})
-				end
-				
 				break
 			end
 			
@@ -202,8 +220,8 @@ function game.collider()
 			for j, bullet_e in ipairs(enemy.bullets) do
 				if bullet.collider:collidesWith(bullet_e.collider) then
 					-- Remove bullets from collider space
-					collider.remove(bullet.collider)
-					collider.remove(bullet_e.collider)
+					collider.remove(bullet)
+					collider.remove(bullet_e)
 					-- Remove from bullet table
 					table.remove(game.player.bullets, i)
 					table.remove(enemy.bullets, j)
@@ -213,9 +231,59 @@ function game.collider()
 		-- end for enemy
 		end
 	-- end for bullet player
-    end
+	end
+end
+
+--- Add damage to enemy like ray tracer
+function game.add_ray_damage(enemy)
+	-- Make damage
+	enemy:damage(1)
 	
-	-- Check enemy bullets
+	if enemy.life <= 0 then
+		game.add_points(enemy)
+	else
+		table.insert(game.particles, {damage = 1,
+			x = enemy.x + math.random(-4, 4),
+			y = enemy.y + math.random(-4, 4),
+			count = 0})
+	end
+end
+
+--- Check ray tracer collitions
+function game.ray_tracer_collider()
+	-- Shot point
+	local shot = {x = game.player.x + 14, y = game.player.y + 2}
+	-- Last ray point
+	local last_x = love.game.width
+	-- Last enemy
+	local last_enemy = nil
+
+	-- Get all enemies to check ray tracer collision
+	for pos, enemy in ipairs(game.enemies) do
+		-- Check if enemy has collider box
+		if enemy.collider then
+			-- Check collider ray tracer
+			local ray_test, ray_param = enemy.collider:intersectsRay(shot.x, shot.y, 1, 0)
+			
+			if ray_test then
+				local x = shot.x + ray_param
+				-- If collision point is closer than last ray point, update this
+				if x - last_x < 0 then
+					last_x = x
+					last_enemy = enemy
+				end
+			end
+		end
+	end
+	
+	-- Make damage to last_enemy
+	if last_enemy then
+		game.add_ray_damage(last_enemy)
+	end
+end
+
+-- Check enemy bullets
+function game.check_enemies_collider()
 	for pos, enemy in ipairs(game.enemies) do
 		for i, bullet in ipairs(enemy.bullets) do
 			if bullet.collider:collidesWith(game.player.collider) then
@@ -229,15 +297,19 @@ function game.collider()
 			end
 		end
 	
-		-- Player versus enemy
+		--[[ Player versus enemy
 		if enemy.collider and game.player.collider:collidesWith(enemy.collider) then
 			-- Make damage both enemy and player
 			game.player:damage(1)
 			enemy:damage(1)
+			table.insert(game.particles, {damage = 1,
+							x = enemy.x + math.random(-4, 4),
+							y = enemy.y + math.random(-4, 4),
+							count = 0})
 			break
-		end
+		end]]
 		
-		-- Check ships collisions
+		--[[ Check ships collisions
 		for j, other_enemy in ipairs(game.enemies) do
 			-- Check if enemies are not the same and has a collider box
 			if (i ~= j) and enemy.collider and other_enemy.collider then
@@ -248,9 +320,23 @@ function game.collider()
 					break
 				end
 			end
-		end
+		end]]
 	-- end for enemy
 	end
+end
+
+--- Check collitions
+function game.collider()
+    -- Check player bullets
+	game.player_bullet_collider()
+
+	-- Check player raytracer
+	if game.player.weapon_type == "ray" then
+		game.ray_tracer_collider()
+	end
+	
+	-- Check enemy bullets
+	game.check_enemies_collider()
 end
 
 --- Update particles
@@ -330,8 +416,8 @@ function game.sky()
 			end
 
 			-- Draw image
-			love.graphics.draw(game.star_image[star_image], math.round(game.star[i].x),
-					math.round(game.star[i].y))
+			love.graphics.draw(game.star_image[star_image], 
+				math.round(game.star[i].x), math.round(game.star[i].y))
 		end
 	end
 end
@@ -367,15 +453,15 @@ function game.draw_particles()
 			if particle.points == 10 then
 				love.graphics.setColor(255, 255, 255, alpha)
 			elseif particle.points == 30 then
-				love.graphics.setColor(math.random(0, 64), 255, 0, alpha)
+				love.graphics.setColor(64*particle.count, 255, 0, alpha)
 			elseif particle.points == 50 then
-				love.graphics.setColor(255, math.random(192, 255), 0, alpha)
+				love.graphics.setColor(255, 191+64*particle.count, 0, alpha)
 			elseif particle.points == 100 then
-				love.graphics.setColor(0, math.random(192, 255), 255, alpha)
+				love.graphics.setColor(0, 191+64*particle.count, 255, alpha)
 			end
 			
 			love.graphics.draw(game.graph.points[particle.points], particle.x,
-				 math.round(particle.y-particle.count*5), 0, 1, 1, mid_width, height)
+				 math.round(particle.y-particle.count*8), 0, 1, 1, mid_width, height)
 		end
 	
 		-- Draw damage particles
@@ -384,23 +470,92 @@ function game.draw_particles()
 			local mid_width = game.graph.damage[particle.damage]:getWidth()/2
 			local height = game.graph.damage[particle.damage]:getHeight()
 			
-			love.graphics.setColor(255, 0, 0, alpha)
+			love.graphics.setColor(255, 128*particle.count, 0, 255)
 			
-			love.graphics.draw(game.graph.damage[particle.damage], particle.x,
-					math.round(particle.y-particle.count*5), 0, 1, 1, mid_width, height)
+			love.graphics.draw(game.graph.damage[particle.damage], 
+				particle.x, particle.y, 0, 1, 1, mid_width, height)
 		end
 	
 		love.graphics.setColor(255, 255, 255, 255)
 	end
 end
 
+--- Draw weapon
+function game.draw_weapon()
+	if game.player.weapon_type ~= "ray" then
+		love.graphics.draw(game.graph.ammo, 5, 5)
+		local mid_width = game.ammo[game.player.weapon_type]:getWidth()/2
+		local mid_heigth = game.ammo[game.player.weapon_type]:getHeight()/2
+		love.graphics.draw(game.ammo[game.player.weapon_type], 
+			12, 16, -math.pi/4-math.pi/2, 1, 1, mid_width, mid_heigth)
+	end
+end
+
+--- Get line ray weapon
+function game.ray_weapon()
+	-- Shot point
+	local shot = {x = game.player.x + 14, y = game.player.y + 2}
+	
+	-- Last ray point
+	local last = love.game.width
+	
+	-- Get all enemies to check ray tracer collision
+	for pos, enemy in ipairs(game.enemies) do
+		-- Check if enemy has collider box
+		if enemy.collider then
+			-- Check collider ray tracer
+			ray_test, ray_param = enemy.collider:intersectsRay(shot.x, shot.y, 1, 0)
+			
+			if ray_test then
+				local x = shot.x + ray_param
+				-- If collision point is closer than last ray point, update this
+				if x - last < 0 then
+					last = x
+				end
+			end
+		end
+	end
+	
+	-- Get all obstacles to check ray tracer collision
+	for pos, obstacle in ipairs(game.obstacles) do
+		-- Check if enemy has collider box
+		if obstacle.collider then
+			-- Check collider ray tracer
+			ray_test, ray_param = obstacle.collider:intersectsRay(shot.x, shot.y, 1, 0)
+			
+			if ray_test then
+				local x = shot.x + ray_param
+				-- If collision point is closer than last ray point, update this
+				if x - last < 0 then
+					last = x
+				end
+			end
+		end
+	end
+	
+	return {shot.x, shot.y, last, shot.y}
+end
+
+--- Draw ray weapon
+function game.draw_ray_weapon()
+	ray_line = game.ray_weapon()
+
+	r, g, b, a = love.graphics.getColor()
+
+	love.graphics.setLineWidth(2)
+	love.graphics.setColor(0, 255, 255, 255)
+	love.graphics.line(ray_line)
+	love.graphics.setColor(r, g, b, a)
+end
+
 --- Calback to draw graphics
 function game.draw()
     -- Draw sky
     game.sky()
-	
-	-- Draw life
-	game.draw_life()
+
+	if game.player.weapon_type == "ray" then
+		game.draw_ray_weapon()
+	end
 
     -- Draw ship player
     ship_painter.draw(game.player)
@@ -412,6 +567,12 @@ function game.draw()
 	
 	-- Draw particles
 	game.draw_particles()
+	
+	-- Draw weapon ammo
+	game.draw_weapon()
+	
+	-- Draw life
+	game.draw_life()
 	
     -- love.graphics.print(game.player.life, 5, 5)
     love.graphics.printf(string.format("%0.8i", game.points), 5, 5, love.game.width-10, "right")

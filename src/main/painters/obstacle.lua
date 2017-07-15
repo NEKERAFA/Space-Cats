@@ -41,7 +41,9 @@ function painter_obstacle.draw(obstacle)
     end
 
     -- Debuging
-    --painter_obstacle.hitbox(obstacle)
+    if love.game.debug then
+		painter_obstacle.hitbox(obstacle)
+	end
 end
 
 return painter_obstacle

@@ -27,7 +27,14 @@ function bullet.new(x, y, velocity, damage, type)
     instance.velocity = velocity
     instance.damage = damage
     instance.bullet_type = type
-	instance.collider = collider.circle(x, y, 2)
+	
+	if type == "baster" then
+		instance.collider = collider.circle(x, y, 2)
+	elseif type == "baster2" then
+		instance.collider = collider.circle(x, y, 4)
+	else
+		instance.collider = collider.point(x, y)
+	end
 
 	return setmetatable(instance, meta)
 end

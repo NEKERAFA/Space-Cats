@@ -39,22 +39,21 @@ function level.load()
 	local p9 = {x = love.game.width-love.game.width/3, y = love.game.height-love.game.height/3}
     
 	-- Load mouses
-	--[[ First wave
+	-- First wave
 	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 0.5})
+	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})
 	
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0.5})
-	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 0.5})
-	]]
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 2})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
+	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
 	
 	-- Second wave
-	table.insert(level.objects, {type = "ship", ship = mouse2(p1, p7), time = 4})
+	table.insert(level.objects, {type = "ship", ship = mouse2(p1, p7), time = 5})
 	table.insert(level.objects, {type = "ship", ship = mouse2(p4, p9), time = 0})
 	
 	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 2})

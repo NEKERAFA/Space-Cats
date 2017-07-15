@@ -2,7 +2,7 @@
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @release 0.6
+-- @release 0.8
 
 -- Save total update time
 local total_update_time = 0

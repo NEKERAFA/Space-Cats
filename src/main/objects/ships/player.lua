@@ -29,6 +29,7 @@ function player.new(x, y)
 	p_ship.invulnerability_alpha = 0
 	p_ship.invulnerability_delta = 1
 	p_ship.collider = collider.rectangle(x-16, y-6, 32, 12)
+	p_ship.weapon_type = "blaster"
 
 	-- Overiden methods
 	p_ship.damage = player.damage
@@ -79,7 +80,7 @@ function player.update(self, dt)
 		
 		-- Create new bullet
 		velocity = vector(8*love.game.frameRate, 0, 0)
-		table.insert(self.bullets, bullet(self.x+14, self.y+1, velocity, 1, "blaster"))
+		table.insert(self.bullets, bullet(self.x+14, self.y+1, velocity, 1, self.weapon_type))
 		
 		-- Wait to shoot
 		self.threshold:start(250)

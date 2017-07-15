@@ -39,15 +39,6 @@ function painter_ship.load()
 
     flames.small = love.graphics.newImage("src/assets/images/animations/flame_small.png")
     flames.small:setFilter("nearest")
-
-    -- Weapons
-    print "Loading blaster 1..."
-    weapons.blaster = love.graphics.newImage("src/assets/images/weapons/blaster.png")
-    weapons.blaster:setFilter("nearest")
-
-    print "Loading blaster 2..."
-    weapons.blaster2 = love.graphics.newImage("src/assets/images/weapons/blaster_2.png")
-    weapons.blaster2:setFilter("nearest")
 	
     -- Weapons
     print "Loading explosion..."
@@ -69,10 +60,23 @@ end
 --- Draw a ship
 -- @tparam ship ship Ship to paint (Also paint bullets)
 function painter_ship.draw(ship)
-	-- Draw all bullets
-	for i, bullet in ipairs(ship.bullets) do
-		angle = math.atan2(bullet.velocity.x, -bullet.velocity.y)
-		love.graphics.draw(weapons[bullet.bullet_type], math.round(bullet.x), math.round(bullet.y), angle, 1, -1, 0, 0)
+	if (not ship.weapon_type) or (ship.weapon_type ~= "ray") then
+		-- Draw all bullets
+		for i, bullet in ipairs(ship.bullets) do
+			local angle = math.atan2(bullet.velocity.x, -bullet.velocity.y)
+			local x_pos = game.ammo[bullet.bullet_type]:getWidth()/2
+			local y_pos = 0
+			
+			if bullet.bullet_type == "baster" then
+				y_pos = game.ammo[bullet.bullet_type]:getHeight()-2
+			elseif bullet.bullet_type == "baster2" then
+				y_pos = game.ammo[bullet.bullet_type]:getHeight()-4
+			elseif bullet.bullet_type == "balistic" then
+				y_pos = game.ammo[bullet.bullet_type]:getHeight()-1
+			end
+		
+			love.graphics.draw(game.ammo[bullet.bullet_type], math.round(bullet.x), math.round(bullet.y), angle, 1, -1, x_pos, y_pos)
+		end
 	end
 
     if ship.life > 0 then
@@ -114,7 +118,9 @@ function painter_ship.draw(ship)
     end
 
     -- Debuging
-    painter_ship.hitbox(ship)
+	if love.game.debug then
+		painter_ship.hitbox(ship)
+	end
 end
 
 return painter_ship
