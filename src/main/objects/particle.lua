@@ -1,0 +1,2 @@
+--- Particle prototype object.
+-- This module construct a particle object.

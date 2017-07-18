@@ -20,6 +20,8 @@ function powerup.new(x, y, velocity, type)
 	local instance = object.new(powerup)
     local meta = getmetatable(instance)
 
+	print(x, y, velocity, type)
+
     -- Set variables
 	instance.x = x
     instance.y = y

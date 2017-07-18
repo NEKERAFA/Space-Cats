@@ -6,7 +6,6 @@
 
 local mouse = require 'ships.small_mouse'
 local mouse2 = require 'ships.small_mouse2'
-local lg = love.graphics
 
 level = {bg = nil, bgm = nil, stars = true, objetive = "finished", objects = {}}
 
@@ -15,7 +14,7 @@ function level.load()
 	print "Level 1 - 1"
 	
 	print "Loading background image..."
-	level.bg = lg.newImage("src/assets/images/backgrounds/space.png")
+	level.bg = love.graphics.newImage("src/assets/images/backgrounds/space.png")
 	level.bg:setFilter("nearest")
 	
 	--print "Loading background music..."
@@ -36,7 +35,7 @@ function level.load()
 	local p7 = {x = love.game.width-love.game.width/3, y = love.game.height/4}
 	
 	-- down -- middle middle
-	local p9 = {x = love.game.width-love.game.width/3, y = love.game.height-love.game.height/3}
+	local p9 = {x = love.game.width-love.game.width/3, y = love.game.height-love.game.height/4}
     
 	-- Load mouses
 	-- First wave
@@ -53,8 +52,10 @@ function level.load()
 	table.insert(level.objects, {type = "ship", ship = mouse({p4, p5, p6}, p5, 1), time = 1})
 	
 	-- Second wave
-	table.insert(level.objects, {type = "ship", ship = mouse2(p1, p7), time = 5})
-	table.insert(level.objects, {type = "ship", ship = mouse2(p4, p9), time = 0})
+	big_mouse1 = mouse2(p1, p7); big_mouse1.powerup = "life"
+	big_mouse2 = mouse2(p4, p9); big_mouse2.powerup = "life"
+	table.insert(level.objects, {type = "ship", ship = big_mouse1, time = 5})
+	table.insert(level.objects, {type = "ship", ship = big_mouse2, time = 0})
 	
 	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 2})
 	table.insert(level.objects, {type = "ship", ship = mouse({p1, p2, p3}, p2, 1), time = 1})

@@ -5,7 +5,8 @@
 
 local collider = require 'vrld.HC'
 local player = require 'ships.player'
-local mouse = require 'ships.small_mouse'
+local vector = require 'nekerafa.collections.src.math.vector'
+local powerup = require 'powerup'
 local ship_painter = require 'src.main.painters.ship'
 
 -- Round a number
@@ -56,6 +57,12 @@ function game.load()
 	
 	game.graph.ammo = love.graphics.newImage("src/assets/images/hud/ammunition.png")
 	game.graph.ammo:setFilter("nearest")
+
+	-- Loading powerups
+	print "Loading powerups..."
+	game.graph.powerup = {}
+	game.graph.powerup['life'] = love.graphics.newImage("src/assets/images/powerups/life.png")
+	game.graph.powerup['life']:setFilter("nearest")
 
 	-- Loading shaders
 	print "Loading shaders..."
@@ -191,9 +198,15 @@ function game.add_damage(enemy, bullet)
 	enemy:damage(bullet.damage)
 	-- Remove bullet from collider space
 	collider.remove(bullet.collider)
-	
+	-- Make particles
 	if enemy.life <= 0 then
 		game.add_points(enemy)
+		-- If enemy has powerup, make entity
+		if enemy.powerup then
+			local velocity = vector(-2*love.game.frameRate, 0, 0)
+			local powerup = powerup(enemy.x, enemy.y, velocity, enemy.powerup)
+			table.insert(game.powerups, powerup)
+		end
 	else
 		table.insert(game.particles, {damage = bullet.damage,
 			x = enemy.x + math.random(-4, 4),
@@ -238,7 +251,7 @@ end
 function game.add_ray_damage(enemy)
 	-- Make damage
 	enemy:damage(1)
-	
+	-- Make particles
 	if enemy.life <= 0 then
 		game.add_points(enemy)
 	else
@@ -351,6 +364,19 @@ function game.update_particles(dt)
 	end
 end
 
+--- Update powerups
+function game.update_powerups(dt)
+	for pos, powerup in ipairs(game.powerups) do
+		powerup:move(dt)
+		-- Remove powerup if isn't in screen
+		if powerup.x < 0 or powerup.x > love.game.width or
+		   powerup.y < 0 or powerup.y > love.game.height then
+			table.remove(game.powerups, pos)
+			break
+		end
+	end
+end
+
 --- Callback to update all variables
 -- @tparam number dt Time since the last update in seconds
 function game.update(dt)
@@ -384,19 +410,29 @@ function game.update(dt)
 		-- Update particles
 		game.update_particles(dt)
 		
+		-- Update powerups
+		game.update_powerups(dt)
+		
 		game.debug_time = game.debug_time + dt
 		
-		if game.debug_time >= 1 then
-			--[[local points = {10, 30, 50, 100}
+		--[[if game.debug_time >= 1 then
+			local vel = vector(-2*love.game.frameRate, 0, 0)
+			
+			table.insert(game.powerups, powerup(
+					love.game.width/2 + math.random(-4, 4),
+					love.game.height/2 + math.random(-4, 4),
+					vel, "life"))
+			
+			local points = {10, 30, 50, 100}
 			
 			table.insert(game.particles,
 				{x = love.game.width/2 + math.random(-4, 4),
 				y = love.game.height/2 + math.random(-4, 4),
 				points = points[math.random(4)],
-				count = 0})]]
+				count = 0})
 			
 			game.debug_time = game.debug_time - 1
-		end
+		end]]
     end
 end
 
@@ -548,6 +584,13 @@ function game.draw_ray_weapon()
 	love.graphics.setColor(r, g, b, a)
 end
 
+--- Draw all powerups
+function game.draw_powerups()
+	for i, powerup in ipairs(game.powerups) do
+		love.graphics.draw(game.graph.powerup[powerup.powerup_type], powerup.x, powerup.y)
+	end
+end
+
 --- Calback to draw graphics
 function game.draw()
     -- Draw sky
@@ -564,6 +607,9 @@ function game.draw()
 	for i, enemy in ipairs(game.enemies) do
 		ship_painter.draw(enemy)
 	end
+	
+	-- Draw all powerups
+	game.draw_powerups()
 	
 	-- Draw particles
 	game.draw_particles()
