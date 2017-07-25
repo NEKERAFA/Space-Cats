@@ -2,30 +2,28 @@
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @release 0.1
+-- @release 0.2
 
 -- A new global table
-love.game = {
-	path = love.filesystem.getSource() .. "/",
-	width = 320, height = 180, frameRate = 60,
-	debug = false, version = "0.8 (alphaka)"}
+app = {
+	width = 320,
+	height = 180,
+	scalefactor = 4,
+	debug = true,
+	fullscreen = false,
+	max_stars = 16
+}
 
--- Add library path to require
-package.path = love.game.path .. "lib/nekerafa/collections/src/?.lua;" .. package.path
-package.path = love.game.path .. "src/main/objects/?.lua;" .. package.path
-package.path = love.game.path .. "lib/?.lua;" .. package.path
-package.path = love.game.path .. "lib/?/init.lua;" .. package.path
-
---- Global scalefactor
-love.game.scalefactor = 4
-
+-- Configure
 function love.conf(t)
-    t.version = "0.10.0"
+    t.version = "0.10.2"
     t.console = false
 
     t.window.title = "Space cats!"
-    t.window.width = love.game.width*love.game.scalefactor
-    t.window.height = love.game.height*love.game.scalefactor
+    t.window.width = app.width*app.scalefactor
+    t.window.height = app.height*app.scalefactor
+	t.window.fullscreen = app.fullscreen
+	t.window.fullscreentype = "desktop"
     t.window.vsync = true
     t.window.highdpi = true
 end

@@ -4,6 +4,10 @@ Space Cats es un videojuego Shoot'em Up espacial en un universo de fantasías co
 
 # Versiones
 
+## ALPHAKA 0.9
+
+Se a limpiado el código y algunos assets para una mejor organización
+
 ## ALPHAKA 0.8
 
 Las mecánicas están acabadas, solo falta pulirlas y pronto maquetaré una demo jugable.

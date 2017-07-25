@@ -3,17 +3,23 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local o_ten_one = require 'love2d-community.splashes.o-ten-one'
+local gamestate = require "lib.vrld.hump.gamestate"
+local o_ten_one = require "lib.love2d-community.splashes.o-ten-one"
 
-splash = {done = false}
+splash = {}
 
 --- Load splash information
-function splash.load()
+function splash:init()
 	splash.anim = o_ten_one({background={0,0,0}})
 	splash.anim.onDone = function()
-		splash.done = true
-		game.run = true
+		gamestate.switch(app)
 	end
 end
 
-splash.load()
+function splash:update(dt)
+	splash.anim:update(dt)
+end
+
+function splash:draw(dt)
+	splash.anim:draw(dt)
+end
