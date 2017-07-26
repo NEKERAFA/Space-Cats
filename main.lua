@@ -45,16 +45,16 @@ function app:init()
     -- Fonts
     print "Loading fonts..."
     app.font = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8.ttf", 8)
-    app.font:setFilter("nearest", "nearest", 1)
-    love.graphics.setFont(app.font)
+    app.font:setFilter("nearest")
 	
-	-- Load text
-	txt.version  = love.graphics.newText(app.font, app.version)
-	txt.loading  = love.graphics.newText(app.font, "Loading...")
-	txt.story    = love.graphics.newText(app.font, "Story")
-	txt.settings = love.graphics.newText(app.font, "Settings")
-	txt.exit     = love.graphics.newText(app.font, "Exit game")
-	txt.select   = love.graphics.newText(app.font, ">")
+	app.font_bold = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8-Bold.ttf", 8)
+	app.font_bold:setFilter("nearest")
+	
+	-- Loading language
+	dofile("lang/" .. app.language .. ".lua")
+	
+	-- Load text textures
+	app.load_text_textures()
 	
 	-- texture file tree
 	print "Loading texture file tree..."
@@ -63,6 +63,20 @@ function app:init()
 	-- Sound file tree
 	print "Loading sound file tree..."
 	snd_tree = files.new_node('root', "src/assets/sounds", snd, 'snd')
+end
+
+--- Load all text strings like textures
+function app.load_text_textures()
+	txt.version = love.graphics.newText(app.font, app.version)
+	txt.loading = love.graphics.newText(app.font, msg_string.loading .. "...")
+	txt.story = love.graphics.newText(app.font_bold, msg_string.story)
+	txt.settings = love.graphics.newText(app.font_bold, msg_string.settings)
+	txt.exit = love.graphics.newText(app.font_bold, msg_string.exit)
+	txt.mark = love.graphics.newText(app.font, ">")
+	txt.music = love.graphics.newText(app.font_bold, msg_string.music .. ":")
+	txt.sfx = love.graphics.newText(app.font_bold, msg_string.sfx .. ":")
+	txt.resolution = love.graphics.newText(app.font_bold, msg_string.resolution .. ":")
+	txt.language = love.graphics.newText(app.font_bold, msg_string.language .. ":")
 end
 
 --- Update app variables
@@ -172,10 +186,11 @@ function love.draw()
 	if gamestate.current() ~= splash then
 		-- Rescale screen
 		love.graphics.push()
-		love.graphics.setColor(255, 255, 255, 255)
 		love.graphics.scale(app.scalefactor, app.scalefactor)
 	end
-	
+
+	-- Set white current color
+	love.graphics.setColor(255, 255, 255, 255)
 	-- Show current state
 	gamestate.draw()
 	
@@ -186,6 +201,7 @@ function love.draw()
 	end
 	
 	if gamestate.current() ~= splash then
+		-- Remove rescale screen
 		love.graphics.pop()
 	end
 end
