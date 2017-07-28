@@ -1,7 +1,7 @@
 --- Weapon prototype object.
 -- This module construct a weapon object.
 --
--- @module  baster
+-- @module  entities.weapon
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -11,6 +11,7 @@ local bullet   = require "src.main.entities.bullet"
 
 local weapon = class {
 	--- Create new weapon object
+	-- @tparam weapon self New blaster object
 	-- @tparam ship ship Ship object attached
 	-- @tparam number dx delta x point from ship center where weapon shoot
 	-- @tparam number dy delta y point from ship center where weapon shoot
@@ -20,7 +21,6 @@ local weapon = class {
 	-- @tparam number damage Damage of bullets
 	-- @tparam string type Type of bullets
 	-- @tparam number delay Delay between bullets
-	-- @tparam self weapon New blaster object
 	init = function(self, ship, dx, dy, width, height, velocity, damage, type, delay)
 		self.ship = ship -- Ship attached
 		self.dx = dx -- delta x point from ship center where weapon shoot

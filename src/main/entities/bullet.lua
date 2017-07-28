@@ -1,7 +1,7 @@
 --- bullet prototype object.
 -- This module construct a bullet object.
 --
--- @module  bullet
+-- @module  entities.bullet
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -10,12 +10,12 @@ local class    = require "lib.vrld.hump.class"
 
 local bullet = class {
 	--- Create a new bullet
+	-- @tparam bullet self A bullet object to be used
 	-- @tparam number x New x position
 	-- @tparam number y New y position
 	-- @tparam vector velocity New velocity
 	-- @tparam number damage Current damage of bullet
 	-- @tparam string type Type of bullet
-	-- @tparam bullet self A bullet object to be used
 	init = function(self, x, y, velocity, damage, type)
 		-- Set variables
 		self.x = x

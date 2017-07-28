@@ -1,7 +1,7 @@
 --- Gided blaster prototype object.
 -- This module construct a blaster weapon object.
 --
--- @module  guided_baster
+-- @module  entities.weapons.guided_baster
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -11,12 +11,12 @@ local weapon = require "src.main.entities.weapon"
 
 local guided_blaster = class {
 	--- Create new guided baster object
+	-- @tparam guided_blaster self New blaster object
 	-- @tparam ship ship Ship object attached
-	-- @tparam ship pointer Ship to shoot
+	-- @tparam ship pointed Ship to shoot
 	-- @tparam number dx x position to shoot
 	-- @tparam number dy y position to shoot
 	-- @tparam vector velocity Velocity vector
-	-- @tparam self guided_blaster New blaster object
 	init = function(self, ship, pointed, dx, dy, velocity)
 		-- Get direction
 		local direction = vector(ship.x-pointed.x, ship.y-pointed.y)

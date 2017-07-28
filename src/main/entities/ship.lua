@@ -1,7 +1,7 @@
 --- Ship prototype object.
 -- This module construct a ship object. See diagram for know atributes.
 --
--- @module  ship
+-- @module  entities.ship
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -10,11 +10,11 @@ local class    = require "lib.vrld.hump.class"
 
 local ship = class {
 	--- Create a new ship
+	-- @tparam ship self A ship to be used
 	-- @tparam number x New x position
 	-- @tparam number y New y position
 	-- @tparam number life Current life
 	-- @tparam string type Type of ship
-	-- @tparam ship self A ship to be used
 	init = function(self, x, y, life, type)
 		self.x = x
 		self.y = y
@@ -28,7 +28,7 @@ local ship = class {
 	--- Maximun damaged value
 	damaged_max = 0.1,
 	
-	--- Velocity
+	--- Default velocity
 	velocity = 2,
 	
 	--- Update status after explosion animation

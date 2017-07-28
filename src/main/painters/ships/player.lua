@@ -4,18 +4,20 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local painter_bullet = require "src.main.painters.bullet"
+local painter_weapon = require "src.main.painters.weapon"
 local painter_ship	 = require "src.main.painters.ship"
 
--- Module
+-- Module player
 local player = {}
 
+--- Draw player ship textures
+-- @tparam player ship ship to draw
 function player.draw(ship)
 	-- Draw bullets
 	if ship.weapon.type == "ray_blaster" then
-		painter_bullet.draw_ray_tracer(ship.weapon)
+		painter_weapon.draw_ray(ship.weapon)
 	else
-		painter_bullet.draw_bullets(ship.weapon)
+		painter_weapon.draw_bullets(ship.weapon)
 	end
 	
 	if ship.life > 0 then

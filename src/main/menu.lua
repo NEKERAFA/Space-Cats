@@ -1,20 +1,29 @@
 --- Definition of menu functions in Space Cats
 --
+-- @module  menu
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
 local timer  = require "lib.vrld.hump.timer"
 local vector = require "lib.vrld.hump.vector"
 
-menu = {
-	current = "start", -- Current menu
-	start_opt = 1, -- Current option selected in start menu
-	settings_opt = 1, -- Current option selected in settings menu
-	level_opt = {x = 1, y = 1}, -- Current level selected
-	alpha = 255, -- Current button alpha
-	title_delta = -2, -- Current title delta movement
-	x_delta = 0 -- This delta move all menu objects
-}
+-- Menu module
+menu = {}
+
+--- Current menu
+menu.current = "start"
+--- Current option selected in start menu
+menu.start_opt = 1
+--- Current option selected in settings menu
+menu.settings_opt = 1
+--- Current level selected
+menu.level_opt = {x = 1, y = 1}
+--- Current button alpha
+menu.alpha = 255
+--- Current title delta movement
+menu.title_delta = -2
+--- This delta move all menu objects
+menu.x_delta = 0
 
 --- Move down title
 function menu.move_down()
@@ -57,7 +66,7 @@ function menu.change_levels()
 	timer.tween(0.5, menu, {planet = {x0 = 0}}, 'out-expo')
 end
 
---- Load menu
+--- Load menu variable and resources
 function menu:init()
 	-- Add decrement alpha tween
 	menu.dec_alpha()
@@ -92,6 +101,7 @@ function menu:init()
 	menu.b_x0 = math.round(img.menu.option_normal:getWidth()/2)
 	menu.b_y0 = math.round(img.menu.option_normal:getHeight()/2)
 	
+	-- Story button
 	menu.buttons.story = {
 		option = 1,
 		button = {
@@ -105,6 +115,7 @@ function menu:init()
 		}
 	}
 	
+	-- Settings button
 	menu.buttons.settings = {
 		option = 2,
 		button = {
@@ -117,6 +128,7 @@ function menu:init()
 		}
 	}
 	
+	-- Exit button
 	menu.buttons.exit = {
 		option = 3,
 		button = {
@@ -131,16 +143,35 @@ function menu:init()
 	
 	-- Load installed list languages
 	menu.list_languages = love.filesystem.getDirectoryItems("lang")
+
+	-- Load all resolutions
+	menu.list_resolutions = {3, 3.2, 4, 4.2666, 5, 6, 8, 10, 12, 12.8}
 	
+	-- Load variables
+	menu.get_settings()
+end
+
+--- Update menu variables
+--- Draw splash animation
+function menu:update(dt)
+	timer.update(dt)
+	stars.update(menu.stars, dt)
+end
+
+--- Get current variable settings
+function menu.get_settings()
+	-- Set settings
+	menu.music_value = app.music_value
+	menu.sfx_value = app.sfx_value
+	menu.fullscreen = app.fullscreen
+	
+	-- Get current language
 	for pos, language in ipairs(menu.list_languages) do
 		dot = language:find("%.")
 		if app.language == string.sub(language, 1, dot-1) then
 			menu.set_language = pos
 		end
 	end
-	
-	-- Load all resolutions
-	menu.list_resolutions = {3, 3.2, 4, 4.2666, 5, 6, 8, 10, 12, 12.8}
 	
 	-- Get current resolution
 	for pos, resolution in ipairs(menu.list_resolutions) do
@@ -150,14 +181,13 @@ function menu:init()
 	end
 end
 
---- Update menu variables
-function menu:update(dt)
-	timer.update(dt)
-	stars.update(menu.stars, dt)
-end
-
 --- Update settings file
 function menu.update_settings()
+	-- Update variables
+	app.music_value = menu.music_value
+	app.sfx_value = menu.sfx_value
+	app.fullscreen = menu.sfx_value
+	
 	-- Update file
 	settings_file = io.open("settings.lua", "w+")
 	settings_file:write("-- App settings\n")
@@ -185,22 +215,28 @@ function menu.update_settings()
 	new_height = app.height * app.scalefactor
 	love.window.setMode(new_width, new_height, {fullscreen = app.fullscreen})
 	
-	-- Update language
+	-- Load language
 	dofile("lang/" .. menu.list_languages[menu.set_language])
 end
 
 --- Update menu variable
+-- @tparam KeyConstant key Character of the pressed key
+-- @tparam Scancode scancode The scancode representing the pressed key
+-- @tparam bolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
 function menu:keypressed(key, scancode, isrepeat)
+	-- Start controls
 	if menu.current == "start" then
 		menu.start_menu_controls(scancode)
+	-- Settings controls
 	elseif menu.current == "settings" then
 		menu.settings_menu_control(scancode)
 	end
 end
 
 --- Control start menu
+-- @tparam Scancode scancode The scancode representing the pressed key
 function menu.start_menu_controls(scancode)
-	-- Move menu
+	-- Move menu up and down
 	if scancode == "up" and menu.start_opt ~= 1 then
 		menu.start_opt = menu.start_opt - 1
 	elseif scancode == "down" and menu.start_opt ~= 3 then
@@ -209,6 +245,7 @@ function menu.start_menu_controls(scancode)
 	
 	-- Enter in other menus
 	if scancode == "return" then
+		-- Level menu
 		if menu.start_opt == 1 then
 		-- Settings menu
 		elseif menu.start_opt == 2 then
@@ -221,48 +258,50 @@ function menu.start_menu_controls(scancode)
 end
 
 --- Control settings menu
+-- @tparam Scancode scancode The scancode representing the pressed key
 function menu.settings_menu_control(scancode)
-	-- Move menu
+	-- Move menu up an down
 	if scancode == "up" and menu.settings_opt ~= 1 then
 		menu.settings_opt = menu.settings_opt - 1
 	elseif scancode == "down" and menu.settings_opt ~= 6 then
 		menu.settings_opt = menu.settings_opt + 1
 	end
 	
-	-- Change settings
-	-- Set music
+	-- Change settings variables
+	-- Set music volume
 	if menu.settings_opt == 1 then
-		if scancode == "right" and app.music_value ~= 100 then
-			app.music_value = app.music_value + 1
-		elseif scancode == "left" and app.music_value ~= 0 then
-			app.music_value = app.music_value - 1
+		if scancode == "right" and menu.music_value ~= 100 then
+			menu.music_value = menu.music_value + 1
+		elseif scancode == "left" and menu.music_value ~= 0 then
+			menu.music_value = menu.music_value - 1
 		end
-	-- Set sound effects
+	-- Set sound effects volume
 	elseif menu.settings_opt == 2 then
-		if scancode == "right" and app.sfx_value ~= 100 then
-			app.sfx_value = app.sfx_value + 1
-		elseif scancode == "left" and app.sfx_value ~= 0 then
-			app.sfx_value = app.sfx_value - 1
+		if scancode == "right" and menu.sfx_value ~= 100 then
+			menu.sfx_value = menu.sfx_value + 1
+		elseif scancode == "left" and menu.sfx_value ~= 0 then
+			menu.sfx_value = menu.sfx_value - 1
 		end
-	-- Set resolution
-	elseif menu.settings_opt == 3 and not app.fullscreen then
+	-- Set current resolution
+	elseif menu.settings_opt == 3 and not menu.fullscreen then
 		if scancode == "right" and menu.set_resolution ~= #menu.list_resolutions then
 			menu.set_resolution = menu.set_resolution + 1
 		elseif scancode == "left" and menu.set_resolution ~= 1 then
 			menu.set_resolution = menu.set_resolution - 1
 		end
-	-- Set fullscreen
+	-- Set fullscreen mode
 	elseif menu.settings_opt == 4 then
-		if scancode == "right" and not app.fullscreen then
-			app.fullscreen = true
-		elseif scancode == "left" and app.fullscreen then
-			app.fullscreen = false
+		if scancode == "right" and not menu.fullscreen then
+			menu.fullscreen = true
+		elseif scancode == "left" and menu.fullscreen then
+			menu.fullscreen = false
 		end
+	-- Set language
 	elseif menu.settings_opt == 5 then
 		if scancode == "right" and menu.set_language ~= #menu.list_languages then
-			app.sfx_value = app.sfx_value + 1
+			menu.sfx_value = menu.sfx_value + 1
 		elseif scancode == "left" and menu.set_language ~= 1 then
-			app.sfx_value = app.sfx_value - 1
+			menu.sfx_value = menu.sfx_value - 1
 		end
 	end
 	
@@ -276,10 +315,15 @@ function menu.settings_menu_control(scancode)
 		-- Show credits and licenses
 		else
 		end
+	-- Return to start menu
+	elseif scancode == "backspace" then
+		menu.settings_opt = 1
+		menu.update_variables()
+		menu.change_start()
 	end
 end
 
---- Draw menu
+--- Draw menu function
 function menu:draw()
 	-- Draw background
 	love.graphics.draw(img.backgrounds.space, 0, 0)
@@ -306,7 +350,7 @@ function menu.draw_start_menu()
 	
 	-- Draw buttons
 	for _, button in pairs(menu.buttons) do
-		menu.draw_button(pos, button)
+		menu.draw_button(button)
 	end
 end
 
@@ -321,56 +365,62 @@ function menu.draw_settings_menu()
 	dot = string.find(menu.list_languages[menu.set_language], "%.")
 	language = string.sub(menu.list_languages[menu.set_language], 1, dot-1):gsub("^%l", string.upper)
 	
-	-- Draw selection
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(txt.mark, 20 + delta, 31 + (menu.settings_opt - 1) * 24, 0, 1, 1, 0, menu.m_y0)
+	-- Draw selection mark
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.draw(txt.mark, 20 + delta, 32 + (menu.settings_opt - 1) * 24, 0, 1, 1, 0, menu.m_y0)
 	
-	-- Draw music volume
+	-- Draw music volume label
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(txt.music, 41 + delta, 27)
 	love.graphics.setColor(255, 224, 0)
 	love.graphics.draw(txt.music, 40 + delta, 26)
+	-- Draw current music volume
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.printf("< " .. app.music_value .. " % >", 140 + delta, 27, 160, "center")
+	love.graphics.printf("< " .. menu.music_value .. " % >", 140 + delta, 27, 160, "center")
 	
-	-- Draw sfx volume
+	-- Draw sound effects volume lavel
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(txt.sfx, 41 + delta, 51)
 	love.graphics.setColor(255, 224, 0)
 	love.graphics.draw(txt.sfx, 40 + delta, 50)
+	-- Draw current sound effects volume
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.printf("< " .. app.sfx_value .. " % >", 140 + delta, 51, 160, "center")
+	love.graphics.printf("< " .. menu.sfx_value .. " % >", 140 + delta, 51, 160, "center")
 	
-	-- Draw resolution volume
+	-- Draw resolution volume label
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(txt.resolution, 41 + delta, 75)
 	love.graphics.setColor(255, 224, 0)
 	love.graphics.draw(txt.resolution, 40 + delta, 74)
-	if app.fullscreen then
-		love.graphics.setColor(192, 192, 192)
+	-- If fullscreen, show disable color
+	if menu.fullscreen then
+		love.graphics.setColor(128, 128, 128)
 	else
 		love.graphics.setColor(255, 255, 255)
 	end
+	-- Draw current resolution value
 	love.graphics.printf("< " .. width .. "x" .. height .. " >", 140 + delta, 75, 160, "center")
 	
-	-- Draw fullscreen mode
+	-- Draw fullscreen label
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(txt.fullscreen, 41 + delta, 99)
 	love.graphics.setColor(255, 224, 0)
 	love.graphics.draw(txt.fullscreen, 40 + delta, 98)
 	love.graphics.setColor(255, 255, 255)
-	if app.fullscreen then
+	-- Draw if fullscreen is enable or disable
+	if menu.fullscreen then
 		love.graphics.printf("< " .. msg_string.enabled .. " >", 140 + delta, 99, 160, "center")
 	else
 		love.graphics.printf("< " .. msg_string.disabled .. " >", 140 + delta, 99, 160, "center")
 	end
 
-	-- Draw language volume
+	-- Draw language label
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(txt.language, 41 + delta, 123)
 	love.graphics.setColor(255, 224, 0)
 	love.graphics.draw(txt.language, 40 + delta, 122)
 	love.graphics.setColor(255, 255, 255)
+	-- Draw current language
 	love.graphics.printf("< " .. language .. " >", 140 + delta, 123, 160, "center")
 
 	-- Draw credits label
@@ -384,23 +434,23 @@ end
 function menu.draw_levels_menu()
 end
 
---- Draw button text
-function menu.draw_button(pos, elem)
+--- Draw button backgrond and text
+-- @tparam table elem Current button
+function menu.draw_button(elem)
 	-- Print background button
 	local b_x = app.width/2-menu.x_delta
 	local m_x = app.width/2-58-menu.x_delta
 	love.graphics.draw(img.menu.option_normal, b_x, elem.button.y, 0, 1, 1, menu.b_x0, menu.b_y0)
-	-- Print selected background button
+	
+	-- Print selected background mark
 	if menu.start_opt == elem.option then
 		love.graphics.setColor(255, 255, 255, menu.alpha)
 		love.graphics.draw(img.menu.option_selected, b_x, elem.button.y, 0, 1, 1, menu.b_x0, menu.b_y0)
 		love.graphics.setColor(0, 0, 0)
-		love.graphics.draw(txt.mark, m_x, elem.button.y+1, 0, 1, 1, menu.m_x0, menu.m_y0)
+		love.graphics.draw(txt.mark, m_x, elem.button.y+2, 0, 1, 1, menu.m_x0, menu.m_y0)
 	end
 	
-	-- Print text
-	--love.graphics.setColor(255, 128, 0)
-	--love.graphics.draw(elem.text.img, elem.text.pos.x+1, elem.text.pos.y+1, menu.theta, 1, 1, elem.text.x0, elem.text.y0)
+	-- Print button text
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(elem.text.img, b_x, elem.button.y+1, 0, 1, 1, elem.text.x0, elem.text.y0)
 	love.graphics.setColor(255, 255, 255)

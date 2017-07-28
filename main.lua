@@ -6,18 +6,19 @@
 
 local gamestate = require "lib.vrld.hump.gamestate"
 
--- App width and height
+--- App width
 app.width = 320
+--- App height
 app.height = 180
--- Frame rate of game
+--- Frame rate of game
 app.frameRate = 60
--- Current version
+--- Current version
 app.version = "0.9 (alphaka)"
--- Maximun of stars
+--- Maximun of stars
 app.max_stars = 32
--- Debugging information
+--- Debugging information
 app.debug = true
--- Loaded variable
+--- Loaded variable
 app.finish_loaded = false
 
 -- Save total update time
@@ -41,22 +42,27 @@ local snd_loaded = false
 local img_tree = nil
 local snd_tree = nil
 
--- Table of textures
+--- Table of textures
 img = {}
--- Table of effects
+--- Table of effects
 snd = {}
--- Table of printable text
+--- Table of printable text
 txt = {}
 
+--- Init all app variables
 function app:init()
     -- Fonts
     print "Loading fonts..."
+	-- Load normal font
     app.font = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8.ttf", 8)
-	love.graphics.setFont(app.font)
     app.font:setFilter("nearest")
 	
+	-- Load bold font
 	app.font_bold = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8-Bold.ttf", 8)
 	app.font_bold:setFilter("nearest")
+	
+	-- Set normal font as default
+	love.graphics.setFont(app.font)
 	
 	-- Loading language
 	dofile("lang/" .. app.language .. ".lua")
@@ -90,6 +96,7 @@ function app.load_text_textures()
 end
 
 --- Update app variables
+-- @tparam number dt Time since the last update in seconds
 function app:update(dt)
 	-- Update splash variable
 	if not loaded and total_loading_splash < trigger_loading_splash then
@@ -126,6 +133,7 @@ function app:update(dt)
 	end
 end
 
+--- Draw loading screen
 function app:draw()
 	local color = math.min(255, total_loading_splash/trigger_loading_splash*255)
 	love.graphics.setColor(color, color, color, 255)
@@ -137,8 +145,9 @@ function app:draw()
 	love.graphics.draw(txt.loading, x, y, 0, 1, 1, x0, y0)
 end
 
---- Callback to load resources
-function love.load(arg)
+--- [Löve] This function is called exactly once at the beginning of the game
+-- @tparam table args Command line arguments given to the game
+function love.load(args)
 	-- Load utils
 	dofile("src/main/utils.lua")
 	
@@ -154,7 +163,8 @@ function love.load(arg)
     print "Loaded game!"
 end
 
---- Update variables
+--- [Löve] Callback function used to update the state of the game every frame
+-- @tparam number dt Time since the last update in seconds
 function love.update(dt)
 	-- Debug information
 	if app.debug then
@@ -180,7 +190,10 @@ function love.update(dt)
 	gamestate.update(dt)
 end
 
---- Callback when a key is pressed
+--- [Löve] Callback function triggered when a key is pressed
+-- @tparam KeyConstant key Character of the pressed key
+-- @tparam Scancode scancode The scancode representing the pressed key
+-- @tparam boolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
 function love.keypressed(key, scancode, isrepeat)
     -- ESQ key kill game
 	if scancode == "escape" then
@@ -190,7 +203,7 @@ function love.keypressed(key, scancode, isrepeat)
 	gamestate.keypressed(key, scancode, isrepeat)
 end
 
---- Callback to print game
+--- [Löve] Callback function used to draw on the screen every frame
 function love.draw()
 	-- When isn't in game mode
 	if gamestate.current() ~= splash then

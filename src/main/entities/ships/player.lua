@@ -1,7 +1,7 @@
 --- Player prototype object.
 -- This module construct a ship object that player controls.
 --
--- @module  player
+-- @module  entities.ships.player
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -15,6 +15,7 @@ local blaster  = require "src.main.entities.weapons.blaster"
 -- Module
 player = class {
 	--- Create new player
+	-- @tparam ship self A ship to be used
 	-- @tparam number x New x position
 	-- @tparam number y New y position
 	-- @treturn player New playership

@@ -13,10 +13,10 @@ function math.round(num)
     return math.ceil(num - 0.5)
 end
 
--- Module stars
+--- Module stars
 stars = {}
 
--- Create new stars
+--- Create new star table
 function stars.new(dir)
 	local stars = {}
 	
@@ -32,7 +32,9 @@ function stars.new(dir)
 	return stars
 end
 
--- Update stars
+--- Update stars variables
+-- @tparam table stars Table with all stars variables
+-- @tparam number dt Time since the last update in seconds
 function stars.update(stars, dt)
 	for i, star in ipairs(stars) do
 		star.x = star.x + star.v.x * app.frameRate * dt
@@ -57,7 +59,8 @@ function stars.update(stars, dt)
 	end
 end
 
--- Draw star
+--- Draw star
+-- @tparam table stars Table with all stars variables
 function stars.draw(stars)
 	for i, star in ipairs(stars) do
 		-- Check if star has low velocity
@@ -71,10 +74,14 @@ function stars.draw(stars)
 	end
 end
 
--- Module to represent file system in node tree
+--- Module to represent file system in node tree
 files = {}
 
--- Create new node file
+--- Create new node file
+-- @tparam string name Name of node
+-- @tparam string path Absolute path of node
+-- @tparam table source Table where load resources
+-- @tparam string source_name Name of table source (I use it like table key)
 function files.new_node(name, path, source, source_name)
 	return {
 		path = path,
@@ -86,10 +93,14 @@ function files.new_node(name, path, source, source_name)
 	}
 end
 
--- Get children of a node
+--- Get all children nodes of a node
+-- @tparam table node Parent node
 function files.get_children(node)
+	-- Get children list
 	local list = love.filesystem.getDirectoryItems(node.path)
+	-- Last used node (To set in next variable)
 	local last_node = nil
+	-- First child
 	local first_node = nil
 	
 	-- Iterate element list
@@ -98,6 +109,7 @@ function files.get_children(node)
 		-- Remove extension
 		if dot then source_name = name:sub(1, dot - 1) else source_name = name end
 		
+		-- Create table in source table
 		node.source[source_name] = {}
 		
 		-- New child node
@@ -118,7 +130,8 @@ function files.get_children(node)
 	return first_node
 end
 
--- Get next node
+--- Get next node
+--@tparam table node Node to get next node
 function files.next(node)
 	while node.parent ~= nil do
 		if node.next ~= nil then
@@ -131,7 +144,10 @@ function files.next(node)
 	return nil
 end
 
--- Load node
+--- Load one resource node at time
+-- @tparam table node Node with represents resource node
+-- @tparam string type Type or resource: "img" to load texture resources and "snd" to load sound resources
+-- @treturn table Next node to load
 function files.load_node(node, type)
 	-- If current node is a directory
 	if love.filesystem.isDirectory(node.path) then
@@ -141,16 +157,18 @@ function files.load_node(node, type)
 	elseif love.filesystem.isFile(node.path) then
 		print("Loading " .. node.path .. "...")
 		
+		-- Load texture resource
 		if type == "img" then
 			node.parent.source[node.source_name] = love.graphics.newImage(node.path)
 			node.parent.source[node.source_name]:setFilter("nearest")
+		-- Load sound resource
 		elseif type == "snd" then
 			node.parent.source[node.source_name] = love.audio.newSource(node.path)
 		end
 		
 		return files.next(node)
+	-- If isn't a directory or a file, skip it
 	else
-		print("exiting")
 		return files.next(node)
 	end
 end

@@ -1,7 +1,7 @@
 --- Ray blaster prototype object.
 -- This module construct a ray weapon object. Note: due to complexity of ray blaster, this module doesn't inherit from weapon.
 --
--- @module  ray_baster
+-- @module  entities.weapons.ray_baster
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -10,13 +10,14 @@ local class    = require "lib.vrld.hump.class"
 
 local ray_blaster = class {
 	--- Create new ray blaster weapon
+	-- @tparam ray_blaster self New blaster object
 	-- @tparam ship ship Ship object attached
 	-- @tparam number dx x position to shoot
 	-- @tparam number dy y position to shoot
+	-- @tparam number size Size of ray
 	-- @tparam vector direction Direction of ray
 	-- @tparam number damage Damage of bullets
-	-- @tparam number collitions_entities Table of entities which ray can collide
-	-- @tparam self ray_blaster New blaster object
+	-- @tparam number collition_entities Table of entities which ray can collide
 	init = function(self, ship, dx, dy, size, direction, damage, collition_entities)
 		self.ship = ship
 		self.dx = dx

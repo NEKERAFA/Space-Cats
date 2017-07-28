@@ -4,9 +4,11 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
--- Module
+-- Module weapon
 local weapon = {}
 
+--- Draw all weapon bullets
+-- @tparam weapon weapon Weapon to draw bullets
 function weapon.draw_bullets(weapon)
 	for i, bullet in pairs(weapon.bullets) do
 		-- Get rotation angle
@@ -15,6 +17,7 @@ function weapon.draw_bullets(weapon)
 		local x_pos = img.weapons[bullet.type]:getWidth()/2
 		local y_pos = 0
 		
+		-- Get y_pos centered
 		if bullet.type == "baster" then
 			y_pos = img.weapons[bullet.type]:getHeight()-2
 		elseif bullet.type == "baster2" then
@@ -28,7 +31,9 @@ function weapon.draw_bullets(weapon)
 	end
 end
 
-function weapon.draw_ray_tracer(weapon)
+--- Draw ray of ray weapon
+-- @tparam ray_blaster weapon Weapon to draw ray
+function weapon.draw_ray(weapon)
 	-- Get current colors
 	r, g, b, a = love.graphics.getColor()
 

@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Space Cats</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/main.html">main</a></li>
+  <li><a href="../modules/entities.bullet.html">entities.bullet</a></li>
+  <li><strong>entities.ship</strong></li>
+  <li><a href="../modules/entities.ships.player.html">entities.ships.player</a></li>
+  <li><a href="../modules/entities.weapon.html">entities.weapon</a></li>
+  <li><a href="../modules/entities.weapons.baster.html">entities.weapons.baster</a></li>
+  <li><a href="../modules/entities.weapons.guided_baster.html">entities.weapons.guided_baster</a></li>
+  <li><a href="../modules/entities.weapons.ray_baster.html">entities.weapons.ray_baster</a></li>
+  <li><a href="../modules/game.html">game</a></li>
+  <li><a href="../modules/menu.html">menu</a></li>
+  <li><a href="../modules/painters.ship.html">painters.ship</a></li>
+  <li><a href="../modules/painters.ships.player.html">painters.ships.player</a></li>
+  <li><a href="../modules/painters.weapon.html">painters.weapon</a></li>
+  <li><a href="../modules/splash.html">splash</a></li>
+  <li><a href="../modules/src.main.utils.html">src.main.utils</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>entities.ship</code></h1>
+<p>Ship prototype object.</p>
+<p>
+ This module construct a ship object. See diagram for know atributes.
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA)</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#init">init (self, x, y, life, type)</a></td>
+	<td class="summary">Create a new ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#end_explotion">end_explotion (animation, loops)</a></td>
+	<td class="summary">Update status after explosion animation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#damage">damage (self, damage)</a></td>
+	<td class="summary">Set damage to current ship</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#update">update (self, dt)</a></td>
+	<td class="summary">Update all variables in the ship and move it</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#free">free (self)</a></td>
+	<td class="summary">Free current ship</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#damaged_max">damaged_max</a></td>
+	<td class="summary">Maximun damaged value</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#velocity">velocity</a></td>
+	<td class="summary">Default velocity</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "init"></a>
+    <strong>init (self, x, y, life, type)</strong>
+    </dt>
+    <dd>
+    Create a new ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         A ship to be used
+        </li>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         New x position
+        </li>
+        <li><span class="parameter">y</span>
+            <span class="types"><span class="type">number</span></span>
+         New y position
+        </li>
+        <li><span class="parameter">life</span>
+            <span class="types"><span class="type">number</span></span>
+         Current life
+        </li>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Type of ship
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "end_explotion"></a>
+    <strong>end_explotion (animation, loops)</strong>
+    </dt>
+    <dd>
+    Update status after explosion animation
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">animation</span>
+            <span class="types"><span class="type">anim</span></span>
+         Current animation object
+        </li>
+        <li><span class="parameter">loops</span>
+            <span class="types"><span class="type">number</span></span>
+         Number of loops done
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "damage"></a>
+    <strong>damage (self, damage)</strong>
+    </dt>
+    <dd>
+    Set damage to current ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+        <li><span class="parameter">damage</span>
+            <span class="types"><span class="type">number</span></span>
+         Damage to make
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "update"></a>
+    <strong>update (self, dt)</strong>
+    </dt>
+    <dd>
+    Update all variables in the ship and move it
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">number</span></span>
+         Time since the last update in seconds
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "free"></a>
+    <strong>free (self)</strong>
+    </dt>
+    <dd>
+    Free current ship
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">self</span>
+            <span class="types"><span class="type">ship</span></span>
+         Ship object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "damaged_max"></a>
+    <strong>damaged_max</strong>
+    </dt>
+    <dd>
+    Maximun damaged value
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "velocity"></a>
+    <strong>velocity</strong>
+    </dt>
+    <dd>
+    Default velocity
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2017-07-28 14:57:31 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
