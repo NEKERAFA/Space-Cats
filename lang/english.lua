@@ -8,4 +8,7 @@ msg_string = {
 	resolution = "Resolution",
 	fullscreen = "Fullscreen",
 	language = "Language",
+	disabled = "Disabled",
+	enabled = "Enabled",
+	credits = "Credits and Licenses"
 }

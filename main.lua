@@ -6,10 +6,17 @@
 
 local gamestate = require "lib.vrld.hump.gamestate"
 
+-- App width and height
+app.width = 320
+app.height = 180
 -- Frame rate of game
 app.frameRate = 60
 -- Current version
 app.version = "0.9 (alphaka)"
+-- Maximun of stars
+app.max_stars = 32
+-- Debugging information
+app.debug = true
 -- Loaded variable
 app.finish_loaded = false
 
@@ -45,6 +52,7 @@ function app:init()
     -- Fonts
     print "Loading fonts..."
     app.font = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8.ttf", 8)
+	love.graphics.setFont(app.font)
     app.font:setFilter("nearest")
 	
 	app.font_bold = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8-Bold.ttf", 8)
@@ -76,7 +84,9 @@ function app.load_text_textures()
 	txt.music = love.graphics.newText(app.font_bold, msg_string.music .. ":")
 	txt.sfx = love.graphics.newText(app.font_bold, msg_string.sfx .. ":")
 	txt.resolution = love.graphics.newText(app.font_bold, msg_string.resolution .. ":")
+	txt.fullscreen = love.graphics.newText(app.font_bold, msg_string.fullscreen .. ":")
 	txt.language = love.graphics.newText(app.font_bold, msg_string.language .. ":")
+	txt.credits = love.graphics.newText(app.font_bold, msg_string.credits)
 end
 
 --- Update app variables
