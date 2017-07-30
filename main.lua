@@ -5,6 +5,10 @@
 -- @release 0.9
 
 local gamestate = require "lib.vrld.hump.gamestate"
+local timer     = require "lib.vrld.hump.timer"
+
+--- Module app
+app = {}
 
 --- App width
 app.width = 320
@@ -18,8 +22,8 @@ app.version = "0.9 (alphaka)"
 app.max_stars = 32
 --- Debugging information
 app.debug = true
---- Loaded variable
-app.finish_loaded = false
+--- Save file
+app.save_file = love.filesystem.getSaveDirectory() .. "/settings.lua"
 
 -- Save total update time
 local total_title_time = 0
@@ -42,34 +46,49 @@ local snd_loaded = false
 local img_tree = nil
 local snd_tree = nil
 
---- Table of textures
+--- Table of save textures
 img = {}
---- Table of effects
+--- Table of save sound
 snd = {}
 --- Table of printable text
 txt = {}
 
---- Init all app variables
-function app:init()
-    -- Fonts
-    print "Loading fonts..."
+--- Load fonts
+function app:load_fonts()
 	-- Load normal font
-    app.font = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8.ttf", 8)
-    app.font:setFilter("nearest")
+	print "Loading normal font..."
+	self.font = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8.ttf", 8)
+	self.font:setFilter("nearest")
 	
 	-- Load bold font
-	app.font_bold = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8-Bold.ttf", 8)
-	app.font_bold:setFilter("nearest")
+	print "Loading bold font..."
+	self.font_bold = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8-Bold.ttf", 8)
+	self.font_bold:setFilter("nearest")
 	
 	-- Set normal font as default
-	love.graphics.setFont(app.font)
-	
-	-- Loading language
-	dofile("lang/" .. app.language .. ".lua")
-	
-	-- Load text textures
-	app.load_text_textures()
-	
+	love.graphics.setFont(self.font)
+end
+
+--- Load all text strings like textures
+function app:load_text_textures()
+	txt.version    = love.graphics.newText(self.font, self.version)
+	txt.loading    = love.graphics.newText(self.font, msg_string.loading .. "...")
+	txt.story      = love.graphics.newText(self.font_bold, msg_string.story)
+	txt.settings   = love.graphics.newText(self.font_bold, msg_string.settings)
+	txt.exit       = love.graphics.newText(self.font_bold, msg_string.exit)
+	txt.mark       = love.graphics.newText(self.font, ">")
+	txt.mark_bold  = love.graphics.newText(self.font_bold, ">")
+	txt.music      = love.graphics.newText(self.font_bold, msg_string.music .. ":")
+	txt.sfx        = love.graphics.newText(self.font_bold, msg_string.sfx .. ":")
+	txt.resolution = love.graphics.newText(self.font_bold, msg_string.resolution .. ":")
+	txt.fullscreen = love.graphics.newText(self.font_bold, msg_string.fullscreen .. ":")
+	txt.language   = love.graphics.newText(self.font_bold, msg_string.language .. ":")
+	txt.credits    = love.graphics.newText(self.font_bold, msg_string.credits)
+	txt.saved      = love.graphics.newText(self.font, msg_string.saved .. " " .. app.save_file)
+end
+
+--- Load tree nodes
+function app:load_nodes()
 	-- texture file tree
 	print "Loading texture file tree..."
 	img_tree = files.new_node('root', "src/assets/images", img, 'img')
@@ -79,20 +98,23 @@ function app:init()
 	snd_tree = files.new_node('root', "src/assets/sounds", snd, 'snd')
 end
 
---- Load all text strings like textures
-function app.load_text_textures()
-	txt.version = love.graphics.newText(app.font, app.version)
-	txt.loading = love.graphics.newText(app.font, msg_string.loading .. "...")
-	txt.story = love.graphics.newText(app.font_bold, msg_string.story)
-	txt.settings = love.graphics.newText(app.font_bold, msg_string.settings)
-	txt.exit = love.graphics.newText(app.font_bold, msg_string.exit)
-	txt.mark = love.graphics.newText(app.font, ">")
-	txt.music = love.graphics.newText(app.font_bold, msg_string.music .. ":")
-	txt.sfx = love.graphics.newText(app.font_bold, msg_string.sfx .. ":")
-	txt.resolution = love.graphics.newText(app.font_bold, msg_string.resolution .. ":")
-	txt.fullscreen = love.graphics.newText(app.font_bold, msg_string.fullscreen .. ":")
-	txt.language = love.graphics.newText(app.font_bold, msg_string.language .. ":")
-	txt.credits = love.graphics.newText(app.font_bold, msg_string.credits)
+--- Init all app variables
+function app:init()
+	-- Fonts
+	print "Loading fonts..."
+	app:load_fonts()
+	
+	-- Loading language
+	print "Loading language file..."
+	dofile("lang/" .. app.language .. ".lua")
+	
+	-- Load text textures
+	print "Loading text textures..."
+	app:load_text_textures()
+	
+	-- Load file nodes
+	print "Loading nodes..."
+	app:load_nodes()
 end
 
 --- Update app variables
@@ -137,30 +159,59 @@ end
 function app:draw()
 	local color = math.min(255, total_loading_splash/trigger_loading_splash*255)
 	love.graphics.setColor(color, color, color, 255)
-	local x  = math.round(app.width/2)
-	local y  = math.round(app.height/2)
+	local x  = math.round(self.width/2)
+	local y  = math.round(self.height/2)
 	local x0 = math.round(txt.loading:getWidth()/2)
 	local y0 = math.round(txt.loading:getHeight()/2)
 	
 	love.graphics.draw(txt.loading, x, y, 0, 1, 1, x0, y0)
 end
 
+--- Load saved settings
+function app:load_settings()
+	-- Loading save file
+	pcall(dofile, self.save_file)
+	
+	-- Set variables
+	self.music_volume = music_volume or 50
+	self.sfx_volume   = sfx_value or 50
+	self.scalefactor  = scalefactor or 4
+	self.fullscreen   = fullscreen or false
+	self.language	  = language or "english"
+	
+	-- Set window variable
+	width  = math.ceil(self.scalefactor*320)
+	height = math.ceil(self.scalefactor*180)
+	love.window.setMode(width, height, {fullscreen = self.fullscreen})
+end
+
 --- [Löve] This function is called exactly once at the beginning of the game
 -- @tparam table args Command line arguments given to the game
 function love.load(args)
+	-- Load settings
+	print "Loading settings..."
+	app:load_settings()
+	
 	-- Load utils
 	dofile("src/main/utils.lua")
 	
-	-- Load splash file
+	-- Load animations
+	dofile("src/main/animations.lua")
+	
+	-- Load splash
 	dofile("src/main/splash.lua")
-	-- Load menu file
+	-- Load credits
+	dofile("src/main/credits.lua")
+	-- Load settings menu
+	dofile("src/main/settings.lua")
+	-- Load levels menu
+	dofile("src/main/levels.lua")
+	-- Load start menu
 	dofile("src/main/menu.lua")
-	-- Load game file
-    dofile("src/main/game.lua")
+	-- Load general game functions
+	dofile("src/main/game.lua")
 	
 	gamestate.switch(splash)
-	
-    print "Loaded game!"
 end
 
 --- [Löve] Callback function used to update the state of the game every frame
@@ -179,12 +230,15 @@ function love.update(dt)
 	end
 	
 	total_gb_time = total_gb_time + dt
-    -- Launch garbage collector
+	-- Launch garbage collector
 	if total_gb_time >= trigger_gb_time then
 		collectgarbage("collect")
-        -- Restart collector time
+		-- Restart collector time
 		total_gb_time = total_gb_time - trigger_gb_time
 	end
+	
+	-- Update timers
+	timer.update(dt)
 	
 	-- Update current state
 	gamestate.update(dt)
@@ -195,7 +249,7 @@ end
 -- @tparam Scancode scancode The scancode representing the pressed key
 -- @tparam boolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
 function love.keypressed(key, scancode, isrepeat)
-    -- ESQ key kill game
+	-- ESQ key kill game
 	if scancode == "escape" then
 		love.event.quit(0)
 	end

@@ -1,15 +1,9 @@
--- Load settings
-dofile("settings.lua")
-
--- Configure
+-- Configure love variables
 function love.conf(t)
-    t.version = "0.10.2"
-    t.console = false
-    t.window.title = "Space cats!"
-    t.window.width = 320*app.scalefactor
-    t.window.height = 180*app.scalefactor
-	t.window.fullscreen = app.fullscreen
+	t.version = "0.10.2"
+	t.console = false
+	t.window.title = "Space cats!"
 	t.window.fullscreentype = "desktop"
-    t.window.vsync = true
-    t.window.highdpi = true
+	t.window.vsync = true
+	t.window.highdpi = true
 end

@@ -33,7 +33,6 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
-<li><a href="#Tables">Tables</a></li>
 <li><a href="#Fields">Fields</a></li>
 </ul>
 
@@ -41,6 +40,7 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/main.html">main</a></li>
+  <li><a href="../modules/animation.html">animation</a></li>
   <li><a href="../modules/entities.bullet.html">entities.bullet</a></li>
   <li><a href="../modules/entities.ship.html">entities.ship</a></li>
   <li><a href="../modules/entities.ships.player.html">entities.ships.player</a></li>
@@ -53,6 +53,7 @@
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
   <li><a href="../modules/painters.ships.player.html">painters.ships.player</a></li>
   <li><a href="../modules/painters.weapon.html">painters.weapon</a></li>
+  <li><a href="../modules/settings.html">settings</a></li>
   <li><a href="../modules/splash.html">splash</a></li>
   <li><a href="../modules/src.main.utils.html">src.main.utils</a></li>
 </ul>
@@ -74,34 +75,6 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#move_down">move_down ()</a></td>
-	<td class="summary">Move down title</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#move_up">move_up ()</a></td>
-	<td class="summary">Move up title</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#inc_alpha">inc_alpha ()</a></td>
-	<td class="summary">Increment alpha</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#dec_alpha">dec_alpha ()</a></td>
-	<td class="summary">Decrement alpha</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#change_start">change_start ()</a></td>
-	<td class="summary">Change to start menu</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#change_settings">change_settings ()</a></td>
-	<td class="summary">Change to settings menu</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#change_levels">change_levels ()</a></td>
-	<td class="summary">Change to level selection menu</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#init">init ()</a></td>
 	<td class="summary">Load menu variable and resources</td>
 	</tr>
@@ -111,51 +84,28 @@
  Draw splash animation</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#get_settings">get_settings ()</a></td>
-	<td class="summary">Get current variable settings</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#update_settings">update_settings ()</a></td>
-	<td class="summary">Update settings file</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#keypressed">keypressed (key, scancode, isrepeat)</a></td>
 	<td class="summary">Update menu variable</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#start_menu_controls">start_menu_controls (scancode)</a></td>
+	<td class="name" nowrap><a href="#keypressed_start">keypressed_start (scancode)</a></td>
 	<td class="summary">Control start menu</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#settings_menu_control">settings_menu_control (scancode)</a></td>
-	<td class="summary">Control settings menu</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#draw">draw ()</a></td>
-	<td class="summary">Draw menu function</td>
+	<td class="name" nowrap><a href="#draw_button">draw_button (button)</a></td>
+	<td class="summary">Draw button backgrond and text</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#draw_start_menu">draw_start_menu ()</a></td>
 	<td class="summary">Draw start menu</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#draw_settings_menu">draw_settings_menu ()</a></td>
-	<td class="summary">Draw settings menu</td>
+	<td class="name" nowrap><a href="#draw_open_anim">draw_open_anim ()</a></td>
+	<td class="summary">Draw open animation</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#draw_levels_menu">draw_levels_menu ()</a></td>
-	<td class="summary">Draw levels menu</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#draw_button">draw_button (elem)</a></td>
-	<td class="summary">Draw button backgrond and text</td>
-	</tr>
-</table>
-<h2><a href="#Tables">Tables</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#level_opt">level_opt</a></td>
-	<td class="summary">Current level selected</td>
+	<td class="name" nowrap><a href="#draw">draw ()</a></td>
+	<td class="summary">Draw menu function</td>
 	</tr>
 </table>
 <h2><a href="#Fields">Fields</a></h2>
@@ -165,24 +115,56 @@
 	<td class="summary">Current menu</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#start_opt">start_opt</a></td>
+	<td class="name" nowrap><a href="#option">option</a></td>
 	<td class="summary">Current option selected in start menu</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#settings_opt">settings_opt</a></td>
-	<td class="summary">Current option selected in settings menu</td>
+	<td class="name" nowrap><a href="#b_alpha">b_alpha</a></td>
+	<td class="summary">Current button alpha</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#alpha">alpha</a></td>
-	<td class="summary">Current button alpha</td>
+	<td class="name" nowrap><a href="#t_alpha">t_alpha</a></td>
+	<td class="summary">Current save text alpha</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#title_delta">title_delta</a></td>
 	<td class="summary">Current title delta movement</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#delta">delta</a></td>
+	<td class="summary">This delta move all menu textures when it change of showed menu</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#x_delta">x_delta</a></td>
-	<td class="summary">This delta move all menu objects</td>
+	<td class="summary">Delta to move saved message</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#player">player</a></td>
+	<td class="summary">Player ship for start animation</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#up">up</a></td>
+	<td class="summary">Up key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#down">down</a></td>
+	<td class="summary">Down key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#left">left</a></td>
+	<td class="summary">Left key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#right">right</a></td>
+	<td class="summary">Right key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#accept">accept</a></td>
+	<td class="summary">Accept key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cancel">cancel</a></td>
+	<td class="summary">Cancel key</td>
 	</tr>
 </table>
 
@@ -193,104 +175,6 @@
     <h2 class="section-header "><a name="Functions"></a>Functions</h2>
 
     <dl class="function">
-    <dt>
-    <a name = "move_down"></a>
-    <strong>move_down ()</strong>
-    </dt>
-    <dd>
-    Move down title
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "move_up"></a>
-    <strong>move_up ()</strong>
-    </dt>
-    <dd>
-    Move up title
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "inc_alpha"></a>
-    <strong>inc_alpha ()</strong>
-    </dt>
-    <dd>
-    Increment alpha
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "dec_alpha"></a>
-    <strong>dec_alpha ()</strong>
-    </dt>
-    <dd>
-    Decrement alpha
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "change_start"></a>
-    <strong>change_start ()</strong>
-    </dt>
-    <dd>
-    Change to start menu
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "change_settings"></a>
-    <strong>change_settings ()</strong>
-    </dt>
-    <dd>
-    Change to settings menu
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "change_levels"></a>
-    <strong>change_levels ()</strong>
-    </dt>
-    <dd>
-    Change to level selection menu
-
-
-
-
-
-
-
-</dd>
     <dt>
     <a name = "init"></a>
     <strong>init ()</strong>
@@ -317,37 +201,9 @@
     <h3>Parameters:</h3>
     <ul>
         <li><span class="parameter">dt</span>
-
+        Update stars
         </li>
     </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "get_settings"></a>
-    <strong>get_settings ()</strong>
-    </dt>
-    <dd>
-    Get current variable settings
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "update_settings"></a>
-    <strong>update_settings ()</strong>
-    </dt>
-    <dd>
-    Update settings file
-
-
 
 
 
@@ -384,8 +240,8 @@
 
 </dd>
     <dt>
-    <a name = "start_menu_controls"></a>
-    <strong>start_menu_controls (scancode)</strong>
+    <a name = "keypressed_start"></a>
+    <strong>keypressed_start (scancode)</strong>
     </dt>
     <dd>
     Control start menu
@@ -405,34 +261,20 @@
 
 </dd>
     <dt>
-    <a name = "settings_menu_control"></a>
-    <strong>settings_menu_control (scancode)</strong>
+    <a name = "draw_button"></a>
+    <strong>draw_button (button)</strong>
     </dt>
     <dd>
-    Control settings menu
+    Draw button backgrond and text
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">scancode</span>
-            <span class="types"><span class="type">Scancode</span></span>
-         The scancode representing the pressed key
+        <li><span class="parameter">button</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Current button
         </li>
     </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "draw"></a>
-    <strong>draw ()</strong>
-    </dt>
-    <dd>
-    Draw menu function
-
-
 
 
 
@@ -454,11 +296,11 @@
 
 </dd>
     <dt>
-    <a name = "draw_settings_menu"></a>
-    <strong>draw_settings_menu ()</strong>
+    <a name = "draw_open_anim"></a>
+    <strong>draw_open_anim ()</strong>
     </dt>
     <dd>
-    Draw settings menu
+    Draw open animation
 
 
 
@@ -468,61 +310,13 @@
 
 </dd>
     <dt>
-    <a name = "draw_levels_menu"></a>
-    <strong>draw_levels_menu ()</strong>
+    <a name = "draw"></a>
+    <strong>draw ()</strong>
     </dt>
     <dd>
-    Draw levels menu
+    Draw menu function
 
 
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "draw_button"></a>
-    <strong>draw_button (elem)</strong>
-    </dt>
-    <dd>
-    Draw button backgrond and text
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">elem</span>
-            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
-         Current button
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-</dl>
-    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "level_opt"></a>
-    <strong>level_opt</strong>
-    </dt>
-    <dd>
-    Current level selected
-
-
-    <h3>Fields:</h3>
-    <ul>
-        <li><span class="parameter">x</span>
-
-        </li>
-        <li><span class="parameter">y</span>
-
-        </li>
-    </ul>
 
 
 
@@ -548,8 +342,8 @@
 
 </dd>
     <dt>
-    <a name = "start_opt"></a>
-    <strong>start_opt</strong>
+    <a name = "option"></a>
+    <strong>option</strong>
     </dt>
     <dd>
     Current option selected in start menu
@@ -562,11 +356,11 @@
 
 </dd>
     <dt>
-    <a name = "settings_opt"></a>
-    <strong>settings_opt</strong>
+    <a name = "b_alpha"></a>
+    <strong>b_alpha</strong>
     </dt>
     <dd>
-    Current option selected in settings menu
+    Current button alpha
 
 
 
@@ -576,11 +370,11 @@
 
 </dd>
     <dt>
-    <a name = "alpha"></a>
-    <strong>alpha</strong>
+    <a name = "t_alpha"></a>
+    <strong>t_alpha</strong>
     </dt>
     <dd>
-    Current button alpha
+    Current save text alpha
 
 
 
@@ -604,11 +398,123 @@
 
 </dd>
     <dt>
+    <a name = "delta"></a>
+    <strong>delta</strong>
+    </dt>
+    <dd>
+    This delta move all menu textures when it change of showed menu
+
+
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "x_delta"></a>
     <strong>x_delta</strong>
     </dt>
     <dd>
-    This delta move all menu objects
+    Delta to move saved message
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "player"></a>
+    <strong>player</strong>
+    </dt>
+    <dd>
+    Player ship for start animation
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "up"></a>
+    <strong>up</strong>
+    </dt>
+    <dd>
+    Up key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "down"></a>
+    <strong>down</strong>
+    </dt>
+    <dd>
+    Down key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "left"></a>
+    <strong>left</strong>
+    </dt>
+    <dd>
+    Left key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "right"></a>
+    <strong>right</strong>
+    </dt>
+    <dd>
+    Right key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "accept"></a>
+    <strong>accept</strong>
+    </dt>
+    <dd>
+    Accept key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cancel"></a>
+    <strong>cancel</strong>
+    </dt>
+    <dd>
+    Cancel key
 
 
 
@@ -624,7 +530,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-07-28 14:57:31 </i>
+<i style="float:right;">Last updated 2017-07-30 19:35:39 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

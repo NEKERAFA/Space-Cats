@@ -4,11 +4,12 @@ msg_string = {
 	settings = "Settings",
 	exit = "Exit game",
 	music = "Music volume",
-	sfx = "SFX volume",
+	sfx = "Effects volume",
 	resolution = "Resolution",
 	fullscreen = "Fullscreen",
 	language = "Language",
 	disabled = "Disabled",
 	enabled = "Enabled",
-	credits = "Credits and Licenses"
+	credits = "Credits and Licenses",
+	saved = "Saved in"
 }

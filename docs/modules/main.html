@@ -41,6 +41,7 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><strong>main</strong></li>
+  <li><a href="../modules/animation.html">animation</a></li>
   <li><a href="../modules/entities.bullet.html">entities.bullet</a></li>
   <li><a href="../modules/entities.ship.html">entities.ship</a></li>
   <li><a href="../modules/entities.ships.player.html">entities.ships.player</a></li>
@@ -53,6 +54,7 @@
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
   <li><a href="../modules/painters.ships.player.html">painters.ships.player</a></li>
   <li><a href="../modules/painters.weapon.html">painters.weapon</a></li>
+  <li><a href="../modules/settings.html">settings</a></li>
   <li><a href="../modules/splash.html">splash</a></li>
   <li><a href="../modules/src.main.utils.html">src.main.utils</a></li>
 </ul>
@@ -75,12 +77,20 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#app:init">app:init ()</a></td>
-	<td class="summary">Init all app variables</td>
+	<td class="name" nowrap><a href="#app:load_fonts">app:load_fonts ()</a></td>
+	<td class="summary">Load fonts</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#app.load_text_textures">app.load_text_textures ()</a></td>
+	<td class="name" nowrap><a href="#app:load_text_textures">app:load_text_textures ()</a></td>
 	<td class="summary">Load all text strings like textures</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app:load_nodes">app:load_nodes ()</a></td>
+	<td class="summary">Load tree nodes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app:init">app:init ()</a></td>
+	<td class="summary">Init all app variables</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#app:update">app:update (dt)</a></td>
@@ -89,6 +99,10 @@
 	<tr>
 	<td class="name" nowrap><a href="#app:draw">app:draw ()</a></td>
 	<td class="summary">Draw loading screen</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app:load_settings">app:load_settings ()</a></td>
+	<td class="summary">Load saved settings</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#love.load">love.load (args)</a></td>
@@ -110,12 +124,16 @@
 <h2><a href="#Tables">Tables</a></h2>
 <table class="function_list">
 	<tr>
+	<td class="name" nowrap><a href="#app">app</a></td>
+	<td class="summary">Module app</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#img">img</a></td>
-	<td class="summary">Table of textures</td>
+	<td class="summary">Table of save textures</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#snd">snd</a></td>
-	<td class="summary">Table of effects</td>
+	<td class="summary">Table of save sound</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#txt">txt</a></td>
@@ -149,8 +167,8 @@
 	<td class="summary">Debugging information</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#app.finish_loaded">app.finish_loaded</a></td>
-	<td class="summary">Loaded variable</td>
+	<td class="name" nowrap><a href="#app.save_file">app.save_file</a></td>
+	<td class="summary">Save file</td>
 	</tr>
 </table>
 
@@ -162,11 +180,11 @@
 
     <dl class="function">
     <dt>
-    <a name = "app:init"></a>
-    <strong>app:init ()</strong>
+    <a name = "app:load_fonts"></a>
+    <strong>app:load_fonts ()</strong>
     </dt>
     <dd>
-    Init all app variables
+    Load fonts
 
 
 
@@ -176,11 +194,39 @@
 
 </dd>
     <dt>
-    <a name = "app.load_text_textures"></a>
-    <strong>app.load_text_textures ()</strong>
+    <a name = "app:load_text_textures"></a>
+    <strong>app:load_text_textures ()</strong>
     </dt>
     <dd>
     Load all text strings like textures
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app:load_nodes"></a>
+    <strong>app:load_nodes ()</strong>
+    </dt>
+    <dd>
+    Load tree nodes
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app:init"></a>
+    <strong>app:init ()</strong>
+    </dt>
+    <dd>
+    Init all app variables
 
 
 
@@ -216,6 +262,20 @@
     </dt>
     <dd>
     Draw loading screen
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app:load_settings"></a>
+    <strong>app:load_settings ()</strong>
+    </dt>
+    <dd>
+    Load saved settings
 
 
 
@@ -285,7 +345,7 @@
          The scancode representing the pressed key
         </li>
         <li><span class="parameter">isrepeat</span>
-            <span class="types"><span class="type">bolean</span></span>
+            <span class="types"><span class="type">boolean</span></span>
          Whether this key press event is a repeat. The delay between key depends on the user's system settings
         </li>
     </ul>
@@ -314,11 +374,25 @@
 
     <dl class="function">
     <dt>
+    <a name = "app"></a>
+    <strong>app</strong>
+    </dt>
+    <dd>
+    Module app
+
+
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "img"></a>
     <strong>img</strong>
     </dt>
     <dd>
-    Table of textures
+    Table of save textures
 
 
 
@@ -332,7 +406,7 @@
     <strong>snd</strong>
     </dt>
     <dd>
-    Table of effects
+    Table of save sound
 
 
 
@@ -444,11 +518,11 @@
 
 </dd>
     <dt>
-    <a name = "app.finish_loaded"></a>
-    <strong>app.finish_loaded</strong>
+    <a name = "app.save_file"></a>
+    <strong>app.save_file</strong>
     </dt>
     <dd>
-    Loaded variable
+    Save file
 
 
 
@@ -464,7 +538,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-07-28 14:57:31 </i>
+<i style="float:right;">Last updated 2017-07-30 19:35:39 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

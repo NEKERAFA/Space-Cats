@@ -12,8 +12,8 @@ splash = {}
 
 --- Load splash variables and resources
 function splash:init()
-	splash.anim = o_ten_one({background={0,0,0}})
-	splash.anim.onDone = function()
+	self.anim = o_ten_one({background = {0, 0, 0}})
+	self.anim.onDone = function()
 		gamestate.switch(app)
 	end
 end
@@ -21,10 +21,10 @@ end
 --- Update splash variables
 -- @tparam number dt Time since the last update in seconds
 function splash:update(dt)
-	splash.anim:update(dt)
+	self.anim:update(dt)
 end
 
 --- Draw splash animation
 function splash:draw(dt)
-	splash.anim:draw(dt)
+	self.anim:draw(dt)
 end
