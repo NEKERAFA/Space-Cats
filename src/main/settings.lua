@@ -10,15 +10,15 @@ settings = {}
 --- Current option
 settings.option = 1
 --- Current music volume
-settings.music_volume = 50
+settings.music_volume = nil
 --- Current sound effects volume
-settings.sfx_volume = 50
+settings.sfx_volume = nil
 --- Current fullscreen state
-settings.fullscreen = false
+settings.fullscreen = nil
 --- Current language
-settings.language = 1
+settings.language = nil
 --- Current screen scale factor
-settings.scalefactor = 1
+settings.scalefactor = nil
 
 --- Load settings variables
 function settings:init()
@@ -52,6 +52,11 @@ function settings:get_settings()
 		if app.scalefactor == resolution then
 			self.scalefactor = pos
 		end
+	end
+	
+	if self.scalefactor == nil then
+		self.resolutions[0] = app.scalefactor
+		self.scalefactor = 0
 	end
 end
 
@@ -315,7 +320,7 @@ function settings:draw()
 	-- Draw selection mark
 	love.graphics.setColor(255, 255, 255)
 	y0 = math.round(txt.mark_bold:getHeight()/2)
-	love.graphics.draw(txt.mark_bold, 20 + delta, 30 + (self.option - 1) * 24, 0, 1, 1, 0, y0)
+	love.graphics.draw(txt.mark_bold, 20 + delta, 32 + (self.option - 1) * 24, 0, 1, 1, 0, y0)
 
 	-- Draw option menus
 	settings:draw_music_volume(delta)

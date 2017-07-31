@@ -173,8 +173,9 @@ function menu:keypressed_start(scancode)
 		-- Settings menu
 		elseif self.option == 2 then
 			animation.change_settings()
+			settings:get_settings()
 		-- Exit game
-		elseif menu.start_opt == 3 then
+		elseif self.option == 3 then
 			love.event.quit(0)
 		end
 	end
@@ -215,10 +216,31 @@ function menu:draw_start_menu()
 	end
 end
 
+--- Stencil open animation
+function menu:stencil()
+	love.graphics.rectangle("fill", menu.player.x, 0, app.width - menu.player.x, app.height)
+end
+
 --- Draw open animation
 function menu:draw_open_anim()
+	-- Set stencil function
+	love.graphics.stencil(menu.stencil, "replace", 1)
+	love.graphics.setStencilTest("greater", 0)
+	
+	-- Draw loading text
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.rectangle("fill", self.player.x, 0, app.width - self.player.x, app.height)
+	love.graphics.rectangle("fill", 0, 0, app.width, app.height)
+	love.graphics.setColor(255, 255, 255)
+	local x  = math.round(app.width/2)
+	local y  = math.round(app.height/2)
+	local x0 = math.round(txt.loading:getWidth()/2)
+	local y0 = math.round(txt.loading:getHeight()/2)
+	love.graphics.draw(txt.loading, x, y, 0, 1, 1, x0, y0)
+	
+	-- Remove stecil
+	love.graphics.setStencilTest()
+	
+	-- Print player
 	love.graphics.setColor(255, 255, 255)
 	painter_player.draw(self.player)
 end

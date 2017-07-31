@@ -11,7 +11,7 @@ animation = {}
 
 --- Show menu
 function animation.show_menu()
-	timer.tween(2, menu, {player = {x = app.width + 32}}, 'in-quad', function() menu.current = "start" end)
+	timer.tween(3, menu, {player = {x = app.width + 32}}, 'linear', function() menu.current = "start" end)
 end
 
 --- Move down title menu
@@ -42,7 +42,7 @@ function animation.save_text()
 			wait(2)
 			-- Move text if it need
 			if txt.saved:getWidth() > app.width-5 then
-				timer.tween(4, menu, {x_delta = app.width - 5 - txt.saved:getWidth()}, 'out-quad')
+				timer.tween(4, menu, {x_delta = app.width - 10 - txt.saved:getWidth()}, 'out-quad')
 				wait(6)
 			else
 				wait(6)

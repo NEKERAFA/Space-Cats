@@ -145,10 +145,6 @@ function app:update(dt)
 			snd_tree = files.load_node(snd_tree, "snd")
 		end
 	
-	-- Update splash variable
-	elseif total_loading_splash > 0 then
-		total_loading_splash = total_loading_splash - dt
-	
 	-- Loaded
 	else
 		gamestate.switch(menu)
@@ -175,11 +171,16 @@ function app:load_settings()
 	-- Set variables
 	self.music_volume = music_volume or 50
 	self.sfx_volume   = sfx_value or 50
-	self.scalefactor  = scalefactor or 4
+	self.scalefactor  = scalefactor or 3
 	self.fullscreen   = fullscreen or false
 	self.language	  = language or "english"
 	
-	-- Set window variable
+	-- Set scalefactor
+	if app.fullscreen then
+		width = love.window.getDesktopDimensions()
+		app.scalefactor = width / app.width
+	end
+	
 	width  = math.ceil(self.scalefactor*320)
 	height = math.ceil(self.scalefactor*180)
 	love.window.setMode(width, height, {fullscreen = self.fullscreen})
@@ -261,9 +262,25 @@ end
 function love.draw()
 	-- When isn't in game mode
 	if gamestate.current() ~= splash then
+		-- Prepare to change scale
+		love.graphics.push("all")
+		
+		local window_width = app.width * app.scalefactor
+		local window_height = app.height * app.scalefactor
+		local dx = 0; local dy = 0
+		
+		-- If is in fullscreen, center window
+		if app.fullscreen then
+			screen_width, screen_height = love.window.getDesktopDimensions()
+			dx = math.round((screen_width-window_width)/2)
+			dy = math.round((screen_height-window_height)/2)
+			love.graphics.translate(dx, dy)
+		end
+		
+		-- Cut outline screen
+		love.graphics.setScissor(dx, dy, window_width, window_height)
 		-- Rescale screen
-		love.graphics.push()
-		love.graphics.scale(app.scalefactor, app.scalefactor)
+		love.graphics.scale(app.scalefactor, app.scalefactor)		
 	end
 
 	-- Set white current color
