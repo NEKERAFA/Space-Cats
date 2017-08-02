@@ -56,8 +56,7 @@ local ship = class {
 				self.collider = nil
 				-- Show explosion
 				self.explosion:resume()
-				sfx.explosion:rewind()
-				sfx.explosion:play()
+				sound.effects.explosion:play()
 			end
 		end
 	end,

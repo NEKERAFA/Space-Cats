@@ -123,35 +123,53 @@ end
 function settings:back()
 	settings:get_settings()
 	self.option = 1
+	app:set_sound_volume(snd.music, app.music_volume)
+	app:set_sound_volume(snd.effects, app.sfx_volume)
 	animation.change_start()
 end
 
 --- Change music volume
 -- @tparam Scancode scancode The scancode representing the pressed key
 function settings:keypressed_music(scancode)
-	if scancode == menu.right and self.music_volume ~= 100 then
+	if scancode == app.right and self.music_volume ~= 100 then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.music_volume = self.music_volume + 1
-	elseif scancode == menu.left and self.music_volume ~= 0 then
+		app:set_sound_volume(snd.music, self.music_volume)
+	elseif scancode == app.left and self.music_volume ~= 0 then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.music_volume = self.music_volume - 1
+		app:set_sound_volume(snd.music, self.music_volume)
 	end
 end
 
 --- Change sound effect volume
 -- @tparam Scancode scancode The scancode representing the pressed key
 function settings:keypressed_sfx(scancode)
-	if scancode == menu.right and self.sfx_volume ~= 100 then
+	if scancode == app.right and self.sfx_volume ~= 100 then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.sfx_volume = self.sfx_volume + 1
-	elseif scancode == menu.left and self.sfx_volume ~= 0 then
+		app:set_sound_volume(snd.effects, self.sfx_volume)
+	elseif scancode == app.left and self.sfx_volume ~= 0 then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.sfx_volume = self.sfx_volume - 1
+		app:set_sound_volume(snd.effects, self.sfx_volume)
 	end
 end
 
 --- Change screen resolution
 -- @tparam Scancode scancode The scancode representing the pressed key
 function settings:keypressed_resolution(scancode)
-	if scancode == menu.right and self.scalefactor ~= #self.resolutions then
+	if scancode == app.right and self.scalefactor ~= #self.resolutions then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.scalefactor = self.scalefactor + 1
-	elseif scancode == menu.left and self.scalefactor ~= 1 then
+	elseif scancode == app.left and self.scalefactor ~= 1 then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.scalefactor = self.scalefactor - 1
 	end
 end
@@ -159,9 +177,13 @@ end
 --- Enable and disable fullscreen
 -- @tparam Scancode scancode The scancode representing the pressed key
 function settings:keypressed_fullscreen(scancode)
-	if scancode == menu.right and not self.fullscreen then
+	if scancode == app.right and not self.fullscreen then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.fullscreen = true
-	elseif scancode == menu.left and self.fullscreen then
+	elseif scancode == app.left and self.fullscreen then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		self.fullscreen = false
 	end
 end
@@ -169,9 +191,13 @@ end
 --- Change language
 -- @tparam Scancode scancode The scancode representing the pressed key
 function settings:keypressed_language(scancode)
-	if scancode == menu.right and self.language ~= #self.languages then
+	if scancode == app.right and self.language ~= #self.languages then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		menu.sfx_value = menu.sfx_value + 1
-	elseif scancode == menu.left and self.language ~= 1 then
+	elseif scancode == app.left and self.language ~= 1 then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		menu.sfx_value = menu.sfx_value - 1
 	end
 end
@@ -182,9 +208,13 @@ end
 -- @tparam bolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
 function settings:keypressed(key, scancode, isrepeat)
 	-- Move menu up an down
-	if scancode == menu.up and self.option ~= 1 then
+	if scancode == app.up and self.option ~= 1 then
+		snd.effects.gui_effects_1:rewind()
+		snd.effects.gui_effects_1:play()
 		self.option = self.option - 1
-	elseif scancode == menu.down and self.option ~= 6 then
+	elseif scancode == app.down and self.option ~= 6 then
+		snd.effects.gui_effects_1:rewind()
+		snd.effects.gui_effects_1:play()
 		self.option = self.option + 1
 	end
 	
@@ -207,7 +237,9 @@ function settings:keypressed(key, scancode, isrepeat)
 	end
 	
 	-- Make acction
-	if scancode == menu.accept then
+	if scancode == app.accept then
+		snd.effects.gui_effects_3:rewind()
+		snd.effects.gui_effects_3:play()
 		-- Save settings
 		if self.option ~= 6 then
 			settings:save_and_back()
@@ -215,7 +247,9 @@ function settings:keypressed(key, scancode, isrepeat)
 		else
 		end
 	-- Return to start menu
-	elseif scancode == menu.cancel then
+	elseif scancode == app.cancel then
+		snd.effects.gui_effects_2:rewind()
+		snd.effects.gui_effects_2:play()
 		settings:back()
 	end
 end

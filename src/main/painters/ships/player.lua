@@ -14,10 +14,12 @@ local player = {}
 -- @tparam player ship ship to draw
 function player.draw(ship)
 	-- Draw bullets
-	if ship.weapon.type == "ray_blaster" then
-		painter_weapon.draw_ray(ship.weapon)
-	else
-		painter_weapon.draw_bullets(ship.weapon)
+	if ship.weapon then
+		if ship.weapon.type == "ray_blaster" then
+			painter_weapon.draw_ray(ship.weapon)
+		else
+			painter_weapon.draw_bullets(ship.weapon)
+		end
 	end
 	
 	if ship.life > 0 then

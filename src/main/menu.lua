@@ -4,8 +4,9 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
+local gamestate      = require "lib.vrld.hump.gamestate"
 local vector         = require "lib.vrld.hump.vector"
-local player         = require "src.main.entities.ships.player"
+local ship           = require "src.main.entities.ships.mockup_player"
 local painter_player = require "src.main.painters.ships.player"
 
 -- Menu module
@@ -26,20 +27,7 @@ menu.delta = 0
 --- Delta to move saved message
 menu.x_delta = 0
 --- Player ship for start animation
-menu.player = nil
-
---- Up key
-menu.up = "w"
---- Down key
-menu.down = "s"
---- Left key
-menu.left = "a"
---- Right key
-menu.right = "d"
---- Accept key
-menu.accept = "return"
---- Cancel key
-menu.cancel = "backspace"
+menu.ship = nil
 
 --- Load menu variable and resources
 function menu:init()
@@ -48,7 +36,7 @@ function menu:init()
 	snd.music.space_theme:play()
 	
 	-- Create player
-	menu.player = player(-32, app.height/2)
+	menu.ship = ship(-32, app.height/2)
 	
 	-- Move player
 	animation.show_menu()
@@ -138,7 +126,7 @@ function menu:update(dt)
 	
 	-- Update ship
 	if self.current == "animation" then
-		self.player:update(dt)
+		self.ship:update(dt)
 	end
 end
 
@@ -160,16 +148,23 @@ end
 -- @tparam Scancode scancode The scancode representing the pressed key
 function menu:keypressed_start(scancode)
 	-- Move menu up and down
-	if scancode == self.up and self.option ~= 1 then
+	if scancode == app.up and self.option ~= 1 then
+		snd.effects.gui_effects_1:rewind()
+		snd.effects.gui_effects_1:play()
 		self.option = self.option - 1
-	elseif scancode == self.down and self.option ~= 3 then
+	elseif scancode == app.down and self.option ~= 3 then
+		snd.effects.gui_effects_1:rewind()
+		snd.effects.gui_effects_1:play()
 		self.option = self.option + 1
 	end
 	
 	-- Enter in other menus
-	if scancode == self.accept then
+	if scancode == app.accept then
+		snd.effects.gui_effects_3:rewind()
+		snd.effects.gui_effects_3:play()
 		-- Level menu
 		if menu.option == 1 then
+			gamestate.switch(game)
 		-- Settings menu
 		elseif self.option == 2 then
 			animation.change_settings()
@@ -218,7 +213,7 @@ end
 
 --- Stencil open animation
 function menu:stencil()
-	love.graphics.rectangle("fill", menu.player.x, 0, app.width - menu.player.x, app.height)
+	love.graphics.rectangle("fill", menu.ship.x, 0, app.width - menu.ship.x, app.height)
 end
 
 --- Draw open animation
@@ -242,7 +237,7 @@ function menu:draw_open_anim()
 	
 	-- Print player
 	love.graphics.setColor(255, 255, 255)
-	painter_player.draw(self.player)
+	painter_player.draw(self.ship)
 end
 
 --- Draw menu function

@@ -55,8 +55,8 @@ player = class {
 		if love.keyboard.isDown("space") then
 			-- If we shoot a bullet, sound a effect
 			if self.weapon:shoot() then
-				snd.sfx.laser:rewind()
-				snd.sfx.laser:play()
+				snd.effects.laser:rewind()
+				snd.effects.laser:play()
 			end
 		end
 		

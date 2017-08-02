@@ -25,6 +25,19 @@ app.debug = true
 --- Save file
 app.save_file = love.filesystem.getSaveDirectory() .. "/settings.lua"
 
+--- Up key
+app.up = "w"
+--- Down key
+app.down = "s"
+--- Left key
+app.left = "a"
+--- Right key
+app.right = "d"
+--- Accept key
+app.accept = "return"
+--- Cancel key
+app.cancel = "backspace"
+
 -- Save total update time
 local total_title_time = 0
 local trigger_title_time = 0.1
@@ -52,6 +65,8 @@ img = {}
 snd = {}
 --- Table of printable text
 txt = {}
+--- Table of shaders
+shaders = {}
 
 --- Load fonts
 function app:load_fonts()
@@ -98,6 +113,11 @@ function app:load_nodes()
 	snd_tree = files.new_node('root', "src/assets/sounds", snd, 'snd')
 end
 
+--- Load shaders
+function app:load_shaders()
+	shaders.grayscale = love.graphics.newShader("src/assets/shaders/grayscale.glsl")
+end
+
 --- Init all app variables
 function app:init()
 	-- Fonts
@@ -115,6 +135,27 @@ function app:init()
 	-- Load file nodes
 	print "Loading nodes..."
 	app:load_nodes()
+	
+	-- Load shaders
+	app:load_shaders()
+end
+
+--- Set current volume to music sounds
+-- @tparam table root Table with contains source elements to set volume
+-- @tparam number volume Volume to set all elements
+function app:set_sound_volume(root, volume)
+	local function set_recursive(node)
+		local pos, elem
+		for pos, sound in pairs(node) do
+			if type(sound) == "table" and not sound.type then
+				set_recursive(sound)
+			else
+				sound:setVolume(volume/100)
+			end
+		end
+	end
+	
+	set_recursive(root)
 end
 
 --- Update app variables
@@ -147,6 +188,8 @@ function app:update(dt)
 	
 	-- Loaded
 	else
+		app:set_sound_volume(snd.music, self.music_volume)
+		app:set_sound_volume(snd.effects, self.sfx_volume)
 		gamestate.switch(menu)
 	end
 end
@@ -209,6 +252,8 @@ function love.load(args)
 	dofile("src/main/levels.lua")
 	-- Load start menu
 	dofile("src/main/menu.lua")
+	-- Load hud
+	dofile("src/main/hud.lua")
 	-- Load general game functions
 	dofile("src/main/game.lua")
 	
