@@ -1,48 +1,34 @@
 --- bullet prototype object.
 -- This module construct a bullet object.
 --
--- @module  entities.bullet
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
--- @license GNU General Public License v3
+-- @classmod entities.bullet
+-- @see      entity
+-- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
+-- @license  GNU General Public License v3
 
-local collider = require "lib.vrld.HC"
-local class    = require "lib.vrld.hump.class"
+local entity           = require "src.main.entity"
+local class            = require "lib.vrld.hump.class"
+local collider_manager = require "lib.vrld.HC"
 
 local bullet = class {
 	--- Create a new bullet
 	-- @tparam bullet self A bullet object to be used
-	-- @tparam number x New x position
-	-- @tparam number y New y position
-	-- @tparam vector velocity New velocity
+	-- @tparam vector position Start position
+	-- @tparam vector velocity Velocity to move entity
+	-- @tparam table  dimensions Table with bullet dimensions
 	-- @tparam number damage Current damage of bullet
 	-- @tparam string type Type of bullet
-	init = function(self, x, y, velocity, damage, type)
-		-- Set variables
-		self.x = x
-		self.y = y
-		self.velocity = velocity
+	init = function(self, position, velocity, dimensions, damage, type)
+		entity.init(self, position, velocity, type)
+		-- Collider shape
+		local rect_x = position.x - math.round(dimensions.w/2)
+		local rect_y = position.y - math.round(dimensions.h/2)
+		self.collider = collider_manager.rectangle(rect_x, rect_y, dimensions.w, dimensions.h)
+		-- Damage
 		self.damage = damage
-		self.type = type
 	end,
 	
-	--- Move the current bullet
-	-- @tparam bullet self Bullet object
-	-- @tparam number dt Time since the last update in seconds
-	update = function(self, dt)
-		-- Update position
-		self.x = self.x + self.velocity.x * dt
-		self.y = self.y + self.velocity.y * dt
-
-		-- Update collider
-		self.collider:moveTo(self.x, self.y)
-	end,
-	
-	--- Free current bullet
-	-- @tparam bullet self Bullet object
-	free = function(self)
-		-- Remove collider from space collider
-		collider.remove(self.collider)
-	end
+	__includes = entity
 }
 
 -- Return bullet module

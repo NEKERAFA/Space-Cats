@@ -16,7 +16,7 @@ function weapon.draw_bullets(weapon)
 		-- Get centered of image
 		local x_pos = img.weapons[bullet.type]:getWidth()/2
 		local y_pos = 0
-		
+
 		-- Get y_pos centered
 		if bullet.type == "baster" then
 			y_pos = img.weapons[bullet.type]:getHeight()-2
@@ -27,7 +27,9 @@ function weapon.draw_bullets(weapon)
 		end
 	
 		-- Draw weapon
-		love.graphics.draw(img.weapons[bullet.type], math.round(bullet.x), math.round(bullet.y), angle, 1, -1, x_pos, y_pos)
+		local x = math.round(bullet.position.x)
+		local y = math.round(bullet.position.y)
+		love.graphics.draw(img.weapons[bullet.type], x, y, angle, 1, -1, x_pos, y_pos)
 	end
 end
 

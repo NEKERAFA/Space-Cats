@@ -1,22 +1,22 @@
 --- blaster prototype object.
 -- This module construct a blaster weapon object.
 --
--- @module  entities.weapons.baster
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
--- @license GNU General Public License v3
+-- @classmod entities.weapons.baster
+-- @see      entities.weapon
+-- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
+-- @license  GNU General Public License v3
 
 local class  = require "lib.vrld.hump.class"
 local weapon = require "src.main.entities.weapon"
 
 local blaster = class {
 	--- Create new baster object
-	-- @tparam blaster self New blaster object
-	-- @tparam ship ship Ship object attached
-	-- @tparam number dx x position to shoot
-	-- @tparam number dy y position to shoot
+	-- @tparam weapon self New blaster object
+	-- @tparam ship   ship Ship object attached
+	-- @tparam vector delta Delta from ship center where weapon shoot
 	-- @tparam vector velocity Velocity vector
-	init = function(self, ship, dx, dy, velocity)
-		weapon.init(self, ship, dx, dy, 4, 4, velocity, 1, "blaster", 0.25)
+	init = function(self, ship, delta, velocity)
+		weapon.init(self, ship, delta, {w = 4, h = 4}, velocity, 1, 0.25, "blaster")
 	end,
 	
 	--- Inherit weapon class

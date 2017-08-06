@@ -1,0 +1,7 @@
+--- Enemy ship prototype object.
+-- This module construct a ship object that represents a enemy a bit stronger.
+--
+-- @classmod entities.ships.mouse
+-- @see      entities.ship
+-- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
+-- @license  GNU General Public License v3

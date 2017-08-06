@@ -8,24 +8,19 @@
 local collider = require "lib.vrld.HC"
 local anim8    = require "lib.kikito.anim8.anim8"
 local class    = require "lib.vrld.hump.class"
+local vector   = require "lib.vrld.hump.vector"
 local ship     = require "src.main.entities.ship"
 
 -- Module
-player = class {
+local player = class {
 	--- Create new player
 	-- @tparam ship self A ship to be used
-	-- @tparam number x New x position
-	-- @tparam number y New y position
+	-- @tparam vector position Start position
 	-- @treturn player New playership
-	init = function(self, x, y)
+	init = function(self, position)
 		-- Create animation grid
 		local flame_grid = anim8.newGrid(16, 16, 16, 64)
-		
-		ship.init(self, x, y, 1, "player")
-	
-		-- Create collider
-		self.collider = collider.rectangle(x-16, y-6, 32, 12)
-		
+		ship.init(self, position, vector(0,0), {w = 32, h = 12}, nil, 4, 4, "player")
 		-- Create animations
 		self.flame = anim8.newAnimation(flame_grid(1, '1-4'), 0.05)
 	end,

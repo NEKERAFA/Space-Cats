@@ -190,7 +190,7 @@ function app:update(dt)
 	else
 		app:set_sound_volume(snd.music, self.music_volume)
 		app:set_sound_volume(snd.effects, self.sfx_volume)
-		gamestate.switch(menu)
+		gamestate.switch(game)
 	end
 end
 
@@ -257,7 +257,7 @@ function love.load(args)
 	-- Load general game functions
 	dofile("src/main/game.lua")
 	
-	gamestate.switch(splash)
+	gamestate.switch(app)
 end
 
 --- [Löve] Callback function used to update the state of the game every frame

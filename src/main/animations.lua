@@ -11,7 +11,7 @@ animation = {}
 
 --- Show menu
 function animation.show_menu()
-	timer.tween(3, menu, {ship = {x = app.width + 32}}, 'linear', function() menu.current = "start" end)
+	timer.tween(2, menu.ship.position, {x = app.width+32}, 'linear', function() menu.current = "start" end)
 end
 
 --- Move down title menu

@@ -13,6 +13,20 @@ function math.round(num)
     return math.ceil(num - 0.5)
 end
 
+--- Check if a point r is in the segment pq
+-- @param p Start point of segment
+-- @param q End point of segment
+-- @param r Point to check
+function math.onsegment(p, q, r)
+	return r.x <= math.max(p.x, q.x) and r.x >= math.min(p.x, q.x) and
+	       r.y <= math.max(p.y, q.y) and r.y >= math.min(p.y, q.y)
+end
+
+--- Check if a point p is equals q
+function math.pointequals(p, q)
+	return p.x == q.x and p.y == q.y
+end
+
 --- Module stars
 stars = {}
 

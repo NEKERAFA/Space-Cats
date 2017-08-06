@@ -36,7 +36,7 @@ function menu:init()
 	snd.music.space_theme:play()
 	
 	-- Create player
-	menu.ship = ship(-32, app.height/2)
+	menu.ship = ship(vector(-32, app.height/2))
 	
 	-- Move player
 	animation.show_menu()
@@ -213,7 +213,7 @@ end
 
 --- Stencil open animation
 function menu:stencil()
-	love.graphics.rectangle("fill", menu.ship.x, 0, app.width - menu.ship.x, app.height)
+	love.graphics.rectangle("fill", menu.ship.position.x, 0, app.width - menu.ship.position.x, app.height)
 end
 
 --- Draw open animation

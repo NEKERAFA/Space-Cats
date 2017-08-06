@@ -14,11 +14,9 @@ function hud:draw_life()
 		if i > game.player.life then
 			love.graphics.setShader(shaders.grayscale)
 		end
-		
 		-- Calculate x position
 		local x = (i-1)*18 + app.width/2 - ((18*3)+16)/2
 		love.graphics.draw(img.hud.life, x, 5)
-		
 		love.graphics.setShader()
 	end
 end
