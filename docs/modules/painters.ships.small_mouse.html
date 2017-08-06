@@ -33,7 +33,6 @@
 <h2>Contents</h2>
 <ul>
 <li><a href="#Functions">Functions</a></li>
-<li><a href="#Fields">Fields</a></li>
 </ul>
 
 
@@ -41,7 +40,7 @@
 <ul class="nowrap">
   <li><a href="../modules/main.html">main</a></li>
   <li><a href="../modules/main.animation.html">main.animation</a></li>
-  <li><strong>entities.weapons.guided_baster</strong></li>
+  <li><a href="../modules/entities.weapons.guided_baster.html">entities.weapons.guided_baster</a></li>
   <li><a href="../modules/entities.weapons.ray_baster.html">entities.weapons.ray_baster</a></li>
   <li><a href="../modules/main.game.html">main.game</a></li>
   <li><a href="../modules/main.hud.html">main.hud</a></li>
@@ -49,7 +48,7 @@
   <li><a href="../modules/main.menu.html">main.menu</a></li>
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
   <li><a href="../modules/painters.ships.player.html">painters.ships.player</a></li>
-  <li><a href="../modules/painters.ships.small_mouse.html">painters.ships.small_mouse</a></li>
+  <li><strong>painters.ships.small_mouse</strong></li>
   <li><a href="../modules/painters.weapon.html">painters.weapon</a></li>
   <li><a href="../modules/main.settings.html">main.settings</a></li>
   <li><a href="../modules/main.splash.html">main.splash</a></li>
@@ -72,11 +71,9 @@
 
 <div id="content">
 
-<h1>Module <code>entities.weapons.guided_baster</code></h1>
-<p>Gided blaster prototype object.</p>
-<p>
- This module construct a blaster weapon object.
-</p>
+<h1>Module <code>painters.ships.small_mouse</code></h1>
+<p>This module is resposible for draw small mouse enemy ship</p>
+<p></p>
     <h3>Info:</h3>
     <ul>
         <li><strong>License</strong>: GNU General Public License v3</li>
@@ -87,19 +84,8 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#init">init (self, ship, pointed, dx, dy, velocity)</a></td>
-	<td class="summary">Create new guided baster object</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#update">update (self, dt)</a></td>
-	<td class="summary">Update all bullets and variables</td>
-	</tr>
-</table>
-<h2><a href="#Fields">Fields</a></h2>
-<table class="function_list">
-	<tr>
-	<td class="name" nowrap><a href="#__includes">__includes</a></td>
-	<td class="summary">Inherit weapon class</td>
+	<td class="name" nowrap><a href="#draw">draw (ship)</a></td>
+	<td class="summary">Draw ship textures</td>
 	</tr>
 </table>
 
@@ -111,83 +97,20 @@
 
     <dl class="function">
     <dt>
-    <a name = "init"></a>
-    <strong>init (self, ship, pointed, dx, dy, velocity)</strong>
+    <a name = "draw"></a>
+    <strong>draw (ship)</strong>
     </dt>
     <dd>
-    Create new guided baster object
+    Draw ship textures
 
 
     <h3>Parameters:</h3>
     <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">guided_blaster</span></span>
-         New blaster object
-        </li>
         <li><span class="parameter">ship</span>
-            <span class="types"><a class="type" href="../classes/entities.ship.html">ship</a></span>
-         Ship object attached
-        </li>
-        <li><span class="parameter">pointed</span>
-            <span class="types"><a class="type" href="../classes/entities.ship.html">ship</a></span>
-         Ship to shoot
-        </li>
-        <li><span class="parameter">dx</span>
-            <span class="types"><span class="type">number</span></span>
-         x position to shoot
-        </li>
-        <li><span class="parameter">dy</span>
-            <span class="types"><span class="type">number</span></span>
-         y position to shoot
-        </li>
-        <li><span class="parameter">velocity</span>
-            <span class="types"><span class="type">vector</span></span>
-         Velocity vector
+            <span class="types"><span class="type">small_mouse</span></span>
+         ship to draw
         </li>
     </ul>
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "update"></a>
-    <strong>update (self, dt)</strong>
-    </dt>
-    <dd>
-    Update all bullets and variables
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">self</span>
-            <span class="types"><span class="type">guided_blaster</span></span>
-         Guided blaster object
-        </li>
-        <li><span class="parameter">dt</span>
-            <span class="types"><span class="type">number</span></span>
-         Time since the last update in seconds
-        </li>
-    </ul>
-
-
-
-
-
-</dd>
-</dl>
-    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
-
-    <dl class="function">
-    <dt>
-    <a name = "__includes"></a>
-    <strong>__includes</strong>
-    </dt>
-    <dd>
-    Inherit weapon class
-
-
 
 
 

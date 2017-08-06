@@ -1,6 +1,6 @@
 --- Definition of general game functions in Space Cats
 --
--- @module  game
+-- @module  main.game
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 

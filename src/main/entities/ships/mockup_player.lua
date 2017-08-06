@@ -1,9 +1,9 @@
 --- Mockup player prototype object.
 -- This module construct a ship object with player apearance (For sequences or animations where player not have control).
 --
--- @module  entities.ships.mockup_player
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
--- @license GNU General Public License v3
+-- @classmod entities.ships.mockup_player
+-- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
+-- @license  GNU General Public License v3
 
 local collider = require "lib.vrld.HC"
 local anim8    = require "lib.kikito.anim8.anim8"

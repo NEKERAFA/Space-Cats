@@ -1,6 +1,6 @@
 --- Definition of all tweenings and animations
 --
--- @module  animation
+-- @module  main.animation
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 

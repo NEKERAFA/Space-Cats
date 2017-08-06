@@ -1,6 +1,6 @@
 --- Definition of game interface in Space Cats
 --
--- @module  entities.ships.player
+-- @module  main.hud
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 

@@ -32,22 +32,32 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="modules/main.html">main</a></li>
-  <li><a href="modules/animation.html">animation</a></li>
-  <li><a href="modules/entities.bullet.html">entities.bullet</a></li>
-  <li><a href="modules/entities.ship.html">entities.ship</a></li>
-  <li><a href="modules/entities.ships.player.html">entities.ships.player</a></li>
-  <li><a href="modules/entities.weapon.html">entities.weapon</a></li>
-  <li><a href="modules/entities.weapons.baster.html">entities.weapons.baster</a></li>
+  <li><a href="modules/main.animation.html">main.animation</a></li>
   <li><a href="modules/entities.weapons.guided_baster.html">entities.weapons.guided_baster</a></li>
   <li><a href="modules/entities.weapons.ray_baster.html">entities.weapons.ray_baster</a></li>
-  <li><a href="modules/game.html">game</a></li>
-  <li><a href="modules/menu.html">menu</a></li>
+  <li><a href="modules/main.game.html">main.game</a></li>
+  <li><a href="modules/main.hud.html">main.hud</a></li>
+  <li><a href="modules/src.main.levels.level_0.html">src.main.levels.level_0</a></li>
+  <li><a href="modules/main.menu.html">main.menu</a></li>
   <li><a href="modules/painters.ship.html">painters.ship</a></li>
   <li><a href="modules/painters.ships.player.html">painters.ships.player</a></li>
+  <li><a href="modules/painters.ships.small_mouse.html">painters.ships.small_mouse</a></li>
   <li><a href="modules/painters.weapon.html">painters.weapon</a></li>
-  <li><a href="modules/settings.html">settings</a></li>
-  <li><a href="modules/splash.html">splash</a></li>
+  <li><a href="modules/main.settings.html">main.settings</a></li>
+  <li><a href="modules/main.splash.html">main.splash</a></li>
   <li><a href="modules/src.main.utils.html">src.main.utils</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="classes/entities.bullet.html">entities.bullet</a></li>
+  <li><a href="classes/entities.ship.html">entities.ship</a></li>
+  <li><a href="classes/entities.ships.mockup_player.html">entities.ships.mockup_player</a></li>
+  <li><a href="classes/entities.ships.mouse.html">entities.ships.mouse</a></li>
+  <li><a href="classes/entities.ships.player.html">entities.ships.player</a></li>
+  <li><a href="classes/entities.ships.small_mouse.html">entities.ships.small_mouse</a></li>
+  <li><a href="classes/entities.weapon.html">entities.weapon</a></li>
+  <li><a href="classes/entities.weapons.baster.html">entities.weapons.baster</a></li>
+  <li><a href="classes/entity.html">entity</a></li>
 </ul>
 
 </div>
@@ -63,28 +73,8 @@
 		<td class="summary">Initial Löve script</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/animation.html">animation</a></td>
+		<td class="name"  nowrap><a href="modules/main.animation.html">main.animation</a></td>
 		<td class="summary">Definition of all tweenings and animations</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/entities.bullet.html">entities.bullet</a></td>
-		<td class="summary">bullet prototype object.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/entities.ship.html">entities.ship</a></td>
-		<td class="summary">Ship prototype object.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/entities.ships.player.html">entities.ships.player</a></td>
-		<td class="summary">Player prototype object.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/entities.weapon.html">entities.weapon</a></td>
-		<td class="summary">Weapon prototype object.</td>
-	</tr>
-	<tr>
-		<td class="name"  nowrap><a href="modules/entities.weapons.baster.html">entities.weapons.baster</a></td>
-		<td class="summary">blaster prototype object.</td>
 	</tr>
 	<tr>
 		<td class="name"  nowrap><a href="modules/entities.weapons.guided_baster.html">entities.weapons.guided_baster</a></td>
@@ -95,11 +85,20 @@
 		<td class="summary">Ray blaster prototype object.</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/game.html">game</a></td>
+		<td class="name"  nowrap><a href="modules/main.game.html">main.game</a></td>
 		<td class="summary">Definition of general game functions in Space Cats</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/menu.html">menu</a></td>
+		<td class="name"  nowrap><a href="modules/main.hud.html">main.hud</a></td>
+		<td class="summary">Definition of game interface in Space Cats</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/src.main.levels.level_0.html">src.main.levels.level_0</a></td>
+		<td class="summary">Level 0 of Space Cats
+ Example level</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="modules/main.menu.html">main.menu</a></td>
 		<td class="summary">Definition of menu functions in Space Cats</td>
 	</tr>
 	<tr>
@@ -111,15 +110,19 @@
 		<td class="summary">This module is resposible for draw player ship</td>
 	</tr>
 	<tr>
+		<td class="name"  nowrap><a href="modules/painters.ships.small_mouse.html">painters.ships.small_mouse</a></td>
+		<td class="summary">This module is resposible for draw small mouse enemy ship</td>
+	</tr>
+	<tr>
 		<td class="name"  nowrap><a href="modules/painters.weapon.html">painters.weapon</a></td>
 		<td class="summary">This module is resposible for draw bullets weapon</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/settings.html">settings</a></td>
+		<td class="name"  nowrap><a href="modules/main.settings.html">main.settings</a></td>
 		<td class="summary">Definition of settings functions in Space Cats</td>
 	</tr>
 	<tr>
-		<td class="name"  nowrap><a href="modules/splash.html">splash</a></td>
+		<td class="name"  nowrap><a href="modules/main.splash.html">main.splash</a></td>
 		<td class="summary">This module load an show Löve splash</td>
 	</tr>
 	<tr>
@@ -127,12 +130,51 @@
 		<td class="summary">Some rubish and other things :3</td>
 	</tr>
 </table>
+<h2>Classes</h2>
+<table class="module_list">
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.bullet.html">entities.bullet</a></td>
+		<td class="summary">bullet prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.ship.html">entities.ship</a></td>
+		<td class="summary">Ship prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.ships.mockup_player.html">entities.ships.mockup_player</a></td>
+		<td class="summary">Mockup player prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.ships.mouse.html">entities.ships.mouse</a></td>
+		<td class="summary">Enemy ship prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.ships.player.html">entities.ships.player</a></td>
+		<td class="summary">Player prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.ships.small_mouse.html">entities.ships.small_mouse</a></td>
+		<td class="summary">Enemy ship prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.weapon.html">entities.weapon</a></td>
+		<td class="summary">Weapon prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entities.weapons.baster.html">entities.weapons.baster</a></td>
+		<td class="summary">blaster prototype object.</td>
+	</tr>
+	<tr>
+		<td class="name"  nowrap><a href="classes/entity.html">entity</a></td>
+		<td class="summary">Entity prototype.</td>
+	</tr>
+</table>
 
 </div> <!-- id="content" -->
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-07-30 19:35:39 </i>
+<i style="float:right;">Last updated 2017-08-06 19:01:15 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

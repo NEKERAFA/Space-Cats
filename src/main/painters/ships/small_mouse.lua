@@ -1,6 +1,6 @@
--- This module is resposible for draw small mouse enemy ship
+--- This module is resposible for draw small mouse enemy ship
 --
--- @module painters.ships.small_mouse
+-- @module  painters.ships.small_mouse
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 

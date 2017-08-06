@@ -41,22 +41,32 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><strong>main</strong></li>
-  <li><a href="../modules/animation.html">animation</a></li>
-  <li><a href="../modules/entities.bullet.html">entities.bullet</a></li>
-  <li><a href="../modules/entities.ship.html">entities.ship</a></li>
-  <li><a href="../modules/entities.ships.player.html">entities.ships.player</a></li>
-  <li><a href="../modules/entities.weapon.html">entities.weapon</a></li>
-  <li><a href="../modules/entities.weapons.baster.html">entities.weapons.baster</a></li>
+  <li><a href="../modules/main.animation.html">main.animation</a></li>
   <li><a href="../modules/entities.weapons.guided_baster.html">entities.weapons.guided_baster</a></li>
   <li><a href="../modules/entities.weapons.ray_baster.html">entities.weapons.ray_baster</a></li>
-  <li><a href="../modules/game.html">game</a></li>
-  <li><a href="../modules/menu.html">menu</a></li>
+  <li><a href="../modules/main.game.html">main.game</a></li>
+  <li><a href="../modules/main.hud.html">main.hud</a></li>
+  <li><a href="../modules/src.main.levels.level_0.html">src.main.levels.level_0</a></li>
+  <li><a href="../modules/main.menu.html">main.menu</a></li>
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
   <li><a href="../modules/painters.ships.player.html">painters.ships.player</a></li>
+  <li><a href="../modules/painters.ships.small_mouse.html">painters.ships.small_mouse</a></li>
   <li><a href="../modules/painters.weapon.html">painters.weapon</a></li>
-  <li><a href="../modules/settings.html">settings</a></li>
-  <li><a href="../modules/splash.html">splash</a></li>
+  <li><a href="../modules/main.settings.html">main.settings</a></li>
+  <li><a href="../modules/main.splash.html">main.splash</a></li>
   <li><a href="../modules/src.main.utils.html">src.main.utils</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/entities.bullet.html">entities.bullet</a></li>
+  <li><a href="../classes/entities.ship.html">entities.ship</a></li>
+  <li><a href="../classes/entities.ships.mockup_player.html">entities.ships.mockup_player</a></li>
+  <li><a href="../classes/entities.ships.mouse.html">entities.ships.mouse</a></li>
+  <li><a href="../classes/entities.ships.player.html">entities.ships.player</a></li>
+  <li><a href="../classes/entities.ships.small_mouse.html">entities.ships.small_mouse</a></li>
+  <li><a href="../classes/entities.weapon.html">entities.weapon</a></li>
+  <li><a href="../classes/entities.weapons.baster.html">entities.weapons.baster</a></li>
+  <li><a href="../classes/entity.html">entity</a></li>
 </ul>
 
 </div>
@@ -89,8 +99,16 @@
 	<td class="summary">Load tree nodes</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#app:load_shaders">app:load_shaders ()</a></td>
+	<td class="summary">Load shaders</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#app:init">app:init ()</a></td>
 	<td class="summary">Init all app variables</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app:set_sound_volume">app:set_sound_volume (root, volume)</a></td>
+	<td class="summary">Set current volume to music sounds</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#app:update">app:update (dt)</a></td>
@@ -139,6 +157,10 @@
 	<td class="name" nowrap><a href="#txt">txt</a></td>
 	<td class="summary">Table of printable text</td>
 	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#shaders">shaders</a></td>
+	<td class="summary">Table of shaders</td>
+	</tr>
 </table>
 <h2><a href="#Fields">Fields</a></h2>
 <table class="function_list">
@@ -169,6 +191,30 @@
 	<tr>
 	<td class="name" nowrap><a href="#app.save_file">app.save_file</a></td>
 	<td class="summary">Save file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app.up">app.up</a></td>
+	<td class="summary">Up key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app.down">app.down</a></td>
+	<td class="summary">Down key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app.left">app.left</a></td>
+	<td class="summary">Left key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app.right">app.right</a></td>
+	<td class="summary">Right key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app.accept">app.accept</a></td>
+	<td class="summary">Accept key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#app.cancel">app.cancel</a></td>
+	<td class="summary">Cancel key</td>
 	</tr>
 </table>
 
@@ -222,6 +268,20 @@
 
 </dd>
     <dt>
+    <a name = "app:load_shaders"></a>
+    <strong>app:load_shaders ()</strong>
+    </dt>
+    <dd>
+    Load shaders
+
+
+
+
+
+
+
+</dd>
+    <dt>
     <a name = "app:init"></a>
     <strong>app:init ()</strong>
     </dt>
@@ -229,6 +289,31 @@
     Init all app variables
 
 
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app:set_sound_volume"></a>
+    <strong>app:set_sound_volume (root, volume)</strong>
+    </dt>
+    <dd>
+    Set current volume to music sounds
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">root</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Table with contains source elements to set volume
+        </li>
+        <li><span class="parameter">volume</span>
+            <span class="types"><span class="type">number</span></span>
+         Volume to set all elements
+        </li>
+    </ul>
 
 
 
@@ -429,6 +514,20 @@
 
 
 </dd>
+    <dt>
+    <a name = "shaders"></a>
+    <strong>shaders</strong>
+    </dt>
+    <dd>
+    Table of shaders
+
+
+
+
+
+
+
+</dd>
 </dl>
     <h2 class="section-header "><a name="Fields"></a>Fields</h2>
 
@@ -531,6 +630,90 @@
 
 
 </dd>
+    <dt>
+    <a name = "app.up"></a>
+    <strong>app.up</strong>
+    </dt>
+    <dd>
+    Up key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app.down"></a>
+    <strong>app.down</strong>
+    </dt>
+    <dd>
+    Down key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app.left"></a>
+    <strong>app.left</strong>
+    </dt>
+    <dd>
+    Left key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app.right"></a>
+    <strong>app.right</strong>
+    </dt>
+    <dd>
+    Right key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app.accept"></a>
+    <strong>app.accept</strong>
+    </dt>
+    <dd>
+    Accept key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "app.cancel"></a>
+    <strong>app.cancel</strong>
+    </dt>
+    <dd>
+    Cancel key
+
+
+
+
+
+
+
+</dd>
 </dl>
 
 
@@ -538,7 +721,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-07-30 19:35:39 </i>
+<i style="float:right;">Last updated 2017-08-06 19:01:15 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

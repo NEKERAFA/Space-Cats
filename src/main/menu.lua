@@ -1,6 +1,6 @@
 --- Definition of menu functions in Space Cats
 --
--- @module  menu
+-- @module  main.menu
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 

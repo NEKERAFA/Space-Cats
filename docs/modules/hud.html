@@ -39,11 +39,11 @@
 <h2>Modules</h2>
 <ul class="nowrap">
   <li><a href="../modules/main.html">main</a></li>
-  <li><strong>animation</strong></li>
+  <li><a href="../modules/animation.html">animation</a></li>
   <li><a href="../modules/entities.weapons.guided_baster.html">entities.weapons.guided_baster</a></li>
   <li><a href="../modules/entities.weapons.ray_baster.html">entities.weapons.ray_baster</a></li>
   <li><a href="../modules/game.html">game</a></li>
-  <li><a href="../modules/hud.html">hud</a></li>
+  <li><strong>hud</strong></li>
   <li><a href="../modules/src.main.levels.level_0.html">src.main.levels.level_0</a></li>
   <li><a href="../modules/menu.html">menu</a></li>
   <li><a href="../modules/painters.ship.html">painters.ship</a></li>
@@ -71,8 +71,8 @@
 
 <div id="content">
 
-<h1>Module <code>animation</code></h1>
-<p>Definition of all tweenings and animations</p>
+<h1>Module <code>hud</code></h1>
+<p>Definition of game interface in Space Cats</p>
 <p></p>
     <h3>Info:</h3>
     <ul>
@@ -84,40 +84,20 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#show_menu">show_menu ()</a></td>
-	<td class="summary">Show menu</td>
+	<td class="name" nowrap><a href="#draw_life">draw_life ()</a></td>
+	<td class="summary">Draw player life</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#title_down">title_down ()</a></td>
-	<td class="summary">Move down title menu</td>
+	<td class="name" nowrap><a href="#draw_weapon">draw_weapon ()</a></td>
+	<td class="summary">Draw player weapon</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#title_up">title_up ()</a></td>
-	<td class="summary">Move up title</td>
+	<td class="name" nowrap><a href="#draw_points">draw_points ()</a></td>
+	<td class="summary">Draw points</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#inc_alpha">inc_alpha ()</a></td>
-	<td class="summary">Increment alpha bright</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#dec_alpha">dec_alpha ()</a></td>
-	<td class="summary">Decrement alpha bright</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#save_text">save_text ()</a></td>
-	<td class="summary">Save text animation</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#change_start">change_start ()</a></td>
-	<td class="summary">Change to start menu</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#change_settings">change_settings ()</a></td>
-	<td class="summary">Change to settings menu</td>
-	</tr>
-	<tr>
-	<td class="name" nowrap><a href="#change_levels">change_levels ()</a></td>
-	<td class="summary">Change to level selection menu</td>
+	<td class="name" nowrap><a href="#draw">draw ()</a></td>
+	<td class="summary">Draw hud</td>
 	</tr>
 </table>
 
@@ -129,11 +109,11 @@
 
     <dl class="function">
     <dt>
-    <a name = "show_menu"></a>
-    <strong>show_menu ()</strong>
+    <a name = "draw_life"></a>
+    <strong>draw_life ()</strong>
     </dt>
     <dd>
-    Show menu
+    Draw player life
 
 
 
@@ -143,11 +123,11 @@
 
 </dd>
     <dt>
-    <a name = "title_down"></a>
-    <strong>title_down ()</strong>
+    <a name = "draw_weapon"></a>
+    <strong>draw_weapon ()</strong>
     </dt>
     <dd>
-    Move down title menu
+    Draw player weapon
 
 
 
@@ -157,11 +137,11 @@
 
 </dd>
     <dt>
-    <a name = "title_up"></a>
-    <strong>title_up ()</strong>
+    <a name = "draw_points"></a>
+    <strong>draw_points ()</strong>
     </dt>
     <dd>
-    Move up title
+    Draw points
 
 
 
@@ -171,81 +151,11 @@
 
 </dd>
     <dt>
-    <a name = "inc_alpha"></a>
-    <strong>inc_alpha ()</strong>
+    <a name = "draw"></a>
+    <strong>draw ()</strong>
     </dt>
     <dd>
-    Increment alpha bright
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "dec_alpha"></a>
-    <strong>dec_alpha ()</strong>
-    </dt>
-    <dd>
-    Decrement alpha bright
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "save_text"></a>
-    <strong>save_text ()</strong>
-    </dt>
-    <dd>
-    Save text animation
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "change_start"></a>
-    <strong>change_start ()</strong>
-    </dt>
-    <dd>
-    Change to start menu
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "change_settings"></a>
-    <strong>change_settings ()</strong>
-    </dt>
-    <dd>
-    Change to settings menu
-
-
-
-
-
-
-
-</dd>
-    <dt>
-    <a name = "change_levels"></a>
-    <strong>change_levels ()</strong>
-    </dt>
-    <dd>
-    Change to level selection menu
+    Draw hud
 
 
 

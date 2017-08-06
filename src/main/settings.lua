@@ -1,6 +1,6 @@
 --- Definition of settings functions in Space Cats
 --
--- @module  settings
+-- @module  main.settings
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
