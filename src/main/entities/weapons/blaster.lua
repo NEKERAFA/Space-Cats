@@ -1,8 +1,8 @@
 --- blaster prototype object.
 -- This module construct a blaster weapon object.
 --
--- @classmod entities.weapons.baster
--- @see      entities.weapon
+-- @classmod src.main.entities.weapons.baster
+-- @see      src.main.entities.weapon
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 

@@ -1,6 +1,5 @@
 --- This module is resposible for draw bullets weapon
 --
--- @module painters.weapon
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -20,7 +19,7 @@ function weapon.draw_bullets(weapon)
 		-- Get y_pos centered
 		if bullet.type == "baster" then
 			y_pos = img.weapons[bullet.type]:getHeight()-2
-		elseif bullet.type == "baster2" then
+		elseif bullet.type == "guided_blaster" then
 			y_pos = img.weapons[bullet.type]:getHeight()-4
 		elseif bullet.type == "balistic" then
 			y_pos = img.weapons[bullet.type]:getHeight()-1
@@ -30,6 +29,13 @@ function weapon.draw_bullets(weapon)
 		local x = math.round(bullet.position.x)
 		local y = math.round(bullet.position.y)
 		love.graphics.draw(img.weapons[bullet.type], x, y, angle, 1, -1, x_pos, y_pos)
+		
+		if bullet.collider then
+			local r, g, b, a = love.graphics.getColor()
+			love.graphics.setColor(255, 0, 0, 128)
+			bullet.collider:draw('fill')
+			love.graphics.setColor(r, g, b, a)
+		end
 	end
 end
 

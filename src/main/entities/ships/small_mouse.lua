@@ -1,8 +1,8 @@
 --- Enemy ship prototype object.
 -- This module construct a ship object that represents a enemy.
 --
--- @classmod entities.ships.small_mouse
--- @see      entities.ship
+-- @classmod src.main.entities.ships.small_mouse
+-- @see      src.main.entities.ship
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -15,7 +15,7 @@ local blaster  = require "src.main.entities.weapons.blaster"
 
 -- Module
 local small_mouse = class {
-	--- Create new player
+	--- Create new mouse ship
 	-- @tparam ship self A ship to be used
 	-- @tparam table path Points where ship must go
 	-- @tparam vector wait_point Point in the path where ship will stop to shoot all bullets
@@ -40,6 +40,7 @@ local small_mouse = class {
 		self.wait_point = wait_point
 		self.bullets = bullets
 		self.next_point = 2
+		self.points = 10
 
 		-- Create animation grid
 		local flame_grid = anim8.newGrid(16, 16, 16, 64)
@@ -55,8 +56,8 @@ local small_mouse = class {
 	--- Inherit ship class
 	__includes = ship,
 	
-	--- Velocity
-	max_velocity = 2*app.frameRate,
+	--- Velocity of ship
+	max_velocity = app.frameRate,
 	
 	--- Update all variables in enemy ship
 	-- @tparam ship self Ship object
@@ -68,7 +69,7 @@ local small_mouse = class {
 		if self.life > 0 then
 			-- Get next position
 			next_pos = self.position + self.velocity * dt
-			
+
 			-- Check if ship must shoot all bullets
 			if math.pointequals(self.position, self.wait_point) and self.bullets > 0 then
 				if self.weapon:shoot() then
@@ -94,19 +95,18 @@ local small_mouse = class {
 					self.velocity = (self.path[self.next_point] - self.position):normalized() * self.max_velocity
 				end
 			end
-			
+
 			-- Move ship
 			entity.update(self, dt)
 		end
 	end,
 	
-		--- Free current ship
+	--- Free current ship
 	-- @tparam ship self Ship object
 	free = function(self)
 		self.path = nil
 		self.wait_point = nil
 		self.bullets = nil
-		
 		-- Remove variables
 		ship.free(self)
 	end

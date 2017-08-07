@@ -1,6 +1,5 @@
 --- This module is resposible for draw ship
 --
--- @module painters.ship
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -16,6 +15,16 @@ function ship.draw_hitbox(ship)
 		ship.collider:draw('fill')
 		love.graphics.setColor(r, g, b, a)
 	end
+end
+
+--- Draw explosion
+-- @tparam ship ship Ship to paint explosion animation
+function ship.draw_explosion(ship)
+	-- Draw explosion
+	x = math.round(ship.position.x)
+	y = math.round(ship.position.y)
+	draw = img.animations.explosion
+	ship.explosion:draw(draw, x, y, 0, 1, 1, 16, 16)
 end
 
 return ship

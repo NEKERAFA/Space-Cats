@@ -1,7 +1,7 @@
 --- Entity prototype.
 -- This module constructs a entity prototype class
 --
--- @classmod entity
+-- @classmod src.main.entity
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -29,7 +29,9 @@ local entity = class {
 		-- Update position
 		self.position = self.position + self.velocity * dt
 		-- Update collider
-		self.collider:moveTo(math.round(self.position.x), math.round(self.position.y))
+		if self.collider then
+			self.collider:moveTo(math.round(self.position.x), math.round(self.position.y))
+		end
 	end,
 
 	--- Free collider if entity have shape collide

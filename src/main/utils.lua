@@ -4,6 +4,7 @@
 -- @license GNU General Public License v3
 
 local vector = require "lib.vrld.hump.vector"
+local entity = require "src.main.entity"
 
 --- Round a number
 function math.round(num)
@@ -25,67 +26,6 @@ end
 --- Check if a point p is equals q
 function math.pointequals(p, q)
 	return p.x == q.x and p.y == q.y
-end
-
---- Module stars
-stars = {}
-
---- Create new star table
-function stars.new(dir)
-	local stars = {}
-	
-	for i = 1, app.max_stars do
-        stars[i] = {
-            x = math.random(8, app.width-8),
-            y = math.random(8, app.height-8),
-            v = vector(dir.x*math.random(2, 8), dir.y*math.random(2, 8)),
-			d = dir
-        }
-    end
-	
-	return stars
-end
-
---- Update stars variables
--- @tparam table stars Table with all stars variables
--- @tparam number dt Time since the last update in seconds
-function stars.update(stars, dt)
-	for i, star in ipairs(stars) do
-		star.x = star.x + star.v.x * app.frameRate * dt
-		star.y = star.y + star.v.y * app.frameRate * dt
-		
-		-- Restart if star throws out the screen
-        if star.x < 0 or star.x > app.width or star.y < 0 or star.y > app.height then
-			if math.abs(star.d.y) == 0 then
-				star.x = app.width
-			else
-				star.x = math.random(8, app.width-8) * math.abs(star.d.y)
-			end
-			
-			if math.abs(star.d.x) == 0 then
-				star.y = app.height
-			else
-				star.y = math.random(8, app.height-8) * math.abs(star.d.x)
-			end
-			
-            star.v = vector(star.d.x*math.random(2, 8), star.d.y*math.random(2, 8))
-        end
-	end
-end
-
---- Draw star
--- @tparam table stars Table with all stars variables
-function stars.draw(stars)
-	for i, star in ipairs(stars) do
-		-- Check if star has low velocity
-		if (star.v.x ~= 0 and math.abs(star.v.x) < 5) or 
-				((star.v.y ~= 0) and math.abs(star.v.y) < 5) then
-			love.graphics.draw(img.particles.star, math.round(star.x), math.round(star.y))
-		-- Show star with high velocity
-		else
-			love.graphics.draw(img.particles.star, math.round(star.x), math.round(star.y), 0, 2, 2, 1, 1)
-		end
-	end
 end
 
 --- Module to represent file system in node tree

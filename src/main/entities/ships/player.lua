@@ -1,8 +1,8 @@
 --- Player prototype object.
 -- This module construct a ship object that player controls.
 --
--- @classmod entities.ships.player
--- @see      entities.ship
+-- @classmod src.main.entities.ships.player
+-- @see      src.main.entities.ship
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -40,8 +40,8 @@ local player = class {
 	--- Inherit ship class
 	__includes = ship,
 	
-	--- Velocity vector
-	max_velocity = 3*app.frameRate,
+	--- Velocity of ship
+	max_velocity = 2*app.frameRate,
 	
 	--- Update all variables in the player
 	-- @tparam ship self Ship object
@@ -49,29 +49,31 @@ local player = class {
 	update = function(self, dt)
 		ship.update(self, dt)
 		
-		-- Shoot a bullet
-		if love.keyboard.isDown("space") then
-			-- If we shoot a bullet, sound a effect
-			if self.weapon:shoot() then
-				snd.effects.laser:rewind()
-				snd.effects.laser:play()
+		if self.life > 0 then
+			-- Shoot a bullet
+			if love.keyboard.isDown(app.fire) then
+				-- If we shoot a bullet, sound a effect
+				if self.weapon:shoot() then
+					snd.effects.laser:rewind()
+					snd.effects.laser:play()
+				end
 			end
+
+			-- Keys to move ship
+			local delta = vector(0,0)
+			if love.keyboard.isDown(app.up)    then delta.y = -1 end
+			if love.keyboard.isDown(app.down)  then delta.y =  1 end
+			if love.keyboard.isDown(app.left)  then delta.x = -1 end
+			if love.keyboard.isDown(app.right) then delta.x =  1 end
+
+			-- Move ship
+			self.velocity = delta * self.max_velocity
+			entity.update(self, dt)
+
+			-- Screen restrictions
+			self.position.y = math.max(16, math.min(app.height-16, self.position.y))
+			self.position.x = math.max(16, math.min(app.width-16, self.position.x))
 		end
-
-		-- Keys to move ship
-		local delta = vector(0,0)
-		if love.keyboard.isDown("up")    then delta.y = -1 end
-		if love.keyboard.isDown("down")  then delta.y =  1 end
-		if love.keyboard.isDown("left")  then delta.x = -1 end
-		if love.keyboard.isDown("right") then delta.x =  1 end
-
-		-- Move ship
-		self.velocity = delta * self.max_velocity
-		entity.update(self, dt)
-
-		-- Screen restrictions
-		self.position.y = math.max(16, math.min(app.height-16, self.position.y))
-		self.position.x = math.max(16, math.min(app.width-16, self.position.x))
 	end
 }
 

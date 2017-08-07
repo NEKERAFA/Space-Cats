@@ -1,11 +1,23 @@
 --- Definition of game interface in Space Cats
 --
--- @module  main.hud
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
 -- Module hud
 hud = {}
+
+-- Points texture
+hud.points = nil
+
+--- Update points texture
+-- @tparam number points Number of current points
+function hud:update_points()
+	if hud.points == nil then
+		hud.points = love.graphics.newText(app.font_points, string.format("%0.8i", game.points))
+	else
+		hud.points:set(string.format("%0.8i", game.points))
+	end
+end
 
 --- Draw player life
 function hud:draw_life()
@@ -32,7 +44,7 @@ end
 
 --- Draw points
 function hud:draw_points()
-	love.graphics.printf(string.format("%0.8i", game.points), 5, 5, app.width-10, "right")
+	love.graphics.draw(hud.points, app.width-5, 2, 0, 1, 1, hud.points:getWidth(), 0)
 end
 
 --- Draw hud

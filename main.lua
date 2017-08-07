@@ -17,11 +17,9 @@ app.height = 180
 --- Frame rate of game
 app.frameRate = 60
 --- Current version
-app.version = "0.9 (alphaka)"
---- Maximun of stars
-app.max_stars = 32
+app.version = "1.0 (demew)"
 --- Debugging information
-app.debug = true
+app.debug = false
 --- Save file
 app.save_file = love.filesystem.getSaveDirectory() .. "/settings.lua"
 
@@ -33,6 +31,8 @@ app.down = "s"
 app.left = "a"
 --- Right key
 app.right = "d"
+--- Fire key
+app.fire = "k"
 --- Accept key
 app.accept = "return"
 --- Cancel key
@@ -79,6 +79,11 @@ function app:load_fonts()
 	print "Loading bold font..."
 	self.font_bold = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator8-Bold.ttf", 8)
 	self.font_bold:setFilter("nearest")
+	
+	-- Load points font
+	print "Loading points font..."
+	self.font_points = love.graphics.newFont("src/assets/fonts/pixel_operator/PixelOperator.ttf", 16)
+	self.font_points:setFilter("nearest")
 	
 	-- Set normal font as default
 	love.graphics.setFont(self.font)
@@ -190,7 +195,7 @@ function app:update(dt)
 	else
 		app:set_sound_volume(snd.music, self.music_volume)
 		app:set_sound_volume(snd.effects, self.sfx_volume)
-		gamestate.switch(game)
+		gamestate.switch(menu)
 	end
 end
 
@@ -238,10 +243,8 @@ function love.load(args)
 	
 	-- Load utils
 	dofile("src/main/utils.lua")
-	
 	-- Load animations
 	dofile("src/main/animations.lua")
-	
 	-- Load splash
 	dofile("src/main/splash.lua")
 	-- Load credits
@@ -254,10 +257,12 @@ function love.load(args)
 	dofile("src/main/menu.lua")
 	-- Load hud
 	dofile("src/main/hud.lua")
+	-- Load collision system
+	dofile("src/main/collisions.lua")
 	-- Load general game functions
 	dofile("src/main/game.lua")
 	
-	gamestate.switch(app)
+	gamestate.switch(splash)
 end
 
 --- [Löve] Callback function used to update the state of the game every frame

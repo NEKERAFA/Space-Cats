@@ -1,8 +1,8 @@
 --- bullet prototype object.
 -- This module construct a bullet object.
 --
--- @classmod entities.bullet
--- @see      entity
+-- @classmod src.main.entities.bullet
+-- @see      src.main.entity
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -28,6 +28,7 @@ local bullet = class {
 		self.damage = damage
 	end,
 	
+	--- Inherit entity class
 	__includes = entity
 }
 

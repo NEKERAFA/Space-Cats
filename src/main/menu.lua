@@ -1,13 +1,14 @@
 --- Definition of menu functions in Space Cats
 --
--- @module  main.menu
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
 local gamestate      = require "lib.vrld.hump.gamestate"
 local vector         = require "lib.vrld.hump.vector"
 local ship           = require "src.main.entities.ships.mockup_player"
-local painter_player = require "src.main.painters.ships.player"
+local stars          = require "src.main.entities.stars"
+local player_painter = require "src.main.painters.ships.player"
+local stars_painter  = require "src.main.painters.stars"
 
 -- Menu module
 menu = {}
@@ -47,7 +48,7 @@ function menu:init()
 	animation.title_down()
 	
 	-- Create stars
-	self.stars = stars.new(vector(0,-1))
+	self.stars = stars(vector(0, -1))
 	
 	-- Create title image texture
 	self.title = {
@@ -122,7 +123,7 @@ end
 --- Draw splash animation
 function menu:update(dt)
 	-- Update stars
-	stars.update(self.stars, dt)
+	self.stars:update(dt)
 	
 	-- Update ship
 	if self.current == "animation" then
@@ -186,7 +187,7 @@ function menu:draw_button(button)
 	
 	-- Print selected background mark
 	if self.option == button.option then
-		love.graphics.setColor(255, 255, 255, self.alpha)
+		love.graphics.setColor(255, 255, 255, self.b_alpha)
 		love.graphics.draw(img.menu.option_selected, b_x, button.button.y, 0, 1, 1, self.b_x0, self.b_y0)
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.draw(txt.mark, m_x, button.button.y + 2, 0, 1, 1, self.m_x0, self.m_y0)
@@ -237,7 +238,7 @@ function menu:draw_open_anim()
 	
 	-- Print player
 	love.graphics.setColor(255, 255, 255)
-	painter_player.draw(self.ship)
+	player_painter.draw(self.ship)
 end
 
 --- Draw menu function
@@ -246,7 +247,7 @@ function menu:draw()
 	love.graphics.draw(img.backgrounds.space, 0, 0)
 	
 	-- Draw stars
-	stars.draw(self.stars)
+	stars_painter.draw(self.stars)
 	
 	-- Draw planet
 	love.graphics.draw(img.planets.big_red, self.planet.x - self.delta, app.height, 0, 1, 1, self.planet.x0, 96)

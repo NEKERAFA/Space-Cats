@@ -1,8 +1,8 @@
 --- Ship prototype object.
 -- This module construct a ship object. See diagram for know atributes.
 --
--- @classmod entities.ship
--- @see      entity
+-- @classmod src.main.entities.ship
+-- @see      src.main.entity
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -35,6 +35,7 @@ local ship = class {
 		self.collider = collider_manager.rectangle(rect_x, rect_y, dimensions.w, dimensions.h)
 	end,
 	
+	--- Inherit entity class
 	__includes = entity,
 	
 	--- Update status after explosion animation
@@ -62,9 +63,13 @@ local ship = class {
 				self.collider = nil
 				-- Show explosion
 				self.explosion:resume()
+				snd.effects.explosion:rewind()
 				snd.effects.explosion:play()
 			end
+			return true
 		end
+		
+		return false
 	end,
 	
 	--- Update all variables in the ship and move it

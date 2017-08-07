@@ -1,6 +1,5 @@
 --- This module is resposible for draw player ship
 --
--- @module painters.ships.player
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
@@ -30,7 +29,7 @@ function player.draw(ship)
 		-- Draw damage effect
 		if ship.damaged then
 			-- Alpha value
-			local alpha = math.round(math.abs(math.cos(ship.damaged_value*2*math.pi))) * 255
+			local alpha = math.round(math.abs(math.cos(ship.damaged_time*2*math.pi))) * 255
 			-- Set effect
 			love.graphics.setColor(255, 192, 192, alpha)
 		end
@@ -43,6 +42,8 @@ function player.draw(ship)
 		
 		-- Reset colors
 		love.graphics.setColor(r, g, b, a)
+	elseif not ship.destroyed then
+		ship_painter.draw_explosion(ship)
 	end
 	
 	-- Draw hitbox

@@ -1,4 +1,4 @@
---- This module is resposible for draw small mouse enemy ship
+--- This module is resposible for draw mouse enemy ship
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
@@ -7,11 +7,11 @@ local weapon_painter = require "src.main.painters.weapon"
 local ship_painter   = require "src.main.painters.ship"
 
 -- Module small_mouse
-local small_mouse = {}
+local mouse = {}
 
 --- Draw ship textures
 -- @tparam small_mouse ship ship to draw
-function small_mouse.draw(ship)
+function mouse.draw(ship)
 	-- Draw bullets
 	weapon_painter.draw_bullets(ship.weapon)
 	
@@ -23,7 +23,7 @@ function small_mouse.draw(ship)
 		-- Draw damage effect
 		if ship.damaged then
 			-- Set effect
-			love.graphics.setColor(255, 192, 192, 255)
+			love.graphics.setColor(255, ship.damaged_time * 255, ship.damaged_time * 255, 255)
 		end
 		
 		-- Draw flame and ship
@@ -44,4 +44,4 @@ function small_mouse.draw(ship)
 	end
 end
 
-return small_mouse
+return mouse

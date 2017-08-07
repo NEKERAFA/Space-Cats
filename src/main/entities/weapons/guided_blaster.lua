@@ -1,9 +1,10 @@
 --- Gided blaster prototype object.
 -- This module construct a blaster weapon object.
 --
--- @module  entities.weapons.guided_baster
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
--- @license GNU General Public License v3
+-- @classmod src.main.entities.weapons.guided_baster
+-- @see      src.main.entities.weapon
+-- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
+-- @license  GNU General Public License v3
 
 local vector = require "lib.vrld.hump.vector"
 local class  = require "lib.vrld.hump.class"
@@ -14,28 +15,27 @@ local guided_blaster = class {
 	-- @tparam guided_blaster self New blaster object
 	-- @tparam ship ship Ship object attached
 	-- @tparam ship pointed Ship to shoot
-	-- @tparam number dx x position to shoot
-	-- @tparam number dy y position to shoot
-	-- @tparam vector velocity Velocity vector
-	init = function(self, ship, pointed, dx, dy, velocity)
-		-- Get direction
-		local direction = vector(ship.x-pointed.x, ship.y-pointed.y)
-		local velocity = direction:normalizeInplace() * velocity:len()
-		
-		weapon.init(self, ship, dx, dy, 4, 4, velocity, 1, "guided_blaster", 2)
+	-- @tparam vector delta Delta from ship center where weapon shoot
+	init = function(self, ship, pointed, delta)
+		-- Set weapon
+		weapon.init(self, ship, delta, {w = 8, h = 8}, vector(0,0), 1, 2, "guided_blaster")
+		-- Set pointed
+		self.pointed = pointed
 	end,
 	
 	--- Inherit weapon class
 	__includes = weapon,
+	
+	--- Velocity of bullets
+	max_velocity = 1*app.frameRate,
 	
 	--- Update all bullets and variables
 	-- @tparam guided_blaster self Guided blaster object
 	-- @tparam number dt Time since the last update in seconds
 	update = function(self, dt)
 		-- Update direction
-		local direction = vector(ship.x-pointed.x, ship.y-pointed.y)
-		self.velocity = direction:normalizeInplace() * self.velocity:len()
-		
+		local direction = (self.pointed.position - self.ship.position):normalized()
+		self.velocity = direction * self.max_velocity
 		weapon.update(self, dt)
 	end
 }

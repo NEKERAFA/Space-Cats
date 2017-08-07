@@ -1,8 +1,8 @@
 --- Weapon prototype object.
 -- This module construct a weapon object.
 --
--- @classmod entities.weapon
--- @see      entities.bullet
+-- @classmod src.main.entities.weapon
+-- @see      src.main.entities.bullet
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -97,7 +97,6 @@ local weapon = class {
 		self.delta = nil
 		self.velocity = nil
 		self.type = "entity"
-
 		-- Remove bullets
 		while #self.bullets > 0 do
 			self.bullets[1]:free()
