@@ -6,7 +6,7 @@
 local timer  = require "lib.vrld.hump.timer"
 
 -- Module animation
-animation = {}
+local animation = {}
 
 --- Show menu
 function animation.show_menu()
@@ -73,3 +73,5 @@ function animation.change_levels()
 	timer.tween(0.5, menu, {delta = -app.width}, 'out-quad', function() menu.current = "levels" end)
 	timer.tween(0.5, menu, {planet = {x0 = 0}}, 'out-expo')
 end
+
+return animation

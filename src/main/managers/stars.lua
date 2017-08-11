@@ -1,14 +1,13 @@
---- Stars prototype object.
--- This module construct a stars sky object.
+-- This module construct and manage a stars sky.
 --
--- @classmod src.main.entities.stars
+-- @classmod src.main.managers.star_manager
 -- @see      src.main.entity
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
 local class  = require "lib.vrld.hump.class"
 local vector = require "lib.vrld.hump.vector"
-local entity = require "src.main.entity"
+local entity = require "src.main.entitites.entity"
 
 local stars = class {
 	--- Create new stars sky object

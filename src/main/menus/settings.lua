@@ -4,6 +4,8 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
+local animation = require "src.main.animations"
+
 -- Module settings
 settings = {}
 
@@ -24,10 +26,8 @@ settings.scalefactor = nil
 function settings:init()
 	-- Load installed list languages
 	self.languages = love.filesystem.getDirectoryItems("lang")
-
 	-- Load all resolutions
 	self.resolutions = {3, 3.2, 4, 4.2666, 5, 6, 8, 10, 12, 12.8}
-	
 	-- Load variables
 	settings:get_settings()
 end
@@ -66,6 +66,7 @@ function settings:update_settings()
 	app.music_volume = self.music_volume
 	app.sfx_volume = self.sfx_volume
 	app.fullscreen = self.fullscreen
+	app.language = self.language
 	
 	-- Create save folder if not exists
 	if not love.filesystem.exists(love.filesystem.getSaveDirectory()) then
@@ -104,9 +105,6 @@ function settings:update_settings()
 	new_width = math.ceil(app.width * app.scalefactor)
 	new_height = math.ceil(app.height * app.scalefactor)
 	love.window.setMode(new_width, new_height, {fullscreen = app.fullscreen})
-	
-	-- Load language
-	dofile("lang/" .. self.languages[self.language])
 	
 	-- Start save animation
 	animation.save_text()
@@ -194,11 +192,19 @@ function settings:keypressed_language(scancode)
 	if scancode == app.right and self.language ~= #self.languages then
 		snd.effects.gui_effects_2:rewind()
 		snd.effects.gui_effects_2:play()
-		menu.sfx_value = menu.sfx_value + 1
+		self.language = self.language + 1
+		-- Update text
+		dofile("lang/" .. self.languages[self.language])
+		app:update_textures()
+		menu:update_buttons()
 	elseif scancode == app.left and self.language ~= 1 then
 		snd.effects.gui_effects_2:rewind()
 		snd.effects.gui_effects_2:play()
-		menu.sfx_value = menu.sfx_value - 1
+		self.language = self.language - 1
+		-- Update text
+		dofile("lang/" .. self.languages[self.language])
+		app:update_textures()
+		menu:update_buttons()
 	end
 end
 

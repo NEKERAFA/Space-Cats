@@ -7,73 +7,80 @@ local vector   = require "lib.vrld.hump.vector"
 local particle = require "src.main.entities.particle"
 
 -- Module collisions
-collision = {}
+local collision = {}
 
 --- Check collisions from player bullets
-function collision.check_player_bullets()
+-- @tparam player player Player ship
+-- @tparam table entities A table with all entities to check
+function collision:check_player_bullets(player, entities)
 	-- Check all bullets
-	for i, bullet in ipairs(game.player.weapon.bullets) do
+	for i, bullet in ipairs(player.weapon.bullets) do
 		-- Check all entities
-		for j, entity in ipairs(game.entities) do
+		for j, entity in ipairs(entities) do
 			-- Check if entity collides with bullet collider
 			if entity.collider and entity.collider:collidesWith(bullet.collider) then
 				-- Remove bullet
-				table.remove(game.player.weapon.bullets, i)
+				table.remove(player.weapon.bullets, i)
 				-- Make damage
 				damaged = entity:damage(bullet.damage)
-
-				local new_particle
-				-- Create points particle
-				if entity.collider == nil then
-					velocity = vector(0, -app.scalefactor*2)
-					new_particle = particle(entity.position, velocity, 1, entity.points, "points")
-					game.points = game.points + entity.points
-					hud:update_points()
-				-- Create damage particle
-				elseif damaged then
-					velocity = vector(app.scalefactor*2, 0)
-					new_particle = particle(entity.position, velocity, 1, bullet.damage, "damage")
-					new_particle.damaged = true
-				end
-				table.insert(game.particles, new_particle)
-
-				break
+				return entity, bullet.damage, damaged
 			end
 		end
 	end
 end
 
 --- Check collisions from entities bullets
-function collision.check_entities_bullets()
+-- @tparam player player Player ship
+-- @tparam table entities A table with all entities to check
+function collision:check_entities_bullets(player, entities)
 	-- Check all entities
-	for i, entity in ipairs(game.entities) do
+	for i, entity in ipairs(entities) do
 		-- Check if entity has weapon
 		if entity.weapon then
 			for j, bullet in ipairs(entity.weapon.bullets) do
 				-- Check if player collider with bullet collider
-				if game.player.collider and game.player.collider:collidesWith(bullet.collider) then
+				if player.collider and player.collider:collidesWith(bullet.collider) then
 					-- Remove bullet
 					table.remove(entity.weapon.bullets, j)
 					-- Make damage
-					damaged = game.player:damage(bullet.damage)
-					-- Create damaged particle
-					if damaged then
-						velocity = vector(-app.scalefactor*2, 0)
-						new_particle = particle(game.player.position, velocity, 1, bullet.damage, "damage")
-						new_particle.damaged = true
-						table.insert(game.particles, new_particle)
+					if player:damage(bullet.damage) then
+						return bullet.damage
 					end
-					break
+					return nil
 				end
 			end
 		end
 	end
 end
 
--- Check all collisions
-function collision.check()
+--- Check all bullet collisions and create particles if it needed
+-- @tparam player player Player ship
+-- @tparam table entities A table with all entities to check
+-- @tparam table particles A table to add particles
+function collision:check(player, entities, particles)
 	-- Check collisions from player bullets
-	collision.check_player_bullets()
+	entity, damage, damaged = collision:check_player_bullets()
+	
+	-- Create new particle
+	if entity and entity.life == 0 then
+		new_particle = particle(entity.position, vector(0, -app.scalefactor*2), 1, entity.points, "points")
+		table.insert(particles, new_particle)
+		return entity.points
+	elseif entity then
+		new_particle = particle(entity.position, vector(app.scalefactor*2, 0), 1, bullet.damage, "damage")
+		new_particle.damaged = damaged
+		table.insert(particles, new_particle)
+	end
+	
 	-- Check collisions from entities bullets
-	collision.check_entities_bullets()
+	damage = collision:check_entities_bullets()
+	
+	-- Create new particle
+	if damage then
+		new_particle = particle(entity.position, vector(-app.scalefactor*2, 0), 1, bullet.damage, "damage")
+		new_particle.damaged = true
+		table.insert(particles, new_particle)
+	end
 end
+
+return collision

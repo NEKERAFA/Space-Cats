@@ -7,15 +7,15 @@
 -- @license  GNU General Public License v3
 
 local class  = require "lib.vrld.hump.class"
-local entity = require "src.main.entity"
+local entity = require "src.main.entities.entity"
 
 local particle = class {
 	--- Create a new particle entity
 	-- @tparam particle self New particle
 	-- @tparam vector position Start position
 	-- @tparam vector velocity Particle velocity
-	-- @tparam number value Value of particle
 	-- @tparam number lifetime Maximun particle lifetime
+	-- @tparam number value Value of particle
 	-- @tparam string type Type of particle
 	init = function(self, position, velocity, lifetime, value, type)
 		entity.init(self, position, velocity, type)

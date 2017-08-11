@@ -30,11 +30,15 @@
   <li><a href="../index.html">Index</a></li>
 </ul>
 
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
 
 
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><strong>lib.vrld.HC.polygon</strong></li>
+  <li><a href="../modules/lib.vrld.HC.polygon.html">lib.vrld.HC.polygon</a></li>
   <li><a href="../modules/main.html">main</a></li>
   <li><a href="../modules/src.main.animations.html">src.main.animations</a></li>
   <li><a href="../modules/src.main.collisions.html">src.main.collisions</a></li>
@@ -43,7 +47,7 @@
   <li><a href="../modules/src.main.hud.html">src.main.hud</a></li>
   <li><a href="../modules/src.main.levels.level_0.html">src.main.levels.level_0</a></li>
   <li><a href="../modules/src.main.menu.html">src.main.menu</a></li>
-  <li><a href="../modules/src.main.painters.particles.html">src.main.painters.particles</a></li>
+  <li><strong>src.main.painters.particles</strong></li>
   <li><a href="../modules/src.main.painters.ship.html">src.main.painters.ship</a></li>
   <li><a href="../modules/src.main.painters.ships.mouse.html">src.main.painters.ships.mouse</a></li>
   <li><a href="../modules/src.main.painters.ships.player.html">src.main.painters.ships.player</a></li>
@@ -74,16 +78,103 @@
 
 <div id="content">
 
-<h1>Module <code>lib.vrld.HC.polygon</code></h1>
-<p>Private helper functions</p>
-<p> create vertex list of coordinate pairs</p>
+<h1>Module <code>src.main.painters.particles</code></h1>
+<p>This module is resposible for draw particles like damage and points</p>
+<p></p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA)</li>
+    </ul>
 
 
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#draw_points">draw_points (particle)</a></td>
+	<td class="summary">Draw point particle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#draw_damage">draw_damage (particle)</a></td>
+	<td class="summary">Draw damage particle</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#draw">draw (particles)</a></td>
+	<td class="summary">Draw particles</td>
+	</tr>
+</table>
 
 <br/>
 <br/>
 
 
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "draw_points"></a>
+    <strong>draw_points (particle)</strong>
+    </dt>
+    <dd>
+    Draw point particle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">particle</span>
+            <span class="types"><span class="type">particle</span></span>
+         Particle to draw
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "draw_damage"></a>
+    <strong>draw_damage (particle)</strong>
+    </dt>
+    <dd>
+    Draw damage particle
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">particle</span>
+            <span class="types"><span class="type">particle</span></span>
+         Particle to draw
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "draw"></a>
+    <strong>draw (particles)</strong>
+    </dt>
+    <dd>
+    Draw particles
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">particles</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Table with all particle to draw
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
 
 
 </div> <!-- id="content" -->

@@ -30,7 +30,7 @@ function weapon.draw_bullets(weapon)
 		local y = math.round(bullet.position.y)
 		love.graphics.draw(img.weapons[bullet.type], x, y, angle, 1, -1, x_pos, y_pos)
 		
-		if bullet.collider then
+		if bullet.collider and app.debug then
 			local r, g, b, a = love.graphics.getColor()
 			love.graphics.setColor(255, 0, 0, 128)
 			bullet.collider:draw('fill')

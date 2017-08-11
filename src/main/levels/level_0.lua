@@ -38,7 +38,6 @@ function level:init()
 
 	-- up - middle
 	p7  = vector(2/3 * app.width, 1/4 * app.height)
-
 	-- down - middle
 	p8  = vector(2/3 * app.width, 3/4 * app.height)
 	
@@ -46,13 +45,23 @@ function level:init()
 	p9  = vector(app.width + 16, 1/2 * app.height)
 	p10 = vector(3/4 * app.width, 1/2 * app.height)
 
+	-- up - middle - up
+	p11 = vector(3/4 * app.width, 0)
+	-- down - middle - down
+	p12 = vector(3/4 * app.width, app.height)
+	
+	-- middle - up
+	p13 = vector(1/2 * app.width, 1/3 * app.height)
+	-- middle - down
+	p14 = vector(1/2 * app.width, 2/3 * app.height)
+
 	-- First wave
 	self.entities = {}
-	-- Mouses goes from up
+-- Mouses goes from up
 	table.insert(self.entities, {
 		object = small_mouse({p1, p2, p3}, p2, 1),
 		wait = false,
-		time = 6
+		time = 4
 	})
 	table.insert(self.entities, {
 		object = small_mouse({p1, p2, p3}, p2, 1),
@@ -69,7 +78,47 @@ function level:init()
 		wait = false,
 		time = 2
 	})
-	-- Mouses goes from down
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 1),
+		wait = false,
+		time = 4
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 1),
+		wait = false,
+		time = 2
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 1),
+		wait = false,
+		time = 2
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 1),
+		wait = false,
+		time = 2
+	})
+-- Mouses goes from down
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 1),
+		wait = false,
+		time = 4
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 1),
+		wait = false,
+		time = 2
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 1),
+		wait = false,
+		time = 2
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 1),
+		wait = false,
+		time = 2
+	})
 	table.insert(self.entities, {
 		object = small_mouse({p4, p5, p6}, p5, 1),
 		wait = false,
@@ -92,7 +141,7 @@ function level:init()
 	})
 
 	-- Wave 2
-	-- Mouse Ships
+-- Mouse Ships
 	table.insert(self.entities, {
 		object = mouse(p1, p7, game.player),
 		wait = false,
@@ -103,53 +152,259 @@ function level:init()
 		wait = false,
 		time = 0
 	})
-	-- Small ships
+-- Small ships
 	table.insert(self.entities, {
-		object = small_mouse({p1, p2, p3}, p2, 1),
+		object = small_mouse({p9, p10, p1}, p10, 1),
 		wait = false,
 		time = 2
 	})
 	table.insert(self.entities, {
-		object = small_mouse({p1, p2, p3}, p2, 1),
+		object = small_mouse({p9, p10, p4}, p10, 2),
 		wait = false,
 		time = 2
 	})
 	table.insert(self.entities, {
-		object = small_mouse({p1, p2, p3}, p2, 1),
+		object = small_mouse({p9, p10, p1}, p10, 2),
 		wait = false,
 		time = 2
 	})
 	table.insert(self.entities, {
-		object = small_mouse({p4, p5, p6}, p5, 1),
+		object = small_mouse({p9, p10, p4}, p10, 1),
 		wait = false,
 		time = 2
 	})
 	table.insert(self.entities, {
-		object = small_mouse({p4, p5, p6}, p5, 1),
+		object = small_mouse({p9, p10, p1}, p10, 1),
 		wait = false,
 		time = 2
 	})
 	table.insert(self.entities, {
-		object = small_mouse({p4, p5, p6}, p5, 1),
+		object = small_mouse({p9, p10, p4}, p10, 2),
 		wait = false,
 		time = 2
+	})
+--
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = true,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
 	})
 
 	-- Wave 3
 	table.insert(self.entities, {
-		object = mouse(p1, p7, game.player),
+		object = mouse(p1, p13, game.player),
 		wait = true,
 		time = 4,
 	})
 	table.insert(self.entities, {
-		object = mouse(p4, p8, game.player),
+		object = mouse(p4, p14, game.player),
 		wait = false,
-		time = 0
+		time = 1
 	})
 	table.insert(self.entities, {
 		object = mouse(p9, p10, game.player),
 		wait = false,
-		time = 2
+		time = 1
+	})
+--
+	table.insert(self.entities, {
+		object = mouse(p1, p13, game.player),
+		wait = true,
+		time = 4,
+	})
+	table.insert(self.entities, {
+		object = mouse(p4, p14, game.player),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = mouse(p9, p10, game.player),
+		wait = false,
+		time = 1
+	})
+
+	-- Wave 4
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = true,
+		time = 4
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p3}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p6}, p5, 2),
+		wait = false,
+		time = 1
+	})
+-- Big ships
+	table.insert(self.entities, {
+		object = mouse(p1, p13, game.player),
+		wait = true,
+		time = 0.5,
+	})
+	table.insert(self.entities, {
+		object = mouse(p4, p14, game.player),
+		wait = false,
+		time = 0.5
+	})
+	table.insert(self.entities, {
+		object = mouse(p9, p10, game.player),
+		wait = false,
+		time = 0.5
+	})
+-- Small ships
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p1, p2, p11}, p2, 2),
+		wait = false,
+		time = 1
+	})
+	table.insert(self.entities, {
+		object = small_mouse({p4, p5, p12}, p5, 2),
+		wait = false,
+		time = 1
 	})
 
 	level.entities_stacked = #self.entities

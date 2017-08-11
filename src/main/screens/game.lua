@@ -12,6 +12,7 @@ local particles_painter   = require "src.main.painters.particles"
 local player_painter      = require "src.main.painters.ships.player"
 local small_mouse_painter = require "src.main.painters.ships.small_mouse"
 local mouse_painter       = require "src.main.painters.ships.mouse"
+local dialog_manager      = require "src.main.dialog"
 
 -- Module game
 game = {}
@@ -32,21 +33,25 @@ game.stars = nil
 game.level = "level_0"
 --- Time since pop a level entity
 game.dt = nil
+--- Dialog manager
+game.dialog_manager = nil
+--- Game started
+game.started = false
 
 --- Load game variables and resources
 function game:enter()
 	-- Set entities
-	game.entities = {}
-	game.n_entities = 0
+	self.entities = {}
+	self.n_entities = 0
 	
 	-- Set particles
-	game.particles = {}
+	self.particles = {}
 	
 	-- Create player
 	self.player = player(vector(32, app.height/2))
 	
 	-- Set points
-	game.points = 0
+	self.points = 0
 	hud:update_points()
 	
 	-- Set sounds
@@ -55,10 +60,16 @@ function game:enter()
 	snd.music.brave_space_explorers:play()
 	
 	-- Set time
-	game.dt = 0
+	self.dt = 0
+	
+	-- Set dialog manager
+	self.dialog_manager = dialog_manager(32, false)
+	keyboard_msg = msg_string.moveup..": "..app.up.."\t"..msg_string.moveleft..": "..app.left.."\t"..msg_string.fire..": "..app.fire.."\n"
+	keyboard_msg = keyboard_msg..msg_string.movedown..": "..app.down.."\t"..msg_string.moveright..": "..app.right
+	self.dialog_manager:add_line(msg_string.controls, keyboard_msg)
 	
 	-- Load level
-	dofile("src/main/levels/" .. game.level .. ".lua")
+	dofile("src/main/levels/" .. self.level .. ".lua")
 	level:init()
 	
 	-- Create stars
@@ -99,11 +110,13 @@ end
 --- Pop new entity
 function game:pop_entity()
 	--  Insert entity in game
-	table.insert(game.entities, level.entities[1].object)
-	game.n_entities = game.n_entities + 1
-	-- Remove entity from stack level
-	table.remove(level.entities, 1)
-	level.entities_stacked = level.entities_stacked - 1
+	if level.entities[1].object then
+		table.insert(game.entities, level.entities[1].object)
+		game.n_entities = game.n_entities + 1
+		-- Remove entity from stack level
+		table.remove(level.entities, 1)
+		level.entities_stacked = level.entities_stacked - 1
+	end
 end
 
 --- Check level entities stack and pop new entity if it requires
@@ -185,19 +198,37 @@ end
 --- Update game variables
 -- @tparam number dt Time since the last update in seconds
 function game:update(dt)
-	-- Check stack
-	game.dt = game.dt + dt
-	game:check_level_stack()
-	-- Update player
-	self.player:update(dt)
-	-- Update stars
-	if level.stars then self.stars:update(dt) end
-	-- Update entities
-	game:update_entities(dt)
-	-- Update particles
-	game:update_particles(dt)
-	-- Check collisions
-	collision.check()
+	-- Update game variables
+	if game.started then
+		game.dt = game.dt + dt
+		-- Check start
+		game:check_level_stack()
+		-- Update player
+		self.player:update(dt)
+		-- Update stars
+		if level.stars then self.stars:update(dt) end
+		-- Update entities
+		game:update_entities(dt)
+		-- Update particles
+		game:update_particles(dt)
+		-- Check collisions
+		collision.check()
+	end
+	
+	-- Update dialogs
+	game.dialog_manager:update(dt)
+	if #game.dialog_manager.script == 0 then
+		game.started = true
+	end
+end
+
+--- Update menu variable
+-- @tparam KeyConstant key Character of the pressed key
+-- @tparam Scancode scancode The scancode representing the pressed key
+-- @tparam bolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
+function game:keypressed(key, scancode, isrepeat)
+	-- Update dialogs
+	game.dialog_manager:keypressed(key, scancode, isrepeat)
 end
 
 --- Draw entities

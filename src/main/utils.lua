@@ -3,8 +3,7 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local vector = require "lib.vrld.hump.vector"
-local entity = require "src.main.entity"
+-- MATH UTILITIES
 
 --- Round a number
 function math.round(num)
@@ -26,6 +25,44 @@ end
 --- Check if a point p is equals q
 function math.pointequals(p, q)
 	return p.x == q.x and p.y == q.y
+end
+
+--- TABLE UTILITIES
+
+function table.val_to_str ( v )
+	if "string" == type( v ) then
+		v = string.gsub( v, "\n", "\\n" )
+		if string.match( string.gsub(v,"[^'\"]",""), '^"+$' ) then
+			return "'" .. v .. "'"
+		end
+		return '"' .. string.gsub(v,'"', '\\"' ) .. '"'
+	else
+		return "table" == type( v ) and table.tostring( v ) or
+		tostring( v )
+	end
+end
+
+function table.key_to_str ( k )
+	if "string" == type( k ) and string.match( k, "^[_%a][_%a%d]*$" ) then
+		return k
+	else
+		return "[" .. table.val_to_str( k ) .. "]"
+	end
+end
+
+function table.tostring( tbl )
+	local result, done = {}, {}
+	for k, v in ipairs( tbl ) do
+		table.insert( result, table.val_to_str( v ) )
+		done[ k ] = true
+	end
+	for k, v in pairs( tbl ) do
+		if not done[ k ] then
+		table.insert( result,
+			table.key_to_str( k ) .. "=" .. table.val_to_str( v ) )
+		end
+	end
+	return "{" .. table.concat( result, "," ) .. "}"
 end
 
 --- Module to represent file system in node tree
@@ -124,5 +161,35 @@ function files.load_node(node, type)
 	-- If isn't a directory or a file, skip it
 	else
 		return files.next(node)
+	end
+end
+
+--- Get fullname of source
+-- @param source Object source to get name
+function files.get_full_name(source)
+	-- Recursive function to get full name
+	function get_name(src_table)
+		for key, value in pairs(src_table) do
+			-- If a table, iterate this table to
+			if type(value) == "table" then 
+				name = get_name(value)
+				-- Value obtain, back
+				if name ~= nil then 
+					return key .. "." .. name
+				end
+			end
+			
+			-- If source is pointed like value, get this key
+			if value == source then return key end
+		end
+		
+		return nil
+	end
+	
+	-- If is a image
+	if source:typeOf("image") then
+		return get_name(img)
+	else
+		return get_name(snd)
 	end
 end

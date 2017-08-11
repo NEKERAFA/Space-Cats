@@ -1,6 +1,6 @@
 msg_string = {
 	loading = "Loading",
-	story = "Story",
+	story = "Demo",
 	settings = "Settings",
 	exit = "Exit game",
 	music = "Music volume",
@@ -11,5 +11,14 @@ msg_string = {
 	disabled = "Disabled",
 	enabled = "Enabled",
 	credits = "Credits and Licenses",
-	saved = "Saved in"
+	saved = "Saved in",
+	finish = "Level finished",
+	thanks = "Thanks for playing",
+	gameover = "Game Over",
+	fire = "Fire",
+	moveup = "Move up",
+	movedown = "Move down",
+	moveleft = "Move left",
+	moveright = "Move right",
+	controls = "Keyboard controls"
 }

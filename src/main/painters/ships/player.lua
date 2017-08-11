@@ -30,8 +30,10 @@ function player.draw(ship)
 		if ship.damaged then
 			-- Alpha value
 			local alpha = math.round(math.abs(math.cos(ship.damaged_time*2*math.pi))) * 255
+			-- Color value
+			local color = 255 * ship.damaged_time / 4
 			-- Set effect
-			love.graphics.setColor(255, 192, 192, alpha)
+			love.graphics.setColor(255, color, color, alpha)
 		end
 		
 		-- Draw flame and ship

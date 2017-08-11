@@ -28,7 +28,7 @@ local small_mouse = class {
 		end
 
 		-- Create weapon
-		local weapon = blaster(self, vector(-16, 6), vector(-8*app.frameRate, 0))
+		local weapon = blaster(self, vector(-16, 6), vector(-4*app.frameRate, 0))
 
 		-- Velocity vector
 		local velocity = (path[2] - path[1]):normalized() * self.max_velocity 

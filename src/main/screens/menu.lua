@@ -5,6 +5,7 @@
 
 local gamestate      = require "lib.vrld.hump.gamestate"
 local vector         = require "lib.vrld.hump.vector"
+local animation      = require "src.main.animations"
 local ship           = require "src.main.entities.ships.mockup_player"
 local stars          = require "src.main.entities.stars"
 local player_painter = require "src.main.painters.ships.player"
@@ -32,6 +33,10 @@ menu.ship = nil
 
 --- Load menu variable and resources
 function menu:init()
+	-- Load menus
+	dofile("src/main/menus/levels.lua")
+	dofile("src/main/menus/settings.lua")
+	
 	-- Set started sound theme
 	snd.music.space_theme:setLooping(true)
 	snd.music.space_theme:play()
@@ -75,48 +80,68 @@ function menu:init()
 	self.b_x0 = math.round(img.menu.option_normal:getWidth()/2)
 	self.b_y0 = math.round(img.menu.option_normal:getHeight()/2)
 	
-	-- Story button
-	self.buttons.story = {
-		option = 1,
-		button = {
-			y = app.height/2 + 8,
-			pos = vector(0, -app.height/2 + 8),
-		},
-		text = {
-			img = txt.story,
-			x0 = math.round(txt.story:getWidth()/2),
-			y0 = math.round(txt.story:getHeight()/2)
-		}
-	}
-	
-	-- Settings button
-	self.buttons.settings = {
-		option = 2,
-		button = {
-			y = app.height/2 + 14 + 14
-		},
-		text = {
-			img = txt.settings,
-			x0 = math.round(txt.settings:getWidth()/2),
-			y0 = math.round(txt.settings:getHeight()/2)
-		}
-	}
-	
-	-- Exit button
-	self.buttons.exit = {
-		option = 3,
-		button = {
-			y = app.height/2 + 20 + 28
-		},
-		text = {
-			img = txt.exit,
-			x0 = math.round(txt.exit:getWidth()/2),
-			y0 = math.round(txt.exit:getHeight()/2)
-		}
-	}
+	-- Create buttons
+	menu:update_buttons()
 	
 	-- Load settings
 	settings:init()
+end
+
+--- Create/update main buttons
+function menu:update_buttons()
+	-- Story button
+	if not self.buttons.story then
+		self.buttons.story = {
+			option = 1,
+			button = {
+				y = app.height/2 + 8
+			},
+			text = {
+				img = txt.story,
+				x0 = math.round(txt.story:getWidth()/2),
+				y0 = math.round(txt.story:getHeight()/2)
+			}
+		}
+	else
+		self.buttons.story.text.x0 = math.round(txt.story:getWidth()/2)
+		self.buttons.story.text.y0 = math.round(txt.story:getHeight()/2)
+	end
+	
+	-- Settings button
+	if not self.buttons.settings then
+		self.buttons.settings = {
+			option = 2,
+			button = {
+				y = app.height/2 + 14 + 14
+			},
+			text = {
+				img = txt.settings,
+				x0 = math.round(txt.settings:getWidth()/2),
+				y0 = math.round(txt.settings:getHeight()/2)
+			}
+		}
+	else
+		self.buttons.settings.text.x0 = math.round(txt.settings:getWidth()/2)
+		self.buttons.settings.text.y0 = math.round(txt.settings:getHeight()/2)
+	end
+	
+	-- Exit button
+	if not self.buttons.exit then
+		self.buttons.exit = {
+			option = 3,
+			button = {
+				y = app.height/2 + 20 + 28
+			},
+			text = {
+				img = txt.exit,
+				x0 = math.round(txt.exit:getWidth()/2),
+				y0 = math.round(txt.exit:getHeight()/2)
+			}
+		}
+	else
+		self.buttons.exit.text.x0 = math.round(txt.exit:getWidth()/2)
+		self.buttons.exit.text.y0 = math.round(txt.exit:getHeight()/2)
+	end
 end
 
 --- Update menu variables
@@ -169,7 +194,6 @@ function menu:keypressed_start(scancode)
 		-- Settings menu
 		elseif self.option == 2 then
 			animation.change_settings()
-			settings:get_settings()
 		-- Exit game
 		elseif self.option == 3 then
 			love.event.quit(0)
@@ -262,6 +286,14 @@ function menu:draw()
 	love.graphics.setColor(255, 255, 255, self.t_alpha)
 	y = app.height - 5 - txt.saved:getHeight()
 	love.graphics.draw(txt.saved, 5 + self.x_delta, y)
+	
+	-- Draw copyright message
+	love.graphics.setColor(255, 255, 255, 255)
+	local x = 10
+	if app.debug then
+		x = x + txt.version:getWidth() + 10
+	end
+	love.graphics.draw(txt.copyright, x, app.height - txt.copyright:getHeight() - 5)
 	
 	-- Draw open animation
 	if self.current == "animation" then
