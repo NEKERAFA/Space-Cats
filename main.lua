@@ -15,19 +15,6 @@ local trigger_title_time = 0.1
 local total_gb_time = 0
 local trigger_gb_time = 5
 
--- Save total time to splash loading animation
-local total_loading_splash = 0
-local trigger_loading_splash = 1
-
--- Save if app is loaded
-local loaded = false
-local img_loaded = false
-local snd_loaded = false
-
--- Save filesystem tree
-local img_tree = nil
-local snd_tree = nil
-
 --- Table of save textures
 img = {}
 --- Table of save sound
@@ -45,21 +32,22 @@ end
 -- @tparam table args Command line arguments given to the game
 function love.load(args)
 	-- Load application settings
-	dofile("src/main/app.lua")
+	dofile("src/main/states/app.lua")
 	app:load_settings()
 	
 	-- Load utils
 	dofile("src/main/utils.lua")
 	
 	-- Load splash
-	dofile("src/main/screens/splash.lua")
+	dofile("src/main/states/splash.lua")
 	-- Load credits
-	dofile("src/main/screens/credits.lua")
+	dofile("src/main/states/credits.lua")
 	-- Load start menu
-	dofile("src/main/screens/menu.lua")
+	dofile("src/main/states/menu.lua")
 	-- Load general game functions
-	dofile("src/main/screens/game.lua")
+	dofile("src/main/states/game.lua")
 	
+	-- Change state to splash
 	gamestate.switch(splash)
 end
 

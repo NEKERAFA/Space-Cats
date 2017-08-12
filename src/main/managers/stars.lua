@@ -7,7 +7,8 @@
 
 local class  = require "lib.vrld.hump.class"
 local vector = require "lib.vrld.hump.vector"
-local entity = require "src.main.entitites.entity"
+
+local entity = require "src.main.entities.entity"
 
 local stars = class {
 	--- Create new stars sky object

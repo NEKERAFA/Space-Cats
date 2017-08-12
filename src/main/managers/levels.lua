@@ -5,10 +5,7 @@
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
-local class       = require "lib.vrld.hump.class"
-local vector      = require "lib.vrld.hump.vector"
-local mouse       = require "src.main.entities.ships.mouse"
-local small_mouse = require "src.main.entities.ships.small_mouse"
+local class = require "lib.vrld.hump.class"
 
 local level = class {
 	--- Path where levels are saved
@@ -43,7 +40,13 @@ local level = class {
 		end
 		
 		-- Save values
-		self = level_chunk()
+		lvl = level_chunk()
+		
+		-- Override variables
+		for k, v in pairs(lvl) do
+			self[k] = v
+		end
+
 		self.entities_stacked = #self.entities
 		self.poped_entities_destroyed = true
 		self.delta_time = 0
@@ -72,7 +75,7 @@ local level = class {
 		level_file:write("\tbgm = " .. files.get_full_name(level.bgm) .. ",\n")
 		level_file:write("\tstars = " .. level.stars .. ",\n")
 		level_file:write("\tobjetive = \"" .. level.objetive .. "\",\n")
-		level_file:write("\entities = {\n")
+		level_file:write("\tentities = {\n")
 		for pos, entity in ipairs(level.entities) do
 			-- Entities co-arguments
 			level_file:write("\t\t{\n")
@@ -93,19 +96,43 @@ local level = class {
 		level_file:close()
 	end,
 
-	--- Create new mouse
-	create_mouse = function(entity)
-		from    = vector(entity.args[1].x, entity.args[1].y)
-		to      = vector(entity.args[2].x, entity.args[2].y)
-		pointed = game.player
-		return mouse(from, to, pointed)
-	end
-
 	--- Pop new entity from stack level
 	-- @tparam level self Level manager
 	-- @treturn entity New entity to add level if it can poped or nil in other case
 	pop_entity = function(self)
+		if self.entities_stacked > 0 then
+			-- If it are waiting and now we could pop a entity
+			if self.entities[1].wait and self.poped_entities_destroyed then
+				self.entities[1].wait = false
+				self.delta_time = 0
+			end
+			
+			-- If we aren't waiting and delta time is more or equals than entity wait time
+			if not self.entities[1].wait and self.delta_time >= self.entities[1].time then
+				-- Restart delta time
+				self.delta_time = self.delta_time - self.entities[1].time
+				-- Remove stacked entities
+				self.entities_stacked = self.entities_stacked - 1
+				
+				-- Check pop condition if next have wait flag
+				if self.entities_stacked > 1 and self.entities[2].wait then
+					self.poped_entities_destroyed = false
+				end
+				
+				-- Pop entity
+				return table.remove(self.entities, 1)
+			end
+		end
+	end,
 
+	--- Update entity variables
+	-- tparam level self Level manager
+	-- @tparam number dt Time since the last update in seconds
+	update = function(self, dt)
+		-- Update delta time
+		if self.entities_stacked > 0 and not self.entities[1].wait then
+			self.delta_time = self.delta_time + dt
+		end
 	end,
 
 	--[[ Add new entity to level structure
@@ -123,7 +150,7 @@ local level = class {
 	free = function(self)
 		-- Clear entities table
 		if self.entities ~= nil then
-			while self.entities_stacked > 0 then
+			while self.entities_stacked > 0 do
 				table.remove(self.entities, self.entities_stacked)
 				self.entities_stacked = self.entities_stacked - 1
 			end

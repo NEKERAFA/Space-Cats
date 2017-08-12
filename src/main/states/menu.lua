@@ -5,9 +5,13 @@
 
 local gamestate      = require "lib.vrld.hump.gamestate"
 local vector         = require "lib.vrld.hump.vector"
+
 local animation      = require "src.main.animations"
+
 local ship           = require "src.main.entities.ships.mockup_player"
-local stars          = require "src.main.entities.stars"
+
+local stars_manager  = require "src.main.managers.stars"
+
 local player_painter = require "src.main.painters.ships.player"
 local stars_painter  = require "src.main.painters.stars"
 
@@ -53,7 +57,7 @@ function menu:init()
 	animation.title_down()
 	
 	-- Create stars
-	self.stars = stars(vector(0, -1))
+	self.stars_manager = stars_manager(vector(0, -1))
 	
 	-- Create title image texture
 	self.title = {
@@ -148,7 +152,7 @@ end
 --- Draw splash animation
 function menu:update(dt)
 	-- Update stars
-	self.stars:update(dt)
+	self.stars_manager:update(dt)
 	
 	-- Update ship
 	if self.current == "animation" then
@@ -271,7 +275,7 @@ function menu:draw()
 	love.graphics.draw(img.backgrounds.space, 0, 0)
 	
 	-- Draw stars
-	stars_painter.draw(self.stars)
+	stars_painter.draw(self.stars_manager)
 	
 	-- Draw planet
 	love.graphics.draw(img.planets.big_red, self.planet.x - self.delta, app.height, 0, 1, 1, self.planet.x0, 96)

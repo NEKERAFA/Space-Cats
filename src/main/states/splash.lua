@@ -5,6 +5,7 @@
 -- @license GNU General Public License v3
 
 local gamestate = require "lib.vrld.hump.gamestate"
+
 local o_ten_one = require "lib.love2d-community.splashes.o-ten-one"
 
 -- Module splash

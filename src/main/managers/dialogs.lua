@@ -23,7 +23,7 @@ local dialog = class {
 		self.codes = codes or {next = "return", auto = "space"}
 	end,
 	
-	--- Add new charater line to script
+	--- Add new character line to script
 	-- @tparam dialog self Dialog system
 	-- @tparam string title Title of new message. Put the name of charater
 	-- @tparam string message The text that character said
@@ -112,13 +112,22 @@ local dialog = class {
 				-- Change line
 				else
 					table.remove(self.script, 1)
-					self.current_line = {title = "", message = ""}
+					self.current_line = {message = ""}
 				end
 			-- Enable/Disable auto
 			elseif scancode == self.codes.auto then
 				self.auto = not self.auto
 			end
 		end
+	end,
+
+	--- Free all scripts
+	-- @tparam dialog self Dialog system
+	free = function(self)
+		self.current_line = {message = ""}
+		
+		-- Remove all scripts
+		while #self.script > 0 do table.remove(self.script, 1) end
 	end
 }
 

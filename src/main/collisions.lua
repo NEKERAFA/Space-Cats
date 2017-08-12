@@ -59,7 +59,7 @@ end
 -- @tparam table particles A table to add particles
 function collision:check(player, entities, particles)
 	-- Check collisions from player bullets
-	entity, damage, damaged = collision:check_player_bullets()
+	entity, damage, damaged = collision:check_player_bullets(player, entities)
 	
 	-- Create new particle
 	if entity and entity.life == 0 then
@@ -67,17 +67,17 @@ function collision:check(player, entities, particles)
 		table.insert(particles, new_particle)
 		return entity.points
 	elseif entity then
-		new_particle = particle(entity.position, vector(app.scalefactor*2, 0), 1, bullet.damage, "damage")
+		new_particle = particle(entity.position, vector(app.scalefactor*2, 0), 1, damage, "damage")
 		new_particle.damaged = damaged
 		table.insert(particles, new_particle)
 	end
 	
 	-- Check collisions from entities bullets
-	damage = collision:check_entities_bullets()
+	damage = collision:check_entities_bullets(player, entities)
 	
 	-- Create new particle
 	if damage then
-		new_particle = particle(entity.position, vector(-app.scalefactor*2, 0), 1, bullet.damage, "damage")
+		new_particle = particle(player.position, vector(-app.scalefactor*2, 0), 1, damage, "damage")
 		new_particle.damaged = true
 		table.insert(particles, new_particle)
 	end

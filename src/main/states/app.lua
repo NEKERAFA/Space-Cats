@@ -3,8 +3,21 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
+local gamestate = require "lib.vrld.hump.gamestate"
+
+-- Save filesystem tree
+local img_tree = nil
+local snd_tree = nil
+
 --- Module app
 app = {}
+
+-- Save total time to splash loading animation
+app.total_loading_splash = 0
+
+-- Save if app load image and sound sources
+app.img_loaded = false
+app.snd_loaded = false
 
 --- App width
 app.width = 320
@@ -15,7 +28,7 @@ app.frameRate = 60
 --- Current version
 app.version = "1.0 (demew)"
 --- Debugging information
-app.debug = true
+app.debug = false
 --- Save file
 app.save_file = love.filesystem.getSaveDirectory() .. "/settings.lua"
 
@@ -118,6 +131,9 @@ function app:init()
 	print "Loading language file..."
 	dofile("lang/" .. app.language .. ".lua")
 	
+	msg_string.help = msg_string.moveup..": "..app.up.." - "..msg_string.movedown..": "..app.down..".\t"..msg_string.fire..": "..app.fire.."\n"
+	msg_string.help = msg_string.help..msg_string.moveleft..": "..app.left.." - "..msg_string.moveright..": "..app.right.."."
+	
 	-- Load text textures
 	print "Loading text textures..."
 	app:load_text_textures()
@@ -152,24 +168,23 @@ end
 -- @tparam number dt Time since the last update in seconds
 function app:update(dt)
 	-- Update splash variable
-	if not loaded and total_loading_splash < trigger_loading_splash then
-		total_loading_splash = total_loading_splash + dt
-	
+	if not self.loaded and self.total_loading_splash < 1 then
+		self.total_loading_splash = self.total_loading_splash + dt
+
 	-- If app not finished to load
-	elseif not loaded then
-		if not img_loaded then
+	elseif not self.snd_loaded then
+		if not self.img_loaded then
 			-- If we come back top node, we finish load elements
 			if img_tree == nil then
-				img_loaded = true
+				self.img_loaded = true
 				return
 			end
 			
 			img_tree = files.load_node(img_tree, "img")
-		elseif not snd_loaded then
+		else
 			-- If we come back top node, we finish load elements
 			if snd_tree == nil then
-				snd_loaded = true
-				loaded = true
+				self.snd_loaded = true
 				return
 			end
 			
@@ -186,7 +201,7 @@ end
 
 --- Draw loading screen
 function app:draw()
-	local color = math.min(255, total_loading_splash/trigger_loading_splash*255)
+	local color = math.min(255, self.total_loading_splash*255)
 	love.graphics.setColor(color, color, color, 255)
 	local x  = math.round(self.width/2)
 	local y  = math.round(self.height/2)

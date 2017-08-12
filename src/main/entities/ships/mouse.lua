@@ -7,9 +7,11 @@
 -- @license  GNU General Public License v3
 
 local anim8          = require "lib.kikito.anim8.anim8"
+
 local class          = require "lib.vrld.hump.class"
 local vector         = require "lib.vrld.hump.vector"
-local entity         = require "src.main.entity"
+
+local entity         = require "src.main.entities.entity"
 local ship           = require "src.main.entities.ship"
 local guided_blaster = require "src.main.entities.weapons.guided_blaster"
 
