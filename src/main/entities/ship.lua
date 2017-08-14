@@ -99,8 +99,10 @@ local ship = class {
 	-- @tparam ship self Ship object
 	free = function(self)
 		-- Remove weapon
-		self.weapon:free()
-		self.weapon = nil
+		if self.weapon then
+			self.weapon:free()
+			self.weapon = nil
+		end
 
 		-- Remove animations
 		self.flame = nil

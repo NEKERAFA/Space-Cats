@@ -31,6 +31,9 @@ end
 --- [Löve] This function is called exactly once at the beginning of the game
 -- @tparam table args Command line arguments given to the game
 function love.load(args)
+	-- Set random seed
+	math.randomseed(os.time())
+	
 	-- Load application settings
 	dofile("src/main/states/app.lua")
 	app:load_settings()

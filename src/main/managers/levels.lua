@@ -71,6 +71,7 @@ local level = class {
 		
 		level_file:write("{\n")
 		-- Level arguments
+		level_file:write("\tname = \"" .. level.name .. "\",\n")
 		level_file:write("\tbgi = " .. files.get_full_name(level.bgi) .. ",\n")
 		level_file:write("\tbgm = " .. files.get_full_name(level.bgm) .. ",\n")
 		level_file:write("\tstars = " .. level.stars .. ",\n")
@@ -144,6 +145,17 @@ local level = class {
 	add_entity = function(self, type, wait, time, ...)
 	end,
 	]]
+
+	--- Check if level is ending
+	-- @tparam level self Level manager
+	-- @tparam table entities Table with game entities
+	-- @treturn boolean True if player finish level giving level objetive
+	is_finished = function(self, entities)
+		if self.objetive == "finish" and self.entities_stacked == 0 and #entities == 0 then
+			return true
+		end
+		return false
+	end,
 
 	--- Free all level variables an remove current level from level manager
 	-- @tparam level self Level manager

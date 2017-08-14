@@ -41,10 +41,6 @@ function menu:init()
 	dofile("src/main/menus/levels.lua")
 	dofile("src/main/menus/settings.lua")
 	
-	-- Set started sound theme
-	snd.music.space_theme:setLooping(true)
-	snd.music.space_theme:play()
-	
 	-- Create player
 	menu.ship = ship(vector(-32, app.height/2))
 	
@@ -89,6 +85,18 @@ function menu:init()
 	
 	-- Load settings
 	settings:init()
+end
+
+--- Play background music when enyer menu state
+function menu:enter()
+	-- Set started sound theme
+	snd.music.space_theme:setLooping(true)
+	snd.music.space_theme:play()
+end
+
+--- Stop background music when exit menu state
+function menu:leave()
+	snd.music.space_theme:stop()
 end
 
 --- Create/update main buttons
@@ -292,7 +300,7 @@ function menu:draw()
 	love.graphics.draw(txt.saved, 5 + self.x_delta, y)
 	
 	-- Draw copyright message
-	love.graphics.setColor(255, 255, 255, 255)
+	love.graphics.setColor(255, 255, 255, 255-self.t_alpha)
 	local x = 10
 	if app.debug then
 		x = x + txt.version:getWidth() + 10

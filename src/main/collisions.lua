@@ -66,7 +66,7 @@ function collision:check(player, entities, particles)
 		new_particle = particle(entity.position, vector(0, -app.scalefactor*2), 1, entity.points, "points")
 		table.insert(particles, new_particle)
 		return entity.points
-	elseif entity then
+	elseif entity and damaged then
 		new_particle = particle(entity.position, vector(app.scalefactor*2, 0), 1, damage, "damage")
 		new_particle.damaged = damaged
 		table.insert(particles, new_particle)

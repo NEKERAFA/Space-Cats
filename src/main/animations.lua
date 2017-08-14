@@ -3,7 +3,8 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local timer  = require "lib.vrld.hump.timer"
+local timer     = require "lib.vrld.hump.timer"
+local gamestate = require "lib.vrld.hump.gamestate"
 
 -- Module animation
 local animation = {}
@@ -72,6 +73,40 @@ function animation.change_levels()
 	menu.current = "change levels"
 	timer.tween(0.5, menu, {delta = -app.width}, 'out-quad', function() menu.current = "levels" end)
 	timer.tween(0.5, menu, {planet = {x0 = 0}}, 'out-expo')
+end
+
+--- Show game opening animation
+function animation.game_opening()
+	timer.script(function(wait)
+		-- Show level title
+		timer.tween(0.5, game.anim, {x_label = 160}, "in-quad")
+		wait(2)
+		-- Show player
+		timer.tween(1, game.anim.player.position, {x = 32}, 'out-quad')
+		timer.tween(1, game.anim.player.position, {y = 90}, 'linear')
+		wait(1)
+		-- Remove lines and level title
+		timer.tween(1, game.anim, {x_lines = 320}, "linear")
+		wait(1)
+		timer.tween(0.5, game.anim, {x_label = 328 + game.anim.label:getWidth()}, "out-quad")
+		wait(1)
+		-- Set true game start
+		game.started = true
+	end)
+end
+
+--- Show game ending animation
+function animation.game_ending()
+	timer.script(function(wait)
+		-- Show level title and lines
+		timer.tween(1, game.anim, {x_lines = 0}, "linear")
+		timer.tween(0.5, game.anim, {x_label = 160}, "out-quad")
+		wait(3)
+		timer.tween(0.5, game.anim, {x_label = -8-game.anim.label:getWidth()}, "out-quad")
+		wait(1)
+		-- Go back menu
+		gamestate.switch(menu)
+	end)
 end
 
 return animation

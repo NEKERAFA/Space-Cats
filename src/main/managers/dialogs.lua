@@ -114,9 +114,11 @@ local dialog = class {
 					table.remove(self.script, 1)
 					self.current_line = {message = ""}
 				end
+				snd.effects.gui_effects_2:play()
 			-- Enable/Disable auto
 			elseif scancode == self.codes.auto then
 				self.auto = not self.auto
+				snd.effects.gui_effects_2:play()
 			end
 		end
 	end,
