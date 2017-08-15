@@ -1,7 +1,0 @@
-src/main/states/credits.lua:68: attempt to perform arithmetic on global 'credits' (a table value)
-
-Traceback:
-    main.lua:165: in function '__add'
-    src/main/states/credits.lua:68: in function 'draw'
-    main.lua:128: in function 'draw'
-    [C]: in function 'xpcall'
