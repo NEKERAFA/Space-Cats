@@ -1,6 +1,5 @@
 --- This module load an show Löve splash
 --
--- @module  main.splash
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 

@@ -1,7 +1,7 @@
 --- Level manager prototype.
 -- This module constructs a level manager prototype class
 --
--- @classmod src.main.level
+-- @classmod src.main.managers.level
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
@@ -127,7 +127,7 @@ local level = class {
 	end,
 
 	--- Update entity variables
-	-- tparam level self Level manager
+	-- @tparam level self Level manager
 	-- @tparam number dt Time since the last update in seconds
 	update = function(self, dt)
 		-- Update delta time

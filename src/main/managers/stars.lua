@@ -1,6 +1,6 @@
 -- This module construct and manage a stars sky.
 --
--- @classmod src.main.managers.star_manager
+-- @classmod src.main.managers.stars
 -- @see      src.main.entity
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3

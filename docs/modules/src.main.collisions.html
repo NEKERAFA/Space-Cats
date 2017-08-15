@@ -38,15 +38,13 @@
 
 <h2>Modules</h2>
 <ul class="nowrap">
-  <li><a href="../modules/lib.vrld.HC.polygon.html">lib.vrld.HC.polygon</a></li>
   <li><a href="../modules/main.html">main</a></li>
   <li><a href="../modules/src.main.animations.html">src.main.animations</a></li>
   <li><strong>src.main.collisions</strong></li>
-  <li><a href="../modules/entities.weapons.ray_baster.html">entities.weapons.ray_baster</a></li>
-  <li><a href="../modules/src.main.game.html">src.main.game</a></li>
-  <li><a href="../modules/src.main.hud.html">src.main.hud</a></li>
-  <li><a href="../modules/src.main.levels.level_0.html">src.main.levels.level_0</a></li>
-  <li><a href="../modules/src.main.menu.html">src.main.menu</a></li>
+  <li><a href="../modules/src.main.managers.stars.html">src.main.managers.stars</a></li>
+  <li><a href="../modules/src.main.menus.settings.html">src.main.menus.settings</a></li>
+  <li><a href="../modules/src.main.painters.dialog.html">src.main.painters.dialog</a></li>
+  <li><a href="../modules/src.main.painters.hud.html">src.main.painters.hud</a></li>
   <li><a href="../modules/src.main.painters.particles.html">src.main.painters.particles</a></li>
   <li><a href="../modules/src.main.painters.ship.html">src.main.painters.ship</a></li>
   <li><a href="../modules/src.main.painters.ships.mouse.html">src.main.painters.ships.mouse</a></li>
@@ -54,24 +52,28 @@
   <li><a href="../modules/src.main.painters.ships.small_mouse.html">src.main.painters.ships.small_mouse</a></li>
   <li><a href="../modules/src.main.painters.stars.html">src.main.painters.stars</a></li>
   <li><a href="../modules/src.main.painters.weapon.html">src.main.painters.weapon</a></li>
-  <li><a href="../modules/main.settings.html">main.settings</a></li>
-  <li><a href="../modules/main.splash.html">main.splash</a></li>
+  <li><a href="../modules/src.main.states.app.html">src.main.states.app</a></li>
+  <li><a href="../modules/src.main.states.game.html">src.main.states.game</a></li>
+  <li><a href="../modules/src.main.states.menu.html">src.main.states.menu</a></li>
+  <li><a href="../modules/src.main.states.splash.html">src.main.states.splash</a></li>
   <li><a href="../modules/src.main.utils.html">src.main.utils</a></li>
 </ul>
 <h2>Classes</h2>
 <ul class="nowrap">
   <li><a href="../classes/src.main.entities.bullet.html">src.main.entities.bullet</a></li>
+  <li><a href="../classes/src.main.entity.html">src.main.entity</a></li>
   <li><a href="../classes/src.main.entities.particle.html">src.main.entities.particle</a></li>
   <li><a href="../classes/src.main.entities.ship.html">src.main.entities.ship</a></li>
   <li><a href="../classes/src.main.entities.ships.mockup_player.html">src.main.entities.ships.mockup_player</a></li>
   <li><a href="../classes/src.main.entities.ships.mouse.html">src.main.entities.ships.mouse</a></li>
   <li><a href="../classes/src.main.entities.ships.player.html">src.main.entities.ships.player</a></li>
   <li><a href="../classes/src.main.entities.ships.small_mouse.html">src.main.entities.ships.small_mouse</a></li>
-  <li><a href="../classes/src.main.entities.stars.html">src.main.entities.stars</a></li>
   <li><a href="../classes/src.main.entities.weapon.html">src.main.entities.weapon</a></li>
   <li><a href="../classes/src.main.entities.weapons.baster.html">src.main.entities.weapons.baster</a></li>
   <li><a href="../classes/src.main.entities.weapons.guided_baster.html">src.main.entities.weapons.guided_baster</a></li>
-  <li><a href="../classes/src.main.entity.html">src.main.entity</a></li>
+  <li><a href="../classes/src.main.entities.weapons.ray_baster.html">src.main.entities.weapons.ray_baster</a></li>
+  <li><a href="../classes/src.main.managers.dialog.html">src.main.managers.dialog</a></li>
+  <li><a href="../classes/src.main.managers.level.html">src.main.managers.level</a></li>
 </ul>
 
 </div>
@@ -91,12 +93,16 @@
 <h2><a href="#Functions">Functions</a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#collision.check_player_bullets">collision.check_player_bullets ()</a></td>
+	<td class="name" nowrap><a href="#collision:check_player_bullets">collision:check_player_bullets (player, entities)</a></td>
 	<td class="summary">Check collisions from player bullets</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#collision.check_entities_bullets">collision.check_entities_bullets ()</a></td>
+	<td class="name" nowrap><a href="#collision:check_entities_bullets">collision:check_entities_bullets (player, entities)</a></td>
 	<td class="summary">Check collisions from entities bullets</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#collision:check">collision:check (player, entities, particles)</a></td>
+	<td class="summary">Check all bullet collisions and create particles if it needed</td>
 	</tr>
 </table>
 
@@ -108,13 +114,24 @@
 
     <dl class="function">
     <dt>
-    <a name = "collision.check_player_bullets"></a>
-    <strong>collision.check_player_bullets ()</strong>
+    <a name = "collision:check_player_bullets"></a>
+    <strong>collision:check_player_bullets (player, entities)</strong>
     </dt>
     <dd>
     Check collisions from player bullets
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+            <span class="types"><span class="type">player</span></span>
+         Player ship
+        </li>
+        <li><span class="parameter">entities</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A table with all entities to check
+        </li>
+    </ul>
 
 
 
@@ -122,13 +139,53 @@
 
 </dd>
     <dt>
-    <a name = "collision.check_entities_bullets"></a>
-    <strong>collision.check_entities_bullets ()</strong>
+    <a name = "collision:check_entities_bullets"></a>
+    <strong>collision:check_entities_bullets (player, entities)</strong>
     </dt>
     <dd>
     Check collisions from entities bullets
 
 
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+            <span class="types"><span class="type">player</span></span>
+         Player ship
+        </li>
+        <li><span class="parameter">entities</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A table with all entities to check
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "collision:check"></a>
+    <strong>collision:check (player, entities, particles)</strong>
+    </dt>
+    <dd>
+    Check all bullet collisions and create particles if it needed
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">player</span>
+            <span class="types"><span class="type">player</span></span>
+         Player ship
+        </li>
+        <li><span class="parameter">entities</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A table with all entities to check
+        </li>
+        <li><span class="parameter">particles</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A table to add particles
+        </li>
+    </ul>
 
 
 
@@ -142,7 +199,7 @@
 </div> <!-- id="main" -->
 <div id="about">
 <i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
-<i style="float:right;">Last updated 2017-08-08 14:18:12 </i>
+<i style="float:right;">Last updated 2017-08-15 13:26:04 </i>
 </div> <!-- id="about" -->
 </div> <!-- id="container" -->
 </body>

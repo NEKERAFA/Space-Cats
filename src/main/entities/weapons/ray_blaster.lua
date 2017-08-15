@@ -1,9 +1,10 @@
 --- Ray blaster prototype object.
 -- This module construct a ray weapon object. Note: due to complexity of ray blaster, this module doesn't inherit from weapon.
 --
--- @module  entities.weapons.ray_baster
--- @author	Rafael Alcalde Azpiazu (NEKERAFA)
--- @license GNU General Public License v3
+-- @classmod src.main.entities.weapons.ray_baster
+-- @see      src.main.entities.weapon
+-- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
+-- @license  GNU General Public License v3
 
 local collider = require "lib.vrld.HC"
 local class    = require "lib.vrld.hump.class"

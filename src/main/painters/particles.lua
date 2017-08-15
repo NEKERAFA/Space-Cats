@@ -66,7 +66,7 @@ function particles.draw_damage(particle)
 end
 
 --- Draw particles
--- @tparam table particles Table with all particle to draw
+-- @tparam table particles_table Table with all particle to draw
 function particles.draw(particles_table)
 	for pos, particle in ipairs(particles_table) do
 		-- Draw points particle

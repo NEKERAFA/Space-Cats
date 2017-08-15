@@ -1,7 +1,7 @@
 --- Dialog system prototype.
 -- This module constructs a dialog system prototype class
 --
--- @classmod src.main.dialog
+-- @classmod src.main.managers.dialog
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
