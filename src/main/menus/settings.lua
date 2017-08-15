@@ -3,6 +3,7 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
+local gamestate = require "lib.vrld.hump.gamestate"
 local animation = require "src.main.animations"
 
 -- Module settings
@@ -250,6 +251,7 @@ function settings:keypressed(key, scancode, isrepeat)
 			settings:save_and_back()
 		-- Show credits and licenses
 		else
+			gamestate.switch(credits)
 		end
 	-- Return to start menu
 	elseif scancode == app.cancel then

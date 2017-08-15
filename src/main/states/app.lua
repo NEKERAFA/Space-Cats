@@ -71,7 +71,7 @@ end
 --- Load all text strings like textures
 function app:load_text_textures()
 	txt.version    = love.graphics.newText(self.font, self.version)
-	txt.copyright  = love.graphics.newText(self.font, "© 2017 NEKERAFA")
+	txt.copyright  = love.graphics.newText(self.font, "(c)  2017 NEKERAFA")
 	txt.loading    = love.graphics.newText(self.font, msg_string.loading .. "...")
 	--
 	txt.story      = love.graphics.newText(self.font_bold, msg_string.story)

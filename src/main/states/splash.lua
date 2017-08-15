@@ -1,4 +1,4 @@
---- This module load an show Löve splash
+--- This module load and show Löve splash
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
