@@ -40,7 +40,7 @@ game.particles = nil
 --- Player ship
 game.player = nil
 --- Current level
-game.level = "src/main/levels/level_0.lua"
+game.level = love.filesystem.getSource() .. "/src/main/levels/level_0.lua"
 --- Stars background
 game.stars_manager = nil
 --- Dialog manager

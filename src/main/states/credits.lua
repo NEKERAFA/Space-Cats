@@ -8,6 +8,7 @@ local gamestate = require "lib.vrld.hump.gamestate"
 -- Module credits
 credits = {}
 
+--- Load credits text
 function credits:init()
 	credits.text = {
 		"This game was created and developed by NEKERAFA",
@@ -19,9 +20,10 @@ function credits:init()
 		"Graphics and images are designed by NEKERAFA under GPLv3",
 		"Use by own risk :3",
 		"",
+		"",
 		"Pixel Operator Font",
 		"(c) 2009-2016 Jayvee Enaguas (HarvettFox96)",
-		"Licensed under SIL OFL 1.1",
+		"Under SIL OFL 1.1",
 		"",
 		"",
 		"",
@@ -30,27 +32,45 @@ function credits:init()
 		"",
 		"Space - Main theme",
 		"Alexandr Zhelanov",
-		"License under CC-BY 3.0",
+		"Under License CC-BY 3.0",
+		"",
 		"",
 		"Brave Space Explorers",
 		"Alexandr Zhelanov",
-		"License under CC-BY 4.0",
+		"Under License CC-BY 4.0",
 		"",
 		"",
 		"",
 		"-- SOUND EFFECTS --",
 		"All sound effects are downloaded from FreeSound.org",
 		"",
+		"explosion-02",
+		"Jesús Lastra (jalastram)",
+		"Under License CC-BY 3.0",
+		"",
+		"",
+		"GUI Sound Effects",
+		"effect29, effect38, effect39",
+		"Jesús Lastra (jalastram)",
+		"Under License CC-BY 3.0",
+		"",
+		"",
+		"laser3",
+		"Nikola Stojsic (nsstudios)",
+		"Under License CC-BY 3.0",
+		"",
+		"",
 		"Mech-Keyboard-01",
 		"NewAgeSoup (Mark)",
-		"License under CC0 1.0",
+		"Under License CC0 1.0",
 		"",
 		"",
 		"",
 		"--  LIBRARIES AND THIRD TOOLS --",
 		"",
 		"HC and hump libraries",
-		"Copyright (c) 2010-2013 Matthias Richter",
+		"Copyright (c) 2011-2015 Matthias Richter",
+		"Under MIT license",
 		"",
 		"",
 		"Anim8 library",
@@ -88,30 +108,37 @@ function credits:init()
 	}
 end
 
+-- Set initial variables
 function credits:enter()
 	credits.offset = 190
 	credits.width = 0
 end
 
---- Update splash variables
+--- Update credits variables
 -- @tparam number dt Time since the last update in seconds
 function credits:update(dt)
 	credits.offset = credits.offset - 0.5 * app.frameRate * dt
+	-- Credits finish condition
 	if (credits.width > 0) and (credits.offset <= (- credits.width - 10)) then
 		gamestate.switch(menu)
 	end
 end
 
+--- Update credits variables
+-- @tparam KeyConstant key Character of the pressed key
+-- @tparam Scancode scancode The scancode representing the pressed key
+-- @tparam bolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
 function credits:keypressed(key, scancode, isrepeat)
 	if scancode == app.accept then
 		gamestate.switch(menu)
 	end
 end
 
---- Draw splash animation
+--- Draw credits animation
 function credits:draw()
 	text_line = love.graphics.newText(app.font, "")
 	credits.width = 0
+	
 	for i, text in ipairs(credits.text) do
 		text_line:setf(text, 300, "center")
 		love.graphics.draw(text_line, 10, credits.offset + credits.width)

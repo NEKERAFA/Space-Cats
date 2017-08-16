@@ -1,0 +1,10 @@
+Package: spacecats
+Version: 1.0-demo
+Section: games
+Priority: extra
+Architecture: all
+Depends: love (>=0.10.2)
+Maintainer: Rafael Alcalde Azpiazu <nekerafa@gmail.com>
+Description: Space Cats
+ Space Cats is a 2D arcade Shoot'em Up game in a fantasy
+ universe with anthropomorphics animals.

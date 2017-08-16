@@ -38,8 +38,8 @@ menu.ship = nil
 --- Load menu variable and resources
 function menu:init()
 	-- Load menus
-	dofile("src/main/menus/levels.lua")
-	dofile("src/main/menus/settings.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/menus/levels.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/menus/settings.lua")
 	
 	-- Create player
 	menu.ship = ship(vector(-32, app.height/2))

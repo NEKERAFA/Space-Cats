@@ -24,6 +24,8 @@ txt = {}
 --- Table of shaders
 shaders = {}
 
+print(love.filesystem.getSource())
+
 local function error_printer(msg, layer)
 	print((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
 end
@@ -35,20 +37,20 @@ function love.load(args)
 	math.randomseed(os.time())
 	
 	-- Load application settings
-	dofile("src/main/states/app.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/states/app.lua")
 	app:load_settings()
 	
 	-- Load utils
-	dofile("src/main/utils.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/utils.lua")
 	
 	-- Load splash
-	dofile("src/main/states/splash.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/states/splash.lua")
 	-- Load credits
-	dofile("src/main/states/credits.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/states/credits.lua")
 	-- Load start menu
-	dofile("src/main/states/menu.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/states/menu.lua")
 	-- Load general game functions
-	dofile("src/main/states/game.lua")
+	dofile(love.filesystem.getSource() .. "/src/main/states/game.lua")
 	
 	-- Change state to splash
 	gamestate.switch(splash)

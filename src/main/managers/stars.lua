@@ -1,4 +1,4 @@
--- This module construct and manage a stars sky.
+--- This module construct and manage a stars sky.
 --
 -- @classmod src.main.managers.stars
 -- @see      src.main.entity

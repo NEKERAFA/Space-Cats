@@ -129,7 +129,7 @@ function app:init()
 	
 	-- Loading language
 	print "Loading language file..."
-	dofile("lang/" .. app.language .. ".lua")
+	dofile(love.filesystem.getSource() .. "/lang/" .. app.language .. ".lua")
 	
 	msg_string.help = msg_string.moveup..": "..app.up.." - "..msg_string.movedown..": "..app.down..".\t"..msg_string.fire..": "..app.fire.."\n"
 	msg_string.help = msg_string.help..msg_string.moveleft..": "..app.left.." - "..msg_string.moveright..": "..app.right.."."
