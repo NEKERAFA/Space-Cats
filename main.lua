@@ -37,20 +37,20 @@ function love.load(args)
 	math.randomseed(os.time())
 	
 	-- Load application settings
-	dofile(love.filesystem.getSource() .. "/src/main/states/app.lua")
+	dofile("src/main/states/app.lua")
 	app:load_settings()
 	
 	-- Load utils
-	dofile(love.filesystem.getSource() .. "/src/main/utils.lua")
+	dofile("src/main/utils.lua")
 	
 	-- Load splash
-	dofile(love.filesystem.getSource() .. "/src/main/states/splash.lua")
+	dofile("src/main/states/splash.lua")
 	-- Load credits
-	dofile(love.filesystem.getSource() .. "/src/main/states/credits.lua")
+	dofile("src/main/states/credits.lua")
 	-- Load start menu
-	dofile(love.filesystem.getSource() .. "/src/main/states/menu.lua")
+	dofile("src/main/states/menu.lua")
 	-- Load general game functions
-	dofile(love.filesystem.getSource() .. "/src/main/states/game.lua")
+	dofile("src/main/states/game.lua")
 	
 	-- Change state to splash
 	gamestate.switch(splash)
