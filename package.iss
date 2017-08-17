@@ -33,10 +33,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\spacecats.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\changes.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\game.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\license.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\love.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\love.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\lovec.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\lua51.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Users\NEKERAFA\Desktop\Space Cats\binary\spacecats_1.0-demo-win32\mpg123.dll"; DestDir: "{app}"; Flags: ignoreversion
