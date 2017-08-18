@@ -31,5 +31,5 @@
 # StarUML
 *.mdj
 
-# Por el momento
-src/resources/sounds
+# Binaries
+binary/*
