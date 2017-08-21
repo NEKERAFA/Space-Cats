@@ -6,7 +6,7 @@
 -- @author	 Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license  GNU General Public License v3
 
-local anim8   = require "lib.kikito.anim8.anim8"
+local anim8   = require "lib.kikito.anim8"
 
 local class   = require "lib.vrld.hump.class"
 local vector  = require "lib.vrld.hump.vector"

@@ -26,9 +26,9 @@ app.height = 180
 --- Frame rate of game
 app.frameRate = 60
 --- Current version
-app.version = "1.0 (demew)"
+app.version = "1.0.1-demew"
 --- Debugging information
-app.debug = false
+app.debug = true
 --- Save file
 app.save_file = love.filesystem.getSaveDirectory() .. "/settings.lua"
 
@@ -129,10 +129,7 @@ function app:init()
 	
 	-- Loading language
 	print "Loading language file..."
-	dofile("lang/" .. app.language .. ".lua")
-	
-	msg_string.help = msg_string.moveup..": "..app.up.." - "..msg_string.movedown..": "..app.down..".\t"..msg_string.fire..": "..app.fire.."\n"
-	msg_string.help = msg_string.help..msg_string.moveleft..": "..app.left.." - "..msg_string.moveright..": "..app.right.."."
+	do_file("lang/" .. app.language .. ".lua")
 	
 	-- Load text textures
 	print "Loading text textures..."

@@ -7,6 +7,7 @@
 -- @license  GNU General Public License v3
 
 local collider = require "lib.vrld.HC"
+
 local class    = require "lib.vrld.hump.class"
 
 local ray_blaster = class {

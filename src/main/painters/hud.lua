@@ -3,8 +3,6 @@
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
 
-local dialog_painter = require "src.main.painters.dialog"
-
 -- Module hud
 local hud = {}
 
@@ -22,7 +20,7 @@ function hud:update_points(points)
 end
 
 --- Draw hud
-function hud:draw(max_life, weapon, dialog_manager)
+function hud:draw(max_life, weapon)
 	-- Draw weapon
 	love.graphics.draw(img.hud.ammo, 5, 5)
 	local mid_width = math.round(img.hud[weapon.type]:getWidth()/2)
@@ -45,9 +43,6 @@ function hud:draw(max_life, weapon, dialog_manager)
 	
 	-- Draw points
 	love.graphics.draw(hud.points, app.width-5, 2, 0, 1, 1, hud.points:getWidth(), 0)
-	
-	-- Draw dialogs
-	dialog_painter.draw(dialog_manager)
 end
 
 return hud

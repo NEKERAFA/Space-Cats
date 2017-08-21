@@ -5,6 +5,7 @@
 
 local gamestate           = require "lib.vrld.hump.gamestate"
 local vector              = require "lib.vrld.hump.vector"
+local dialogue_manager    = require "lib.nekerafa.rpg-talk"
 
 local player              = require "src.main.entities.ships.player"
 local player_mockup       = require "src.main.entities.ships.mockup_player"
@@ -20,7 +21,6 @@ local small_mouse_painter = require "src.main.painters.ships.small_mouse"
 local mouse_painter       = require "src.main.painters.ships.mouse"
 
 local stars_manager       = require "src.main.managers.stars"
-local dialog_manager      = require "src.main.managers.dialogs"
 local level_manager       = require "src.main.managers.levels"
 
 local collision_manager   = require "src.main.collisions"
@@ -43,8 +43,6 @@ game.player = nil
 game.level = "src/main/levels/level_0.lua"
 --- Stars background
 game.stars_manager = nil
---- Dialog manager
-game.dialog_manager = nil
 --- Level manager
 game.level_manager = nil
 --- For open animation
@@ -71,9 +69,9 @@ local function create_small_mouse(args)
 	return small_mouse(path, wait_point, bullets)
 end
 	
---- Create new dialog
--- @tparam table args Arguments to create dialog
-local function create_dialog(args)
+--- Create new dialogue
+-- @tparam table args Arguments to create dialogue
+local function create_dialogue(args)
 	if #args > 1 then
 		return {title = args[1], message = args[2]}
 	end
@@ -82,7 +80,16 @@ end
 
 --- Load managers and variables
 function game:init()
-	game.dialog_manager = dialog_manager(32)
+	-- Load dialogue manager
+	dialogue_manager.init()
+	dialogue_manager.setBackground(img.hud.dialogue)
+	dialogue_manager.setMargin(4)
+	dialogue_manager.setInterline(2)
+	--dialogue_manager.setScale(app.scalefactor)
+	dialogue_manager.setFont(app.font)
+	dialogue_manager.setCharacterColor({255, 192, 0})
+	dialogue_manager.setColor({255, 255, 255})
+	
 	game.level_manager = level_manager()
 end
 
@@ -146,6 +153,8 @@ function game:leave()
 	-- Remove opening variables
 	self.anim.player:free()
 	self.anim = {}
+	-- Clear dialogue manager
+	dialogue_manager.clear()
 
 	-- Clear memory
 	collectgarbage("collect")
@@ -201,7 +210,7 @@ end
 -- @tparam number dt Time since the last update in seconds
 function game:update_level(dt)
 	-- Check if all entities are poped
-	if (#self.entities == 0 or self.entities[1].destroyed) and #self.dialog_manager.script == 0 then
+	if (#self.entities == 0 or self.entities[1].destroyed) and dialogue_manager.isEmpty() then
 		self.level_manager.poped_entities_destroyed = true
 	end
 	-- Update level manager
@@ -218,14 +227,10 @@ function game:update_level(dt)
 		if entity_data.type == "small_mouse" then
 			table.insert(game.entities, create_small_mouse(entity_data.args))
 		end
-		-- Create a dialog
+		-- Create a dialogue
 		if entity_data.type == "dialog" then
-			dialog = create_dialog(entity_data.args)
-			if dialog.title == nil then
-				self.dialog_manager:add_text(dialog.message)
-			else
-				self.dialog_manager:add_line(dialog.title, dialog.message)
-			end
+			dialogue = create_dialogue(entity_data.args)
+			dialogue_manager.addLine(dialogue.message, dialogue.title)
 		end
 	end
 end
@@ -264,12 +269,13 @@ function game:update(dt)
 		game:update_particles(dt)
 		-- Check collisions
 		points = collision_manager:check(self.player, self.entities, self.particles)
+		-- Add points
 		if points then
 			self.points = self.points + points
 			hud_painter:update_points(self.points)
 		end
 		-- Update dialogs
-		if self.dialog_manager:update(dt) then
+		if dialogue_manager.update(dt) then
 			snd.effects.keyboard:stop()
 			snd.effects.keyboard:play()
 		end
@@ -292,7 +298,9 @@ end
 -- @tparam bolean isrepeat Whether this key press event is a repeat. The delay between key depends on the user's system settings
 function game:keypressed(key, scancode, isrepeat)
 	-- Update dialogs
-	game.dialog_manager:keypressed(key, scancode, isrepeat)
+	if scancode == app.accept then
+		dialogue_manager.skip()
+	end
 end
 
 --- Draw entities
@@ -344,11 +352,13 @@ function game:draw(dt)
 		-- Draw particles
 		particles_painter.draw(self.particles)
 		-- Draw hud
-		hud_painter:draw(4, self.player.weapon, self.dialog_manager)
+		hud_painter:draw(4, self.player.weapon)
+		-- Draw dialogues
+		dialogue_manager.draw(0, app.height-35)
 	-- Show open menu animation
 	else
 		-- Draw hud
-		hud_painter:draw(4, self.player.weapon, self.dialog_manager)
+		hud_painter:draw(4, self.player.weapon)
 		-- Draw horizontal lines
 		love.graphics.draw(img.backgrounds.horizontal_lines, math.round(self.anim.x_lines), 0)
 		love.graphics.draw(img.backgrounds.horizontal_lines, 320-math.round(self.anim.x_lines), 1, 0, 1, 1, 320, 0)

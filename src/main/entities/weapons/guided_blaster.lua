@@ -8,6 +8,7 @@
 
 local vector = require "lib.vrld.hump.vector"
 local class  = require "lib.vrld.hump.class"
+
 local weapon = require "src.main.entities.weapon"
 
 local guided_blaster = class {

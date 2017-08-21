@@ -2,10 +2,21 @@
 --
 -- @author	Rafael Alcalde Azpiazu (NEKERAFA)
 -- @license GNU General Public License v3
--- @release 1.0 - Demo
+-- @release 1.0.1 - Demo
 
 local gamestate  = require "lib.vrld.hump.gamestate"
 local timer      = require "lib.vrld.hump.timer"
+
+-- Load a lua chunck and execute it
+function do_file(path)
+	f, err = love.filesystem.load(path)
+	if err then
+		error(err, 2)
+	else
+		ok, err = pcall(f)
+		if not ok then error(err, 2) end
+	end
+end
 
 -- Save total update time
 local total_title_time = 0
@@ -24,8 +35,6 @@ txt = {}
 --- Table of shaders
 shaders = {}
 
-print(love.filesystem.getSource())
-
 local function error_printer(msg, layer)
 	print((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
 end
@@ -37,20 +46,20 @@ function love.load(args)
 	math.randomseed(os.time())
 	
 	-- Load application settings
-	dofile("src/main/states/app.lua")
+	do_file("src/main/states/app.lua")
 	app:load_settings()
 	
 	-- Load utils
-	dofile("src/main/utils.lua")
+	do_file("src/main/utils.lua")
 	
 	-- Load splash
-	dofile("src/main/states/splash.lua")
+	do_file("src/main/states/splash.lua")
 	-- Load credits
-	dofile("src/main/states/credits.lua")
+	do_file("src/main/states/credits.lua")
 	-- Load start menu
-	dofile("src/main/states/menu.lua")
+	do_file("src/main/states/menu.lua")
 	-- Load general game functions
-	dofile("src/main/states/game.lua")
+	do_file("src/main/states/game.lua")
 	
 	-- Change state to splash
 	gamestate.switch(splash)
@@ -129,13 +138,13 @@ function love.draw()
 	-- Show current state
 	gamestate.draw()
 	
-	if app.debug and (gamestate.current() ~= splash) then
-		-- Print current version
-		love.graphics.setColor(255, 210, 0, 255)
-		love.graphics.draw(txt.version, 10, app.height - txt.version:getHeight() - 5)
-	end
-	
 	if gamestate.current() ~= splash then
+		if app.debug then
+			-- Print current version
+			love.graphics.setColor(255, 210, 0, 255)
+			love.graphics.draw(txt.version, 10, app.height - txt.version:getHeight() - 5)
+		end
+		
 		-- Remove rescale screen
 		love.graphics.pop()
 	end

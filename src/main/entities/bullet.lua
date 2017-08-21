@@ -8,6 +8,7 @@
 
 local entity           = require "src.main.entities.entity"
 local class            = require "lib.vrld.hump.class"
+
 local collider_manager = require "lib.vrld.HC"
 
 local bullet = class {

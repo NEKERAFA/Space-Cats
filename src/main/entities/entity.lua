@@ -7,6 +7,7 @@
 
 local class            = require "lib.vrld.hump.class"
 local vector           = require "lib.vrld.hump.vector"
+
 local collider_manager = require "lib.vrld.HC"
 
 local entity = class {

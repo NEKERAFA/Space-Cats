@@ -16,18 +16,16 @@ local level = class {
 	-- @tparam string path Path to level file
 	load = function(self, path)
 		-- Open level file
-		level_file, msg = io.open(path)
+		level_data, size = love.filesystem.read(path)
 		
 		-- Check level file exist
-		if level_file == nil then
-			error("Error loading level. " .. msg, 2)
+		if level_data == nil then
+			err = size
+			error("Error loading level. " .. err, 2)
 		end
-		
-		-- Read level data
-		level_data = level_file:read("*a")
-		
+
 		-- Check if level file is empty
-		if #level_data == 0 then
+		if size == 0 then
 			error("Error reading level. Level file is empty", 2)
 		end
 		

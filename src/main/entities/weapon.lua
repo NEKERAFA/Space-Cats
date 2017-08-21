@@ -7,6 +7,7 @@
 -- @license  GNU General Public License v3
 
 local class  = require "lib.vrld.hump.class"
+
 local bullet = require "src.main.entities.bullet"
 
 local weapon = class {

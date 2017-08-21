@@ -5,7 +5,7 @@
 
 local gamestate = require "lib.vrld.hump.gamestate"
 
-local o_ten_one = require "lib.love2d-community.splashes.o-ten-one"
+local o_ten_one = require "lib.love2d-community.o-ten-one"
 
 -- Module splash
 splash = {}
