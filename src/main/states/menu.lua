@@ -119,13 +119,27 @@ function menu:update_buttons()
 		self.buttons.story.text.y0 = math.round(txt.story:getHeight()/2)
 	end
 	
+	-- Community button
+	if not self.buttons.community then
+		self.buttons.community = {
+			option = 2,
+			button = { y = 114 },
+			text = {
+				img = txt.community,
+				x0 = math.round(txt.community:getWidth()/2),
+				y0 = math.round(txt.community:getHeight()/2)
+			}
+		}
+	else
+		self.buttons.community.text.x0 = math.round(txt.community:getWidth()/2)
+		self.buttons.community.text.y0 = math.round(txt.community:getHeight()/2)
+	end
+
 	-- Settings button
 	if not self.buttons.settings then
 		self.buttons.settings = {
-			option = 2,
-			button = {
-				y = app.height/2 + 14 + 14
-			},
+			option = 3,
+			button = { y = 130 },
 			text = {
 				img = txt.settings,
 				x0 = math.round(txt.settings:getWidth()/2),
@@ -140,10 +154,8 @@ function menu:update_buttons()
 	-- Exit button
 	if not self.buttons.exit then
 		self.buttons.exit = {
-			option = 3,
-			button = {
-				y = app.height/2 + 20 + 28
-			},
+			option = 4,
+			button = { y = 146 },
 			text = {
 				img = txt.exit,
 				x0 = math.round(txt.exit:getWidth()/2),
@@ -161,7 +173,6 @@ end
 function menu:update(dt)
 	-- Update stars
 	self.stars_manager:update(dt)
-	
 	-- Update ship
 	if self.current == "animation" then
 		self.ship:update(dt)
@@ -195,7 +206,6 @@ function menu:keypressed_start(scancode)
 		snd.effects.gui_effects_1:play()
 		self.option = self.option + 1
 	end
-	
 	-- Enter in other menus
 	if scancode == app.accept then
 		snd.effects.gui_effects_3:rewind()
@@ -204,10 +214,10 @@ function menu:keypressed_start(scancode)
 		if menu.option == 1 then
 			gamestate.switch(game)
 		-- Settings menu
-		elseif self.option == 2 then
+		elseif self.option == 3 then
 			animation.change_settings()
 		-- Exit game
-		elseif self.option == 3 then
+		elseif self.option == 4 then
 			love.event.quit(0)
 		end
 	end
@@ -220,7 +230,6 @@ function menu:draw_button(button)
 	local b_x = app.width/2 - self.delta
 	local m_x = app.width/2 - 58 - self.delta
 	love.graphics.draw(img.menu.option_normal, b_x, button.button.y, 0, 1, 1, self.b_x0, self.b_y0)
-	
 	-- Print selected background mark
 	if self.option == button.option then
 		love.graphics.setColor(255, 255, 255, self.b_alpha)
@@ -228,7 +237,6 @@ function menu:draw_button(button)
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.draw(txt.mark, m_x, button.button.y + 2, 0, 1, 1, self.m_x0, self.m_y0)
 	end
-	
 	-- Print button text
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.draw(button.text.img, b_x, button.button.y+1, 0, 1, 1, button.text.x0, button.text.y0)
@@ -241,7 +249,6 @@ function menu:draw_start_menu()
 	local x = app.width/2 - self.delta
 	local y = menu.title.y - self.title_delta
 	love.graphics.draw(img.logo, x, y, 0, 1, 1, self.title.x0, self.title.y0)
-	
 	-- Draw buttons
 	for _, button in pairs(self.buttons) do
 		menu:draw_button(button)
@@ -258,7 +265,6 @@ function menu:draw_open_anim()
 	-- Set stencil function
 	love.graphics.stencil(menu.stencil, "replace", 1)
 	love.graphics.setStencilTest("greater", 0)
-	
 	-- Draw loading text
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", 0, 0, app.width, app.height)
@@ -268,10 +274,8 @@ function menu:draw_open_anim()
 	local x0 = math.round(txt.loading:getWidth()/2)
 	local y0 = math.round(txt.loading:getHeight()/2)
 	love.graphics.draw(txt.loading, x, y, 0, 1, 1, x0, y0)
-	
 	-- Remove stecil
 	love.graphics.setStencilTest()
-	
 	-- Print player
 	love.graphics.setColor(255, 255, 255)
 	player_painter.draw(self.ship)
@@ -281,24 +285,18 @@ end
 function menu:draw()
 	-- Draw background
 	love.graphics.draw(img.backgrounds.space, 0, 0)
-	
 	-- Draw stars
 	stars_painter.draw(self.stars_manager)
-	
 	-- Draw planet
 	love.graphics.draw(img.planets.big_red, self.planet.x - self.delta, app.height, 0, 1, 1, self.planet.x0, 96)
-	
 	-- Draw start menu
 	menu:draw_start_menu()
-	
 	-- Draw settings menu
 	settings:draw()
-	
 	-- Draw save message
 	love.graphics.setColor(255, 255, 255, self.t_alpha)
 	y = app.height - 5 - txt.saved:getHeight()
 	love.graphics.draw(txt.saved, 5 + self.x_delta, y)
-	
 	-- Draw copyright message
 	love.graphics.setColor(255, 255, 255, 255-self.t_alpha)
 	local x = 10
@@ -306,7 +304,6 @@ function menu:draw()
 		x = x + txt.version:getWidth() + 10
 	end
 	love.graphics.draw(txt.copyright, x, app.height - txt.copyright:getHeight() - 5)
-	
 	-- Draw open animation
 	if self.current == "animation" then
 		menu:draw_open_anim()
