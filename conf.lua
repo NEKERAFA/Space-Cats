@@ -4,7 +4,7 @@ function love.conf(t)
 	t.console = false
 	
 	t.window.title = "Space cats"
-	t.window.icon = "icon.png"
+	t.window.icon = "src/assets/images/icon.png"
     t.window.width = 320
     t.window.height = 180
 	t.window.borderless = true

@@ -57,10 +57,10 @@ function menu:init()
 	
 	-- Create title image texture
 	self.title = {
-		img = img.space_cats,
+		img = img.logo,
 		y = math.round(app.height/4),
-		x0 = math.round(img.space_cats:getWidth()/2),
-		y0 = math.round(img.space_cats:getHeight()/2)
+		x0 = math.round(img.logo:getWidth()/2),
+		y0 = math.round(img.logo:getHeight()/2)
 	}
 	
 	-- Create planet image texture
@@ -240,7 +240,7 @@ function menu:draw_start_menu()
 	-- Draw title
 	local x = app.width/2 - self.delta
 	local y = menu.title.y - self.title_delta
-	love.graphics.draw(img.space_cats, x, y, 0, 1, 1, self.title.x0, self.title.y0)
+	love.graphics.draw(img.logo, x, y, 0, 1, 1, self.title.x0, self.title.y0)
 	
 	-- Draw buttons
 	for _, button in pairs(self.buttons) do
