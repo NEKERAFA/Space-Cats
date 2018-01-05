@@ -14,30 +14,30 @@ local mouse = {}
 function mouse.draw(ship)
 	-- Draw bullets
 	weapon_painter.draw_bullets(ship.weapon)
-	
+
 	if ship.life > 0 then
 		-- If ship is damaged, show damaged animation
 		-- Get current colors
 		local r, g, b, a = love.graphics.getColor()
-		
+
 		-- Draw damage effect
 		if ship.damaged then
 			-- Set effect
 			love.graphics.setColor(255, ship.damaged_time * 255, ship.damaged_time * 255, 255)
 		end
-		
+
 		-- Draw flame and ship
 		x = math.round(ship.position.x)
 		y = math.round(ship.position.y)
 		ship.flame:draw(img.animations.flame_medium, x+24, y, 0, -1, 1, 8, 8)
-		love.graphics.draw(img.ships[ship.type], x, y, 0, 1, 1, 16, 16)
-		
+		love.graphics.draw(img.ships.enemies[ship.type], x, y, 0, 1, 1, 16, 16)
+
 		-- Reset colors
 		love.graphics.setColor(r, g, b, a)
 	elseif not ship.destroyed then
 		ship_painter.draw_explosion(ship)
 	end
-	
+
 	-- Draw hitbox
 	if app.debug then
 		ship_painter.draw_hitbox(ship)

@@ -19,6 +19,10 @@ app.total_loading_splash = 0
 app.img_loaded = false
 app.snd_loaded = false
 
+--- Top delta x
+app.dx = 0
+--- Top delta y
+app.dy = 0
 --- App width
 app.width = 320
 --- App height
@@ -26,7 +30,7 @@ app.height = 180
 --- Frame rate of game
 app.frameRate = 60
 --- Current version
-app.version = "1.0.1-demew"
+app.version = "0.2-beta"
 --- Debugging information
 app.debug = true
 --- Save file
@@ -75,6 +79,7 @@ function app:load_text_textures()
 	txt.loading    = love.graphics.newText(self.font, msg_string.loading .. "...")
 	--
 	txt.story      = love.graphics.newText(self.font_bold, msg_string.story)
+	txt.community  = love.graphics.newText(self.font_bold, msg_string.community)
 	txt.settings   = love.graphics.newText(self.font_bold, msg_string.settings)
 	txt.exit       = love.graphics.newText(self.font_bold, msg_string.exit)
 	txt.mark       = love.graphics.newText(self.font, ">")
@@ -86,22 +91,24 @@ function app:load_text_textures()
 	txt.fullscreen = love.graphics.newText(self.font_bold, msg_string.fullscreen .. ":")
 	txt.language   = love.graphics.newText(self.font_bold, msg_string.language .. ":")
 	txt.credits    = love.graphics.newText(self.font_bold, msg_string.credits)
+	--
 	txt.saved      = love.graphics.newText(self.font, msg_string.saved .. " " .. app.save_file)
 end
 
 --- Update all text textures
 function app:update_textures()
-	txt.loading:set(msg_string.loading .. "...")
 	txt.story:set(msg_string.story)
+	txt.community:set(msg_string.community)
 	txt.settings:set(msg_string.settings)
-	--
 	txt.exit:set(msg_string.exit)
+	--
 	txt.music:set(msg_string.music .. ":")
 	txt.sfx:set(msg_string.sfx .. ":")
 	txt.resolution:set(msg_string.resolution .. ":")
 	txt.fullscreen:set(msg_string.fullscreen .. ":")
 	txt.language:set(msg_string.language .. ":")
 	txt.credits:set(msg_string.credits)
+	--
 	txt.saved:set(msg_string.saved .. " " .. app.save_file)
 end
 
@@ -192,7 +199,7 @@ function app:update(dt)
 	else
 		app:set_sound_volume(snd.music, self.music_volume)
 		app:set_sound_volume(snd.effects, self.sfx_volume)
-		gamestate.switch(menu)
+		gamestate.switch(editor)
 	end
 end
 
@@ -216,17 +223,26 @@ function app:load_settings()
 	-- Set variables
 	self.music_volume = music_volume or 50
 	self.sfx_volume   = sfx_value or 50
-	self.scalefactor  = scalefactor or 3
 	self.fullscreen   = fullscreen or false
 	self.language	  = language or "english"
 	
 	-- Set scalefactor
-	if app.fullscreen then
-		width = love.window.getDesktopDimensions()
-		app.scalefactor = width / app.width
+	if self.fullscreen then
+		local width, height = love.window.getDesktopDimensions()
+		local sx, sy = width/app.width, height/app.height
+		
+		if sx < sy then self.scalefactor = sx
+		else self.scalefactor = sy end
+		
+		self.dx = (width - math.floor(self.scalefactor*320 + 0.5)) / 2
+		self.dy = (height - math.floor(self.scalefactor*180 + 0.5)) / 2
+	else
+		self.scalefactor = scalefactor or 3
+		app.dx = 0
+		app.dy = 0
 	end
 	
-	width  = math.ceil(self.scalefactor*320)
-	height = math.ceil(self.scalefactor*180)
+	width  = math.floor(self.scalefactor*320 + 0.5)
+	height = math.floor(self.scalefactor*180 + 0.5)
 	love.window.setMode(width, height, {fullscreen = self.fullscreen})
 end

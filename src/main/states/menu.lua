@@ -22,6 +22,8 @@ menu = {}
 menu.current = "animation"
 --- Current option selected in start menu
 menu.option = 1
+--- Maximun option in start menu
+menu.max = 4
 --- Current button alpha
 menu.b_alpha = 255
 --- Current save text alpha
@@ -105,9 +107,8 @@ function menu:update_buttons()
 	if not self.buttons.story then
 		self.buttons.story = {
 			option = 1,
-			button = {
-				y = app.height/2 + 8
-			},
+			-- event = function() gamestate.switch(game) end,
+			y = 98,
 			text = {
 				img = txt.story,
 				x0 = math.round(txt.story:getWidth()/2),
@@ -123,7 +124,8 @@ function menu:update_buttons()
 	if not self.buttons.community then
 		self.buttons.community = {
 			option = 2,
-			button = { y = 114 },
+			event = function() gamestate.switch(editor) end,
+			y = 114,
 			text = {
 				img = txt.community,
 				x0 = math.round(txt.community:getWidth()/2),
@@ -139,7 +141,8 @@ function menu:update_buttons()
 	if not self.buttons.settings then
 		self.buttons.settings = {
 			option = 3,
-			button = { y = 130 },
+			event = animation.change_settings,
+			y = 130,
 			text = {
 				img = txt.settings,
 				x0 = math.round(txt.settings:getWidth()/2),
@@ -155,7 +158,8 @@ function menu:update_buttons()
 	if not self.buttons.exit then
 		self.buttons.exit = {
 			option = 4,
-			button = { y = 146 },
+			y = 146,
+			event = function() love.event.quit(0) end,
 			text = {
 				img = txt.exit,
 				x0 = math.round(txt.exit:getWidth()/2),
@@ -201,24 +205,22 @@ function menu:keypressed_start(scancode)
 		snd.effects.gui_effects_1:rewind()
 		snd.effects.gui_effects_1:play()
 		self.option = self.option - 1
-	elseif scancode == app.down and self.option ~= 3 then
+	elseif scancode == app.down and self.option ~= self.max then
 		snd.effects.gui_effects_1:rewind()
 		snd.effects.gui_effects_1:play()
 		self.option = self.option + 1
 	end
+	
 	-- Enter in other menus
 	if scancode == app.accept then
 		snd.effects.gui_effects_3:rewind()
 		snd.effects.gui_effects_3:play()
-		-- Level menu
-		if menu.option == 1 then
-			gamestate.switch(game)
-		-- Settings menu
-		elseif self.option == 3 then
-			animation.change_settings()
-		-- Exit game
-		elseif self.option == 4 then
-			love.event.quit(0)
+		
+		-- Do button click event
+		for _, button in pairs(self.buttons) do
+			if menu.option == button.option and button.event then
+				button.event()
+			end
 		end
 	end
 end
@@ -229,17 +231,19 @@ function menu:draw_button(button)
 	-- Print background button
 	local b_x = app.width/2 - self.delta
 	local m_x = app.width/2 - 58 - self.delta
-	love.graphics.draw(img.menu.option_normal, b_x, button.button.y, 0, 1, 1, self.b_x0, self.b_y0)
+	love.graphics.draw(img.menu.option_normal, b_x, button.y, 0, 1, 1, self.b_x0, self.b_y0)
+
 	-- Print selected background mark
 	if self.option == button.option then
 		love.graphics.setColor(255, 255, 255, self.b_alpha)
-		love.graphics.draw(img.menu.option_selected, b_x, button.button.y, 0, 1, 1, self.b_x0, self.b_y0)
+		love.graphics.draw(img.menu.option_selected, b_x, button.y, 0, 1, 1, self.b_x0, self.b_y0)
 		love.graphics.setColor(0, 0, 0)
-		love.graphics.draw(txt.mark, m_x, button.button.y + 2, 0, 1, 1, self.m_x0, self.m_y0)
+		love.graphics.draw(txt.mark, m_x, button.y + 2, 0, 1, 1, self.m_x0, self.m_y0)
 	end
+
 	-- Print button text
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.draw(button.text.img, b_x, button.button.y+1, 0, 1, 1, button.text.x0, button.text.y0)
+	love.graphics.draw(button.text.img, b_x, button.y + 1, 0, 1, 1, button.text.x0, button.text.y0)
 	love.graphics.setColor(255, 255, 255)
 end
 
@@ -265,6 +269,7 @@ function menu:draw_open_anim()
 	-- Set stencil function
 	love.graphics.stencil(menu.stencil, "replace", 1)
 	love.graphics.setStencilTest("greater", 0)
+
 	-- Draw loading text
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", 0, 0, app.width, app.height)
@@ -274,6 +279,7 @@ function menu:draw_open_anim()
 	local x0 = math.round(txt.loading:getWidth()/2)
 	local y0 = math.round(txt.loading:getHeight()/2)
 	love.graphics.draw(txt.loading, x, y, 0, 1, 1, x0, y0)
+
 	-- Remove stecil
 	love.graphics.setStencilTest()
 	-- Print player
@@ -293,10 +299,12 @@ function menu:draw()
 	menu:draw_start_menu()
 	-- Draw settings menu
 	settings:draw()
+
 	-- Draw save message
 	love.graphics.setColor(255, 255, 255, self.t_alpha)
 	y = app.height - 5 - txt.saved:getHeight()
 	love.graphics.draw(txt.saved, 5 + self.x_delta, y)
+
 	-- Draw copyright message
 	love.graphics.setColor(255, 255, 255, 255-self.t_alpha)
 	local x = 10
@@ -304,6 +312,7 @@ function menu:draw()
 		x = x + txt.version:getWidth() + 10
 	end
 	love.graphics.draw(txt.copyright, x, app.height - txt.copyright:getHeight() - 5)
+
 	-- Draw open animation
 	if self.current == "animation" then
 		menu:draw_open_anim()

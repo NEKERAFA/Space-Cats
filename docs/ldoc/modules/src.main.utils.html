@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Space Cats</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/main.html">main</a></li>
+  <li><a href="../modules/src.main.animations.html">src.main.animations</a></li>
+  <li><a href="../modules/src.main.collisions.html">src.main.collisions</a></li>
+  <li><a href="../modules/src.main.managers.interface.html">src.main.managers.interface</a></li>
+  <li><a href="../modules/src.main.menus.settings.html">src.main.menus.settings</a></li>
+  <li><a href="../modules/src.main.painters.hud.html">src.main.painters.hud</a></li>
+  <li><a href="../modules/src.main.painters.particles.html">src.main.painters.particles</a></li>
+  <li><a href="../modules/src.main.painters.ship.html">src.main.painters.ship</a></li>
+  <li><a href="../modules/src.main.painters.ships.mouse.html">src.main.painters.ships.mouse</a></li>
+  <li><a href="../modules/src.main.painters.ships.player.html">src.main.painters.ships.player</a></li>
+  <li><a href="../modules/src.main.painters.ships.small_mouse.html">src.main.painters.ships.small_mouse</a></li>
+  <li><a href="../modules/src.main.painters.splash.html">src.main.painters.splash</a></li>
+  <li><a href="../modules/src.main.painters.stars.html">src.main.painters.stars</a></li>
+  <li><a href="../modules/src.main.painters.weapon.html">src.main.painters.weapon</a></li>
+  <li><a href="../modules/src.main.states.app.html">src.main.states.app</a></li>
+  <li><a href="../modules/src.main.states.credits.html">src.main.states.credits</a></li>
+  <li><a href="../modules/src.main.states.editor.html">src.main.states.editor</a></li>
+  <li><a href="../modules/src.main.states.game.html">src.main.states.game</a></li>
+  <li><a href="../modules/src.main.states.menu.html">src.main.states.menu</a></li>
+  <li><a href="../modules/src.main.states.splash.html">src.main.states.splash</a></li>
+  <li><strong>src.main.utils</strong></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/src.main.entities.bullet.html">src.main.entities.bullet</a></li>
+  <li><a href="../classes/src.main.entity.html">src.main.entity</a></li>
+  <li><a href="../classes/src.main.entities.particle.html">src.main.entities.particle</a></li>
+  <li><a href="../classes/src.main.entities.ship.html">src.main.entities.ship</a></li>
+  <li><a href="../classes/src.main.entities.ships.mockup_player.html">src.main.entities.ships.mockup_player</a></li>
+  <li><a href="../classes/src.main.entities.ships.mouse.html">src.main.entities.ships.mouse</a></li>
+  <li><a href="../classes/src.main.entities.ships.player.html">src.main.entities.ships.player</a></li>
+  <li><a href="../classes/src.main.entities.ships.small_mouse.html">src.main.entities.ships.small_mouse</a></li>
+  <li><a href="../classes/src.main.entities.weapon.html">src.main.entities.weapon</a></li>
+  <li><a href="../classes/src.main.entities.weapons.baster.html">src.main.entities.weapons.baster</a></li>
+  <li><a href="../classes/src.main.entities.weapons.guided_baster.html">src.main.entities.weapons.guided_baster</a></li>
+  <li><a href="../classes/src.main.entities.weapons.ray_baster.html">src.main.entities.weapons.ray_baster</a></li>
+  <li><a href="../classes/src.main.managers.level.html">src.main.managers.level</a></li>
+  <li><a href="../classes/src.main.managers.stars.html">src.main.managers.stars</a></li>
+  <li><a href="../classes/src.main.ui.button.html">src.main.ui.button</a></li>
+  <li><a href="../classes/src.main.ui.hbox.html">src.main.ui.hbox</a></li>
+  <li><a href="../classes/src.main.ui.input.html">src.main.ui.input</a></li>
+  <li><a href="../classes/src.main.ui.layout.html">src.main.ui.layout</a></li>
+  <li><a href="../classes/src.main.ui.vbox.html">src.main.ui.vbox</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>src.main.utils</code></h1>
+<p>Some rubish and other things :3</p>
+<p>
+
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA)</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#math.round">math.round (num)</a></td>
+	<td class="summary">Round a number</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#math.onsegment">math.onsegment (p, q, r)</a></td>
+	<td class="summary">Check if a point r is in the segment pq</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#math.pointequals">math.pointequals (p, q)</a></td>
+	<td class="summary">Check if a point p is equals q</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#table.val_to_str">table.val_to_str (v)</a></td>
+	<td class="summary">TABLE UTILITIES</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#files.new_node">files.new_node (name, path, source, source_name)</a></td>
+	<td class="summary">Create new node file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#files.get_children">files.get_children (node)</a></td>
+	<td class="summary">Get all children nodes of a node</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#files.next">files.next (node)</a></td>
+	<td class="summary">Get next node</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#files.load_node">files.load_node (node, type)</a></td>
+	<td class="summary">Load one resource node at time</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#files.get_full_name">files.get_full_name (source)</a></td>
+	<td class="summary">Get fullname of source</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#files">files</a></td>
+	<td class="summary">Module to represent file system in node tree</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "math.round"></a>
+    <strong>math.round (num)</strong>
+    </dt>
+    <dd>
+    Round a number
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">num</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "math.onsegment"></a>
+    <strong>math.onsegment (p, q, r)</strong>
+    </dt>
+    <dd>
+    Check if a point r is in the segment pq
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+         Start point of segment
+        </li>
+        <li><span class="parameter">q</span>
+         End point of segment
+        </li>
+        <li><span class="parameter">r</span>
+         Point to check
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "math.pointequals"></a>
+    <strong>math.pointequals (p, q)</strong>
+    </dt>
+    <dd>
+    Check if a point p is equals q
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+
+
+
+        </li>
+        <li><span class="parameter">q</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "table.val_to_str"></a>
+    <strong>table.val_to_str (v)</strong>
+    </dt>
+    <dd>
+    TABLE UTILITIES
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "files.new_node"></a>
+    <strong>files.new_node (name, path, source, source_name)</strong>
+    </dt>
+    <dd>
+    Create new node file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of node
+        </li>
+        <li><span class="parameter">path</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Absolute path of node
+        </li>
+        <li><span class="parameter">source</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Table where load resources
+        </li>
+        <li><span class="parameter">source_name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Name of table source (I use it like table key)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "files.get_children"></a>
+    <strong>files.get_children (node)</strong>
+    </dt>
+    <dd>
+    Get all children nodes of a node
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Parent node
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "files.next"></a>
+    <strong>files.next (node)</strong>
+    </dt>
+    <dd>
+    Get next node
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Node to get next node
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "files.load_node"></a>
+    <strong>files.load_node (node, type)</strong>
+    </dt>
+    <dd>
+    Load one resource node at time
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Node with represents resource node
+        </li>
+        <li><span class="parameter">type</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         Type or resource: "img" to load texture resources and "snd" to load sound resources
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        Next node to load
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "files.get_full_name"></a>
+    <strong>files.get_full_name (source)</strong>
+    </dt>
+    <dd>
+    Get fullname of source
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">source</span>
+         Object source to get name
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "files"></a>
+    <strong>files</strong>
+    </dt>
+    <dd>
+    Module to represent file system in node tree
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-01-05 20:47:52 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>Space Cats</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/main.html">main</a></li>
+  <li><a href="../modules/src.main.animations.html">src.main.animations</a></li>
+  <li><a href="../modules/src.main.collisions.html">src.main.collisions</a></li>
+  <li><a href="../modules/src.main.managers.interface.html">src.main.managers.interface</a></li>
+  <li><a href="../modules/src.main.menus.settings.html">src.main.menus.settings</a></li>
+  <li><a href="../modules/src.main.painters.hud.html">src.main.painters.hud</a></li>
+  <li><a href="../modules/src.main.painters.particles.html">src.main.painters.particles</a></li>
+  <li><a href="../modules/src.main.painters.ship.html">src.main.painters.ship</a></li>
+  <li><a href="../modules/src.main.painters.ships.mouse.html">src.main.painters.ships.mouse</a></li>
+  <li><a href="../modules/src.main.painters.ships.player.html">src.main.painters.ships.player</a></li>
+  <li><a href="../modules/src.main.painters.ships.small_mouse.html">src.main.painters.ships.small_mouse</a></li>
+  <li><a href="../modules/src.main.painters.splash.html">src.main.painters.splash</a></li>
+  <li><a href="../modules/src.main.painters.stars.html">src.main.painters.stars</a></li>
+  <li><a href="../modules/src.main.painters.weapon.html">src.main.painters.weapon</a></li>
+  <li><strong>src.main.states.app</strong></li>
+  <li><a href="../modules/src.main.states.credits.html">src.main.states.credits</a></li>
+  <li><a href="../modules/src.main.states.editor.html">src.main.states.editor</a></li>
+  <li><a href="../modules/src.main.states.game.html">src.main.states.game</a></li>
+  <li><a href="../modules/src.main.states.menu.html">src.main.states.menu</a></li>
+  <li><a href="../modules/src.main.states.splash.html">src.main.states.splash</a></li>
+  <li><a href="../modules/src.main.utils.html">src.main.utils</a></li>
+</ul>
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/src.main.entities.bullet.html">src.main.entities.bullet</a></li>
+  <li><a href="../classes/src.main.entity.html">src.main.entity</a></li>
+  <li><a href="../classes/src.main.entities.particle.html">src.main.entities.particle</a></li>
+  <li><a href="../classes/src.main.entities.ship.html">src.main.entities.ship</a></li>
+  <li><a href="../classes/src.main.entities.ships.mockup_player.html">src.main.entities.ships.mockup_player</a></li>
+  <li><a href="../classes/src.main.entities.ships.mouse.html">src.main.entities.ships.mouse</a></li>
+  <li><a href="../classes/src.main.entities.ships.player.html">src.main.entities.ships.player</a></li>
+  <li><a href="../classes/src.main.entities.ships.small_mouse.html">src.main.entities.ships.small_mouse</a></li>
+  <li><a href="../classes/src.main.entities.weapon.html">src.main.entities.weapon</a></li>
+  <li><a href="../classes/src.main.entities.weapons.baster.html">src.main.entities.weapons.baster</a></li>
+  <li><a href="../classes/src.main.entities.weapons.guided_baster.html">src.main.entities.weapons.guided_baster</a></li>
+  <li><a href="../classes/src.main.entities.weapons.ray_baster.html">src.main.entities.weapons.ray_baster</a></li>
+  <li><a href="../classes/src.main.managers.level.html">src.main.managers.level</a></li>
+  <li><a href="../classes/src.main.managers.stars.html">src.main.managers.stars</a></li>
+  <li><a href="../classes/src.main.ui.button.html">src.main.ui.button</a></li>
+  <li><a href="../classes/src.main.ui.hbox.html">src.main.ui.hbox</a></li>
+  <li><a href="../classes/src.main.ui.input.html">src.main.ui.input</a></li>
+  <li><a href="../classes/src.main.ui.layout.html">src.main.ui.layout</a></li>
+  <li><a href="../classes/src.main.ui.vbox.html">src.main.ui.vbox</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>src.main.states.app</code></h1>
+<p>Definition of application functions</p>
+<p>
+
+</p>
+    <h3>Info:</h3>
+    <ul>
+        <li><strong>License</strong>: GNU General Public License v3</li>
+        <li><strong>Author</strong>: Rafael Alcalde Azpiazu (NEKERAFA)</li>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#load_fonts">load_fonts ()</a></td>
+	<td class="summary">Load fonts</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_text_textures">load_text_textures ()</a></td>
+	<td class="summary">Load all text strings like textures</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#update_textures">update_textures ()</a></td>
+	<td class="summary">Update all text textures</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_nodes">load_nodes ()</a></td>
+	<td class="summary">Load tree nodes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_shaders">load_shaders ()</a></td>
+	<td class="summary">Load shaders</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#init">init ()</a></td>
+	<td class="summary">Init all app variables</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_sound_volume">set_sound_volume (root, volume)</a></td>
+	<td class="summary">Set current volume to music sounds</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#update">update (dt)</a></td>
+	<td class="summary">Update app variables</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#draw">draw ()</a></td>
+	<td class="summary">Draw loading screen</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load_settings">load_settings ()</a></td>
+	<td class="summary">Load saved settings</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#app">app</a></td>
+	<td class="summary">Module app</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#dx">dx</a></td>
+	<td class="summary">Top delta x</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#dy">dy</a></td>
+	<td class="summary">Top delta y</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#width">width</a></td>
+	<td class="summary">App width</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#height">height</a></td>
+	<td class="summary">App height</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#frameRate">frameRate</a></td>
+	<td class="summary">Frame rate of game</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#version">version</a></td>
+	<td class="summary">Current version</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#debug">debug</a></td>
+	<td class="summary">Debugging information</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#save_file">save_file</a></td>
+	<td class="summary">Save file</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#up">up</a></td>
+	<td class="summary">Up key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#down">down</a></td>
+	<td class="summary">Down key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#left">left</a></td>
+	<td class="summary">Left key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#right">right</a></td>
+	<td class="summary">Right key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#fire">fire</a></td>
+	<td class="summary">Fire key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#accept">accept</a></td>
+	<td class="summary">Accept key</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#cancel">cancel</a></td>
+	<td class="summary">Cancel key</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "load_fonts"></a>
+    <strong>load_fonts ()</strong>
+    </dt>
+    <dd>
+    Load fonts
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_text_textures"></a>
+    <strong>load_text_textures ()</strong>
+    </dt>
+    <dd>
+    Load all text strings like textures
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "update_textures"></a>
+    <strong>update_textures ()</strong>
+    </dt>
+    <dd>
+    Update all text textures
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_nodes"></a>
+    <strong>load_nodes ()</strong>
+    </dt>
+    <dd>
+    Load tree nodes
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_shaders"></a>
+    <strong>load_shaders ()</strong>
+    </dt>
+    <dd>
+    Load shaders
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "init"></a>
+    <strong>init ()</strong>
+    </dt>
+    <dd>
+    Init all app variables
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_sound_volume"></a>
+    <strong>set_sound_volume (root, volume)</strong>
+    </dt>
+    <dd>
+    Set current volume to music sounds
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">root</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Table with contains source elements to set volume
+        </li>
+        <li><span class="parameter">volume</span>
+            <span class="types"><span class="type">number</span></span>
+         Volume to set all elements
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "update"></a>
+    <strong>update (dt)</strong>
+    </dt>
+    <dd>
+    Update app variables
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">dt</span>
+            <span class="types"><span class="type">number</span></span>
+         Time since the last update in seconds
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "draw"></a>
+    <strong>draw ()</strong>
+    </dt>
+    <dd>
+    Draw loading screen
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load_settings"></a>
+    <strong>load_settings ()</strong>
+    </dt>
+    <dd>
+    Load saved settings
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "app"></a>
+    <strong>app</strong>
+    </dt>
+    <dd>
+    Module app
+
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "dx"></a>
+    <strong>dx</strong>
+    </dt>
+    <dd>
+    Top delta x
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "dy"></a>
+    <strong>dy</strong>
+    </dt>
+    <dd>
+    Top delta y
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "width"></a>
+    <strong>width</strong>
+    </dt>
+    <dd>
+    App width
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "height"></a>
+    <strong>height</strong>
+    </dt>
+    <dd>
+    App height
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "frameRate"></a>
+    <strong>frameRate</strong>
+    </dt>
+    <dd>
+    Frame rate of game
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "version"></a>
+    <strong>version</strong>
+    </dt>
+    <dd>
+    Current version
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "debug"></a>
+    <strong>debug</strong>
+    </dt>
+    <dd>
+    Debugging information
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "save_file"></a>
+    <strong>save_file</strong>
+    </dt>
+    <dd>
+    Save file
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "up"></a>
+    <strong>up</strong>
+    </dt>
+    <dd>
+    Up key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "down"></a>
+    <strong>down</strong>
+    </dt>
+    <dd>
+    Down key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "left"></a>
+    <strong>left</strong>
+    </dt>
+    <dd>
+    Left key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "right"></a>
+    <strong>right</strong>
+    </dt>
+    <dd>
+    Right key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "fire"></a>
+    <strong>fire</strong>
+    </dt>
+    <dd>
+    Fire key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "accept"></a>
+    <strong>accept</strong>
+    </dt>
+    <dd>
+    Accept key
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "cancel"></a>
+    <strong>cancel</strong>
+    </dt>
+    <dd>
+    Cancel key
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2018-01-05 20:47:52 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

@@ -1,6 +1,7 @@
 msg_string = {
 	loading = "Cargando",
 	story = "Demo",
+	community = "Comunidad",
 	settings = "Ajustes",
 	exit = "Salir del juego",
 	music = "Música",
