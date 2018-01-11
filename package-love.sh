@@ -24,6 +24,8 @@ cp -Rv src/assets build/love/src/assets
 cp -Rv src/main/levels build/love/src/main/levels
 cp -v icon.png build/love
 
+rm rfv build/love/*.md
+
 # Create love compile
 echo -e "\n\033[1;32mCreating love...\033[0m"
 cd build/love

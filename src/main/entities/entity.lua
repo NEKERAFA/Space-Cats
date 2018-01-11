@@ -22,7 +22,7 @@ local entity = class {
 		self.velocity = velocity
 		self.type = type or "entity"
 	end,
-	
+
 	--- Update all variable
 	-- @tparam entity self Entity object
 	-- @tparam number dt Time since the last update in seconds
@@ -42,14 +42,11 @@ local entity = class {
 		if self.collider then
 			collider_manager.remove(self.collider)
 		end
-		
+
 		-- Remove vectors
 		self.position = nil
 		self.velocity = nil
 		self.type = nil
-
-		-- Collect garbage
-		collectgarbage("collect")
 	end
 }
 

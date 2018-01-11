@@ -14,6 +14,7 @@ Copy-Item -Recursive lib build\love
 Copy-Item -Recursive src\assets build\love\src
 Copy-Item -Recursive src\main\levels build\love\src\main
 Copy-Item icon.png build\love
+Remove-Item build\love\*.md
 
 Add-Type -Assembly System.IO.Compression.FileSystem
 $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal

@@ -10,14 +10,14 @@ local class = require "lib.vrld.hump.class"
 local level = class {
 	--- Path where levels are saved
 	save_path = love.filesystem.getSaveDirectory() .. "/levels",
-	
+
 	--- Load new file level and put like current level
 	-- @tparam level self Level manager
 	-- @tparam string path Path to level file
 	load = function(self, path)
 		-- Open level file
 		level_data, size = love.filesystem.read(path)
-		
+
 		-- Check level file exist
 		if level_data == nil then
 			err = size
@@ -28,18 +28,18 @@ local level = class {
 		if size == 0 then
 			error("Error reading level. Level file is empty", 2)
 		end
-		
+
 		-- Load level chunk
 		level_chunk, msg = loadstring("return " .. level_data)
-		
+
 		-- Check if chuck are loaded
 		if level_chunk == nil then
 			error("Error parsing level. " .. msg, 2)
 		end
-		
+
 		-- Save values
 		lvl = level_chunk()
-		
+
 		-- Override variables
 		for k, v in pairs(lvl) do
 			self[k] = v
@@ -59,14 +59,14 @@ local level = class {
 		   self.objetive == nil or self.entities == nil or #self.entities == 0 then
 			error("Error: Level not initialized", 2)
 		end
-		
+
 		-- Create save directory if isn't exists
 		if not love.filesystem.exists(level.save_path) then
 			love.filesystem.createDirectory(level.save_path)
 		end
-		
+
 		level_file = io.open(level.save_path .. "/" .. name, "w+")
-		
+
 		level_file:write("{\n")
 		-- Level arguments
 		level_file:write("\tname = \"" .. level.name .. "\",\n")
@@ -82,15 +82,15 @@ local level = class {
 			level_file:write("\t\t\twait = \"" .. entity.wait .. "\",\n")
 			level_file:write("\t\t\ttime = " .. entity.time .. "\",\n")
 			level_file:write("\t\t\targs = " .. table.tostring(entity) .. "\n")
-			
+
 			if pos < level.entities_stacked then
 				level_file:write("\t\t},\n")
 			else
 				level_file:write("\t\t}\n")
 			end
 		end
-		level_file:write("\t}\n}")
-		
+		level_file:write("\t}\n}\n")
+
 		level_file:flush()
 		level_file:close()
 	end,
@@ -100,35 +100,35 @@ local level = class {
 	-- @treturn entity New entity to add level if it can poped or nil in other case
 	pop_entity = function(self)
 		if self.entities_stacked > 0 then
-			-- If it are waiting and now we could pop a entity
+			-- If it is waiting and now we could pop a entity
 			if self.entities[1].wait and self.poped_entities_destroyed then
 				self.entities[1].wait = false
 				self.delta_time = 0
 			end
-			
+
 			-- If we aren't waiting and delta time is more or equals than entity wait time
 			if not self.entities[1].wait and self.delta_time >= self.entities[1].time then
-				-- Restart delta time
+				-- Restarts delta time
 				self.delta_time = self.delta_time - self.entities[1].time
-				-- Remove stacked entities
+				-- Removes stacked entities
 				self.entities_stacked = self.entities_stacked - 1
-				
-				-- Check pop condition if next have wait flag
+
+				-- Checks pop condition if next have wait flag
 				if self.entities_stacked > 1 and self.entities[2].wait then
 					self.poped_entities_destroyed = false
 				end
-				
-				-- Pop entity
+
+				-- Pops entity
 				return table.remove(self.entities, 1)
 			end
 		end
 	end,
 
-	--- Update entity variables
+	--- Updates entity variables
 	-- @tparam level self Level manager
 	-- @tparam number dt Time since the last update in seconds
 	update = function(self, dt)
-		-- Update delta time
+		-- Updates delta time
 		if self.entities_stacked > 0 and not self.entities[1].wait then
 			self.delta_time = self.delta_time + dt
 		end
@@ -165,7 +165,7 @@ local level = class {
 				self.entities_stacked = self.entities_stacked - 1
 			end
 		end
-		
+
 		-- Clear variables
 		self.bgi = nil
 		self.bgm = nil
@@ -175,7 +175,7 @@ local level = class {
 		self.entities_stacked = nil
 		self.poped_entities_destroyed = nil
 		self.delta_time = nil
-		
+
 		collectgarbage("collect")
 	end
 }
