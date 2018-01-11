@@ -17,10 +17,8 @@ Está pensado en orden cronológico:
 + Acabar el editor de niveles.
 + (en paralelo) Añadir el soporte con mando.
 + (en paralelo) Redactar la historia principal.
-+ Añadir los elementos gráficos necesarios de cada parte de la historia
-+ Empezar a implementar la historia principal, expandiendo el editor con lo
-necesario para cada nivel.
- + Una vez creados los primeros niveles, empaquetar la siguiente versión.
++ Empezar a implementar la historia principal.
+ + Empaquetar la siguiente versión.
 + *En revisión*
 
 Versiones
