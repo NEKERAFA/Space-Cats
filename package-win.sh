@@ -12,6 +12,7 @@ cp -Rv SpaceCats.love win32
 
 # Create love compile
 echo -e "\n\033[1;32mCreating exe...\033[0m"
+cd win32
 cat love.exe SpaceCats.love > SpaceCats.exe
 
 echo -e "\nDONE"

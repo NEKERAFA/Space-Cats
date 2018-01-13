@@ -17,6 +17,7 @@ cp -v main.lua build/bytecode
 # Move to source code
 cd build/bytecode
 rm -r main/levels # Levels will do errors, so I don't compile it
+find . -type f -name '*.md' -exec rm -v {} +
 
 # Compile source code
 echo -e "\n\033[1;32mCompiling sources...\033[0m"

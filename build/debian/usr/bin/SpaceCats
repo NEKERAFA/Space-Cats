@@ -1,2 +1,0 @@
-#!/bin/sh
-exec love /usr/games/SpaceCats.love
