@@ -1,7 +1,4 @@
 #!/bin/bash
-# Compile
-sh ./compile.sh
-
 # Create love directory
 if [ -d build/love ]; then
 	echo -e "\033[1;32mRemove old build...\033[0m"
